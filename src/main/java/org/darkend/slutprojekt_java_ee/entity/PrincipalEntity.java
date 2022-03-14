@@ -1,6 +1,8 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -9,6 +11,7 @@ import javax.validation.constraints.Size;
 public class PrincipalEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty
     @Size(min = 2)
