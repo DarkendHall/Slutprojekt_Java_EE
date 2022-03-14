@@ -1,11 +1,15 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Student {
@@ -27,6 +31,10 @@ public class Student {
 
     @Size(min = 10, max = 10)
     private String phoneNumber;
+
+    @NotEmpty
+    @OneToMany(mappedBy = "students", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CourseEntity> course = new HashSet<>();
 
     public Student setId(Long id) {
         this.id = id;
@@ -53,6 +61,11 @@ public class Student {
         return this;
     }
 
+    public Student setCourse(Set<CourseEntity> course) {
+        this.course = course;
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
@@ -71,5 +84,9 @@ public class Student {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public Set<CourseEntity> getCourse() {
+        return course;
     }
 }
