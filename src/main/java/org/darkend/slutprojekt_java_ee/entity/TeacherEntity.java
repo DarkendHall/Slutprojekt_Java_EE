@@ -26,6 +26,11 @@ public class TeacherEntity {
         return id;
     }
 
+    public TeacherEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public String getFirstName() {
         return firstName;
     }
