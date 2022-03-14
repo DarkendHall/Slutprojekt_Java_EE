@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Student {
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,27 +28,27 @@ public class Student {
     @Size(min = 10, max = 10)
     private String phoneNumber;
 
-    public Student setId(Long id) {
+    public StudentEntity setId(Long id) {
         this.id = id;
         return this;
     }
 
-    public Student setFirstName(String firstName) {
+    public StudentEntity setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    public Student setLastName(String lastName) {
+    public StudentEntity setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public Student setEmail(String email) {
+    public StudentEntity setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public Student setPhoneNumber(String phoneNumber) {
+    public StudentEntity setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
