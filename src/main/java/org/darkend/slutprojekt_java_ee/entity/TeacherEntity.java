@@ -4,8 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class TeacherEntity {
@@ -21,6 +23,9 @@ public class TeacherEntity {
     @NotEmpty
     @Size(min = 2)
     private String lastName;
+
+    @ManyToMany(fetch = javax.persistence.FetchType.LAZY, targetEntity = SubjectEntity.class)
+    private List<SubjectEntity> subject;
 
     public Long getId() {
         return id;
@@ -46,6 +51,15 @@ public class TeacherEntity {
 
     public TeacherEntity setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public List<SubjectEntity> getSubject() {
+        return subject;
+    }
+
+    public TeacherEntity setSubject(List<SubjectEntity> subject) {
+        this.subject = subject;
         return this;
     }
 }
