@@ -1,11 +1,15 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class SchoolEntity {
@@ -25,6 +29,13 @@ public class SchoolEntity {
 
     @OneToOne(targetEntity = PrincipalEntity.class)
     private PrincipalEntity principal;
+
+    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Student> students = new HashSet<>();
+
+    public Set<Student> getStudents() {
+        return students;
+    }
 
     public Long getId() {
         return id;
@@ -68,6 +79,11 @@ public class SchoolEntity {
 
     public SchoolEntity setPrincipal(PrincipalEntity principal) {
         this.principal = principal;
+        return this;
+    }
+
+    public SchoolEntity setStudents(Set<Student> students) {
+        this.students = students;
         return this;
     }
 }
