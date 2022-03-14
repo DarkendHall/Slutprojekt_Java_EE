@@ -30,15 +30,17 @@ public class TeacherEntity {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public TeacherEntity setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public TeacherEntity setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 }
