@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -21,6 +22,9 @@ public class SchoolEntity {
 
     @NotEmpty
     private String address;
+
+    @OneToOne(targetEntity = PrincipalEntity.class)
+    private PrincipalEntity principal;
 
     public Long getId() {
         return id;
@@ -55,6 +59,15 @@ public class SchoolEntity {
 
     public SchoolEntity setAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public PrincipalEntity getPrincipal() {
+        return principal;
+    }
+
+    public SchoolEntity setPrincipal(PrincipalEntity principal) {
+        this.principal = principal;
         return this;
     }
 }
