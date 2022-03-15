@@ -1,13 +1,17 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class StudentEntity {
@@ -32,6 +36,10 @@ public class StudentEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private SchoolEntity school;
+
+    @NotEmpty
+    @OneToMany(mappedBy = "students", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CourseEntity> course = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -85,5 +93,14 @@ public class StudentEntity {
     public StudentEntity setSchool(SchoolEntity school) {
         this.school = school;
         return this;
+    }
+
+    public StudentEntity setCourse(Set<CourseEntity> course) {
+        this.course = course;
+        return this;
+    }
+
+    public Set<CourseEntity> getCourse() {
+        return course;
     }
 }
