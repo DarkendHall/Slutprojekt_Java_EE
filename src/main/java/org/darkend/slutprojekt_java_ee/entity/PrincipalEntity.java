@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -13,12 +15,18 @@ public class PrincipalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotEmpty
     @Size(min = 2)
     private String firstName;
+
     @NotEmpty
     @Size(min = 2)
     private String lastName;
+
+    @OneToOne(fetch = javax.persistence.FetchType.LAZY, targetEntity = SchoolEntity.class)
+    @JoinColumn
+    private SchoolEntity school;
 
     public Long getId() {
         return id;
@@ -44,6 +52,15 @@ public class PrincipalEntity {
 
     public PrincipalEntity setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public SchoolEntity getSchool() {
+        return school;
+    }
+
+    public PrincipalEntity setSchool(SchoolEntity school) {
+        this.school = school;
         return this;
     }
 }
