@@ -32,7 +32,7 @@ public class TeacherEntity {
     private Set<SubjectEntity> subject;
 
     @NotEmpty
-    @OneToMany(mappedBy = "teacherEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CourseEntity> courses = new HashSet<>();
 
     public Long getId() {

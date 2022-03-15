@@ -23,12 +23,12 @@ public class CourseEntity {
     private String name;
 
     @NotEmpty
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = StudentEntity.class)
-    private StudentEntity students;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<StudentEntity> students;
 
     @NotEmpty
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = TeacherEntity.class)
-    private TeacherEntity teacherEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TeacherEntity teacher;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<SubjectEntity> subjects;
@@ -51,21 +51,21 @@ public class CourseEntity {
         return this;
     }
 
-    public StudentEntity getStudents() {
+    public Set<StudentEntity> getStudents() {
         return students;
     }
 
-    public CourseEntity setStudents(StudentEntity students) {
+    public CourseEntity setStudents(Set<StudentEntity> students) {
         this.students = students;
         return this;
     }
 
-    public TeacherEntity getTeacherEntity() {
-        return teacherEntity;
+    public TeacherEntity getTeacher() {
+        return teacher;
     }
 
-    public CourseEntity setTeacherEntity(TeacherEntity teacherEntity) {
-        this.teacherEntity = teacherEntity;
+    public CourseEntity setTeacher(TeacherEntity teacher) {
+        this.teacher = teacher;
         return this;
     }
 
