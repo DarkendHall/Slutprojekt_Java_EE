@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -102,5 +103,21 @@ public class StudentEntity {
 
     public Set<CourseEntity> getCourse() {
         return course;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentEntity that = (StudentEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(firstName,
+                that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email,
+                that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(school,
+                that.school) && Objects.equals(course, that.course);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, phoneNumber, school, course);
     }
 }
