@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -51,5 +52,19 @@ public class RoleEntity {
     public RoleEntity setUsers(Set<UserEntity> users) {
         this.users = users;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoleEntity that = (RoleEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(role,
+                that.role) && Objects.equals(users, that.users);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, role, users);
     }
 }
