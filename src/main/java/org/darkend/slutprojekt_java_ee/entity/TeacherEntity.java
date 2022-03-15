@@ -2,6 +2,7 @@ package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,7 +10,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,8 +28,8 @@ public class TeacherEntity {
     @Size(min = 2)
     private String lastName;
 
-    @ManyToMany(fetch = javax.persistence.FetchType.LAZY, targetEntity = SubjectEntity.class)
-    private List<SubjectEntity> subject;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<SubjectEntity> subject;
 
     @NotEmpty
     @OneToMany(mappedBy = "teacherEntity", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -62,11 +62,11 @@ public class TeacherEntity {
         return this;
     }
 
-    public List<SubjectEntity> getSubject() {
+    public Set<SubjectEntity> getSubject() {
         return subject;
     }
 
-    public TeacherEntity setSubject(List<SubjectEntity> subject) {
+    public TeacherEntity setSubject(Set<SubjectEntity> subject) {
         this.subject = subject;
         return this;
     }
