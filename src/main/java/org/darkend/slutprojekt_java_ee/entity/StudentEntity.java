@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Student {
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,56 +33,56 @@ public class Student {
     @ManyToOne(fetch = FetchType.LAZY)
     private SchoolEntity school;
 
-    public Student setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public Student setFirstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public Student setLastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public Student setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public Student setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public StudentEntity setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
+    public StudentEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public StudentEntity setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public StudentEntity setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public StudentEntity setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
     }
 
     public SchoolEntity getSchool() {
         return school;
     }
 
-    public Student setSchool(SchoolEntity school) {
+    public StudentEntity setSchool(SchoolEntity school) {
         this.school = school;
         return this;
     }
