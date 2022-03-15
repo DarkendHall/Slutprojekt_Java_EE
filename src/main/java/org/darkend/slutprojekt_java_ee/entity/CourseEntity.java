@@ -5,9 +5,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class CourseEntity {
@@ -27,6 +29,9 @@ public class CourseEntity {
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = TeacherEntity.class)
     private TeacherEntity teacherEntity;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<SubjectEntity> subjects;
 
     public Long getId() {
         return id;
@@ -61,6 +66,15 @@ public class CourseEntity {
 
     public CourseEntity setTeacherEntity(TeacherEntity teacherEntity) {
         this.teacherEntity = teacherEntity;
+        return this;
+    }
+
+    public Set<SubjectEntity> getSubjects() {
+        return subjects;
+    }
+
+    public CourseEntity setSubjects(Set<SubjectEntity> subjects) {
+        this.subjects = subjects;
         return this;
     }
 }
