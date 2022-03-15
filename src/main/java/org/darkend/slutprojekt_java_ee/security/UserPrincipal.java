@@ -7,33 +7,40 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
 
-    private final UserEntity user;
+    private final String username;
+    private final String password;
+    private final Set<String> roles;
 
     public UserPrincipal(UserEntity user) {
-        this.user = user;
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.roles = user.getRoles()
+                .stream()
+                .map(RoleEntity::getRole)
+                .map(String::toUpperCase)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoles()
-                .stream()
-                .map(RoleEntity::getRole)
-                .map(String::toUpperCase)
+        return roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .toList();
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return username;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return password;
     }
 
     @Override
@@ -54,9 +61,5 @@ public class UserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public UserEntity getUser() {
-        return user;
     }
 }
