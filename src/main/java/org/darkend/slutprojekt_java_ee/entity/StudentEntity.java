@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -94,7 +95,7 @@ public class StudentEntity {
         return this;
     }
 
-    public Student setCourse(Set<CourseEntity> course) {
+    public StudentEntity setCourse(Set<CourseEntity> course) {
         this.course = course;
         return this;
     }
