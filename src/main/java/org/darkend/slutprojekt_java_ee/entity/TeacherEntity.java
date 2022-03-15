@@ -56,4 +56,13 @@ public class TeacherEntity {
         this.lastName = lastName;
         return this;
     }
+
+    public Set<CourseEntity> getCourses() {
+        return courses;
+    }
+
+    public TeacherEntity setCourses(Set<CourseEntity> courses) {
+        this.courses = courses;
+        return this;
+    }
 }
