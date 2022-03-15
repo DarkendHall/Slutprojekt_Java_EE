@@ -19,6 +19,13 @@ public class RoleEntity {
     @ManyToMany(mappedBy = "roles")
     private Set<UserEntity> users;
 
+    public RoleEntity() {
+    }
+
+    public RoleEntity(String role) {
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
