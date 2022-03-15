@@ -24,6 +24,10 @@ public class CourseEntity {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
     private Student students;
 
+    @NotEmpty
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = TeacherEntity.class)
+    private TeacherEntity teacherEntity;
+
     public Long getId() {
         return id;
     }
