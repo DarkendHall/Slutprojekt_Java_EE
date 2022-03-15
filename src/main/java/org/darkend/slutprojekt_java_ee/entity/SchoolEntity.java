@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -85,5 +86,21 @@ public class SchoolEntity {
     public SchoolEntity setStudents(Set<StudentEntity> students) {
         this.students = students;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SchoolEntity that = (SchoolEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(name,
+                that.name) && Objects.equals(city, that.city) && Objects.equals(address,
+                that.address) && Objects.equals(principal, that.principal) && Objects.equals(students,
+                that.students);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, city, address, principal, students);
     }
 }

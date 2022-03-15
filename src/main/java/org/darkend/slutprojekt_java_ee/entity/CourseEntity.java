@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -76,5 +77,20 @@ public class CourseEntity {
     public CourseEntity setSubjects(Set<SubjectEntity> subjects) {
         this.subjects = subjects;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourseEntity that = (CourseEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(name,
+                that.name) && Objects.equals(students, that.students) && Objects.equals(teacher,
+                that.teacher) && Objects.equals(subjects, that.subjects);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, students, teacher, subjects);
     }
 }
