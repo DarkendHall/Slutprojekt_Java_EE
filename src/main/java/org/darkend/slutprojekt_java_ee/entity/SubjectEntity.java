@@ -1,13 +1,14 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class SubjectEntity {
@@ -20,8 +21,11 @@ public class SubjectEntity {
     @Size(min = 2)
     private String name;
 
-    @ManyToMany(fetch = javax.persistence.FetchType.LAZY, targetEntity = TeacherEntity.class)
-    private List<TeacherEntity> teacher;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<TeacherEntity> teachers;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<CourseEntity> courses;
 
     public Long getId() {
         return id;
@@ -41,12 +45,21 @@ public class SubjectEntity {
         return this;
     }
 
-    public List<TeacherEntity> getTeacher() {
-        return teacher;
+    public Set<TeacherEntity> getTeachers() {
+        return teachers;
     }
 
-    public SubjectEntity setTeacher(List<TeacherEntity> teacher) {
-        this.teacher = teacher;
+    public SubjectEntity setTeachers(Set<TeacherEntity> teachers) {
+        this.teachers = teachers;
+        return this;
+    }
+
+    public Set<CourseEntity> getCourses() {
+        return courses;
+    }
+
+    public SubjectEntity setCourses(Set<CourseEntity> courses) {
+        this.courses = courses;
         return this;
     }
 }
