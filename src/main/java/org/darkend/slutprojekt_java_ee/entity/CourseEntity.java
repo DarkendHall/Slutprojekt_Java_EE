@@ -21,8 +21,8 @@ public class CourseEntity {
     private String name;
 
     @NotEmpty
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Student.class)
-    private Student students;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = StudentEntity.class)
+    private StudentEntity students;
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = TeacherEntity.class)
@@ -46,12 +46,21 @@ public class CourseEntity {
         return this;
     }
 
-    public Student getStudents() {
+    public StudentEntity getStudents() {
         return students;
     }
 
-    public CourseEntity setStudents(Student students) {
+    public CourseEntity setStudents(StudentEntity students) {
         this.students = students;
+        return this;
+    }
+
+    public TeacherEntity getTeacherEntity() {
+        return teacherEntity;
+    }
+
+    public CourseEntity setTeacherEntity(TeacherEntity teacherEntity) {
+        this.teacherEntity = teacherEntity;
         return this;
     }
 }
