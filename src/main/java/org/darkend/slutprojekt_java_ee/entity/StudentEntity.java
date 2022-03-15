@@ -1,9 +1,11 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -27,6 +29,9 @@ public class StudentEntity {
 
     @Size(min = 10, max = 10)
     private String phoneNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SchoolEntity school;
 
     public StudentEntity setId(Long id) {
         this.id = id;
@@ -71,5 +76,14 @@ public class StudentEntity {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public SchoolEntity getSchool() {
+        return school;
+    }
+
+    public StudentEntity setSchool(SchoolEntity school) {
+        this.school = school;
+        return this;
     }
 }
