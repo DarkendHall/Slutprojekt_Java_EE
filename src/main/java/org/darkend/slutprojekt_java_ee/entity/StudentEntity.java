@@ -33,9 +33,17 @@ public class StudentEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private SchoolEntity school;
 
+    public Long getId() {
+        return id;
+    }
+
     public StudentEntity setId(Long id) {
         this.id = id;
         return this;
+    }
+
+    public String getFirstName() {
+        return firstName;
     }
 
     public StudentEntity setFirstName(String firstName) {
@@ -43,9 +51,17 @@ public class StudentEntity {
         return this;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
     public StudentEntity setLastName(String lastName) {
         this.lastName = lastName;
         return this;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public StudentEntity setEmail(String email) {
@@ -53,29 +69,13 @@ public class StudentEntity {
         return this;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public StudentEntity setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
     }
 
     public SchoolEntity getSchool() {

@@ -31,9 +31,9 @@ public class SchoolEntity {
     private PrincipalEntity principal;
 
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Student> students = new HashSet<>();
+    private Set<StudentEntity> students = new HashSet<>();
 
-    public Set<Student> getStudents() {
+    public Set<StudentEntity> getStudents() {
         return students;
     }
 
@@ -82,7 +82,7 @@ public class SchoolEntity {
         return this;
     }
 
-    public SchoolEntity setStudents(Set<Student> students) {
+    public SchoolEntity setStudents(Set<StudentEntity> students) {
         this.students = students;
         return this;
     }
