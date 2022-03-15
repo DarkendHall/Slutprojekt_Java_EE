@@ -6,8 +6,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
@@ -38,7 +38,7 @@ public class StudentEntity {
     private SchoolEntity school;
 
     @NotEmpty
-    @OneToMany(mappedBy = "students", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
     private Set<CourseEntity> course = new HashSet<>();
 
     public Long getId() {

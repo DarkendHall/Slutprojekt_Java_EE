@@ -1,6 +1,7 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class PrincipalEntity {
     @Size(min = 2)
     private String lastName;
 
-    @OneToOne(fetch = javax.persistence.FetchType.LAZY, targetEntity = SchoolEntity.class)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private SchoolEntity school;
 
