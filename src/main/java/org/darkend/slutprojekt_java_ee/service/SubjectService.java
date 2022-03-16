@@ -4,6 +4,7 @@ import org.darkend.slutprojekt_java_ee.entity.SubjectEntity;
 import org.darkend.slutprojekt_java_ee.repository.SubjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,7 @@ public class SubjectService {
         return subjectRepository.findById(id);
     }
 
-    public Iterable<SubjectEntity> findAllSubjects() {
+    public List<SubjectEntity> findAllSubjects() {
         return subjectRepository.findAll();
     }
 }

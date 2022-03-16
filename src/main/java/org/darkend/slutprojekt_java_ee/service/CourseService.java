@@ -4,6 +4,7 @@ import org.darkend.slutprojekt_java_ee.entity.CourseEntity;
 import org.darkend.slutprojekt_java_ee.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,7 @@ public class CourseService {
         return courseRepository.findById(id);
     }
 
-    public Iterable<CourseEntity> findAllCourses() {
+    public List<CourseEntity> findAllCourses() {
         return courseRepository.findAll();
     }
 }

@@ -4,6 +4,7 @@ import org.darkend.slutprojekt_java_ee.entity.SchoolEntity;
 import org.darkend.slutprojekt_java_ee.repository.SchoolRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,7 @@ public class SchoolService {
         return schoolRepository.findById(id);
     }
 
-    public Iterable<SchoolEntity> findAllSchools() {
+    public List<SchoolEntity> findAllSchools() {
         return schoolRepository.findAll();
     }
 }

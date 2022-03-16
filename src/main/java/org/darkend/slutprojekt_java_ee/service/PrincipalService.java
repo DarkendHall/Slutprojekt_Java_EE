@@ -4,6 +4,7 @@ import org.darkend.slutprojekt_java_ee.entity.PrincipalEntity;
 import org.darkend.slutprojekt_java_ee.repository.PrincipalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,7 @@ public class PrincipalService {
         return principalRepository.findById(id);
     }
 
-    public Iterable<PrincipalEntity> findAllPrincipals() {
+    public List<PrincipalEntity> findAllPrincipals() {
         return principalRepository.findAll();
     }
 }
