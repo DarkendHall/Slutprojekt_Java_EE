@@ -34,7 +34,7 @@ jobs:
           badges-directory: badges
           generate-branches-badge: true
           generate-summary: true
-          fail-if-coverage-less-than: 1
+          fail-if-coverage-less-than: 0
           fail-on-coverage-decrease: true
       - name: Log coverage percentage(if it changed)
         if: ${{ github.event_name == 'push' }}
