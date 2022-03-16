@@ -30,7 +30,7 @@ public class TeacherEntity {
     private String lastName;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<SubjectEntity> subject;
+    private Set<SubjectEntity> subject = new HashSet<>();
 
     @NotEmpty
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
