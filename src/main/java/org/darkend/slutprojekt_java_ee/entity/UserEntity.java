@@ -64,6 +64,20 @@ public class UserEntity {
         return this;
     }
 
+    public UserEntity addRole(RoleEntity role) {
+        roles.add(role);
+        role.getUsers()
+                .add(this);
+        return this;
+    }
+
+    public UserEntity removeRole(RoleEntity role) {
+        roles.remove(role);
+        role.getUsers()
+                .remove(this);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
