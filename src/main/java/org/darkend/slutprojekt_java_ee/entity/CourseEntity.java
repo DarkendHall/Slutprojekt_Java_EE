@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,14 +26,14 @@ public class CourseEntity {
 
     @NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<StudentEntity> students;
+    private Set<StudentEntity> students = new HashSet<>();
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     private TeacherEntity teacher;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<SubjectEntity> subjects;
+    private Set<SubjectEntity> subjects = new HashSet<>();
 
     public Long getId() {
         return id;
