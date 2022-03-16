@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("teachers")
 public class TeacherController {
 
-    TeacherService teacherService;
+    private final TeacherService teacherService;
 
     public TeacherController(TeacherService teacherService) {
         this.teacherService = teacherService;

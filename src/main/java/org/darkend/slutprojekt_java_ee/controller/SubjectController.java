@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("subjects")
 public class SubjectController {
 
-    SubjectService subjectService;
+    private final SubjectService subjectService;
 
     public SubjectController(SubjectService subjectService) {
         this.subjectService = subjectService;

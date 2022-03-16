@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("principals")
 public class PrincipalController {
 
-    PrincipalService principalService;
+    private final PrincipalService principalService;
 
     public PrincipalController(PrincipalService principalService) {
         this.principalService = principalService;
