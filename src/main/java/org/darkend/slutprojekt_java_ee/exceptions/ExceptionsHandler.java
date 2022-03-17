@@ -25,7 +25,7 @@ public class ExceptionsHandler {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handleConstraintViolation(EntityNotFoundException e) {
+    public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException e) {
         logger.warn(e.getMessage());
 
         return new ResponseEntity<>(new ExceptionAsJson(LocalDateTime.now()
