@@ -27,7 +27,6 @@ public class CourseEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<StudentEntity> students;
 
-    @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     private TeacherEntity teacher;
 
