@@ -2,9 +2,11 @@ package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -27,9 +29,11 @@ public class TeacherEntity {
     @Size(min = 2)
     private String lastName;
 
-    @NotEmpty
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<CourseEntity> courses = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<SchoolEntity> schools = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -67,6 +71,15 @@ public class TeacherEntity {
         return this;
     }
 
+    public Set<SchoolEntity> getSchools() {
+        return schools;
+    }
+
+    public TeacherEntity setSchools(Set<SchoolEntity> schools) {
+        this.schools = schools;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,11 +87,11 @@ public class TeacherEntity {
         TeacherEntity that = (TeacherEntity) o;
         return Objects.equals(id, that.id) && Objects.equals(firstName,
                 that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(courses,
-                that.courses);
+                that.courses) && Objects.equals(schools, that.schools);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, courses);
+        return Objects.hash(id, firstName, lastName, courses, schools);
     }
 }

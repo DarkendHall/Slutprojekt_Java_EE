@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,15 +33,15 @@ public class StudentEntity {
     @NotEmpty
     private String email;
 
-    @Size(min = 10, max = 10)
+    @NotNull
     private String phoneNumber;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private SchoolEntity school;
 
-    @NotEmpty
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
-    private Set<CourseEntity> course = new HashSet<>();
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.PERSIST)
+    private Set<CourseEntity> courses = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -96,13 +97,13 @@ public class StudentEntity {
         return this;
     }
 
-    public StudentEntity setCourse(Set<CourseEntity> course) {
-        this.course = course;
+    public StudentEntity setCourses(Set<CourseEntity> course) {
+        this.courses = course;
         return this;
     }
 
-    public Set<CourseEntity> getCourse() {
-        return course;
+    public Set<CourseEntity> getCourses() {
+        return courses;
     }
 
     @Override
@@ -113,11 +114,11 @@ public class StudentEntity {
         return Objects.equals(id, that.id) && Objects.equals(firstName,
                 that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email,
                 that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(school,
-                that.school) && Objects.equals(course, that.course);
+                that.school) && Objects.equals(courses, that.courses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, phoneNumber, school, course);
+        return Objects.hash(id, firstName, lastName, email, phoneNumber, school, courses);
     }
 }

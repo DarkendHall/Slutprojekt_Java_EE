@@ -2,9 +2,11 @@ package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
@@ -33,6 +35,12 @@ public class SchoolEntity {
 
     @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<StudentEntity> students = new HashSet<>();
+
+    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CourseEntity> courses = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<TeacherEntity> teachers = new HashSet<>();
 
     public Set<StudentEntity> getStudents() {
         return students;
@@ -88,6 +96,24 @@ public class SchoolEntity {
         return this;
     }
 
+    public Set<CourseEntity> getCourses() {
+        return courses;
+    }
+
+    public SchoolEntity setCourses(Set<CourseEntity> courses) {
+        this.courses = courses;
+        return this;
+    }
+
+    public Set<TeacherEntity> getTeachers() {
+        return teachers;
+    }
+
+    public SchoolEntity setTeachers(Set<TeacherEntity> teachers) {
+        this.teachers = teachers;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,11 +122,12 @@ public class SchoolEntity {
         return Objects.equals(id, that.id) && Objects.equals(name,
                 that.name) && Objects.equals(city, that.city) && Objects.equals(address,
                 that.address) && Objects.equals(principal, that.principal) && Objects.equals(students,
-                that.students);
+                that.students) && Objects.equals(courses, that.courses) && Objects.equals(teachers,
+                that.teachers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, city, address, principal, students);
+        return Objects.hash(id, name, city, address, principal, students, courses, teachers);
     }
 }
