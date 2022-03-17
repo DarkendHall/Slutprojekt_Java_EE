@@ -5,7 +5,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -27,7 +26,6 @@ public class PrincipalEntity {
     private String lastName;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private SchoolEntity school;
 
     public Long getId() {
