@@ -43,7 +43,8 @@ public class CourseController {
     @GetMapping("{id}")
     public ResponseEntity<CourseEntity> findCourseById(@PathVariable Long id) {
         Optional<CourseEntity> foundCourse = courseService.findCourseById(id);
-        return ResponseEntity.ok(foundCourse.orElseThrow(EntityNotFoundException::new));
+        return ResponseEntity.ok(
+                foundCourse.orElseThrow(() -> new EntityNotFoundException("No course could be found with ID: " + id)));
     }
 
     @GetMapping()
