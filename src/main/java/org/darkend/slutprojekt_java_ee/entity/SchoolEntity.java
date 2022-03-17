@@ -33,10 +33,10 @@ public class SchoolEntity {
     @OneToOne(targetEntity = PrincipalEntity.class)
     private PrincipalEntity principal;
 
-    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "school", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<StudentEntity> students = new HashSet<>();
 
-    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "school", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<CourseEntity> courses = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
