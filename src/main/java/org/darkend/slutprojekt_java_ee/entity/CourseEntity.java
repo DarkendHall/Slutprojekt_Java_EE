@@ -31,9 +31,6 @@ public class CourseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private TeacherEntity teacher;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<SubjectEntity> subjects;
-
     public Long getId() {
         return id;
     }
@@ -70,15 +67,6 @@ public class CourseEntity {
         return this;
     }
 
-    public Set<SubjectEntity> getSubjects() {
-        return subjects;
-    }
-
-    public CourseEntity setSubjects(Set<SubjectEntity> subjects) {
-        this.subjects = subjects;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,11 +74,11 @@ public class CourseEntity {
         CourseEntity that = (CourseEntity) o;
         return Objects.equals(id, that.id) && Objects.equals(name,
                 that.name) && Objects.equals(students, that.students) && Objects.equals(teacher,
-                that.teacher) && Objects.equals(subjects, that.subjects);
+                that.teacher);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, students, teacher, subjects);
+        return Objects.hash(id, name, students, teacher);
     }
 }
