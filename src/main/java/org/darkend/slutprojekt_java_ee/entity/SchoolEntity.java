@@ -1,7 +1,6 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +37,7 @@ public class SchoolEntity {
     @OneToMany
     private Set<CourseEntity> courses = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private Set<TeacherEntity> teachers = new HashSet<>();
 
     public Set<StudentEntity> getStudents() {
