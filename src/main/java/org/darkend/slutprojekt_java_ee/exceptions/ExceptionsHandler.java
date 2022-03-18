@@ -29,6 +29,6 @@ public class ExceptionsHandler {
         logger.warn(e.getMessage());
 
         return new ResponseEntity<>(new ExceptionAsJson(LocalDateTime.now()
-                .toString(), HttpStatus.BAD_REQUEST, e.getMessage()), HttpStatus.NOT_FOUND);
+                .toString(), HttpStatus.NOT_FOUND, e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }
