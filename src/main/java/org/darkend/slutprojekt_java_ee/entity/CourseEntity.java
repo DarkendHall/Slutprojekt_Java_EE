@@ -81,6 +81,17 @@ public class CourseEntity {
     }
 
     @Override
+    public String toString() {
+        return "CourseEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", students=" + students +
+                ", teacher=" + teacher +
+                ", school=" + school +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

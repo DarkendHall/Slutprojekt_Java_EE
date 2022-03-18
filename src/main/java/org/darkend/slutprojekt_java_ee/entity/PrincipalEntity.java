@@ -65,6 +65,16 @@ public class PrincipalEntity {
     }
 
     @Override
+    public String toString() {
+        return "PrincipalEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", school=" + school +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

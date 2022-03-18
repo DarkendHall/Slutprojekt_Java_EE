@@ -115,6 +115,20 @@ public class SchoolEntity {
     }
 
     @Override
+    public String toString() {
+        return "SchoolEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", principal=" + principal +
+                ", students=" + students +
+                ", courses=" + courses +
+                ", teachers=" + teachers +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
