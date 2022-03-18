@@ -1,8 +1,6 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +26,7 @@ public class TeacherEntity {
     @Size(min = 2)
     private String lastName;
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany
     private Set<CourseEntity> courses = new HashSet<>();
 
     public Long getId() {
