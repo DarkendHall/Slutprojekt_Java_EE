@@ -1,6 +1,5 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,10 +32,10 @@ public class SchoolEntity {
     @OneToOne(targetEntity = PrincipalEntity.class)
     private PrincipalEntity principal;
 
-    @OneToMany(mappedBy = "school", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany
     private Set<StudentEntity> students = new HashSet<>();
 
-    @OneToMany(mappedBy = "school", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany
     private Set<CourseEntity> courses = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
