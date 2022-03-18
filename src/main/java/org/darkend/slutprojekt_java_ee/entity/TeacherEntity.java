@@ -6,7 +6,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -31,9 +30,6 @@ public class TeacherEntity {
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<CourseEntity> courses = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<SchoolEntity> schools = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -71,15 +67,6 @@ public class TeacherEntity {
         return this;
     }
 
-    public Set<SchoolEntity> getSchools() {
-        return schools;
-    }
-
-    public TeacherEntity setSchools(Set<SchoolEntity> schools) {
-        this.schools = schools;
-        return this;
-    }
-
     @Override
     public String toString() {
         return "TeacherEntity{" +
@@ -87,7 +74,6 @@ public class TeacherEntity {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", courses=" + courses +
-                ", schools=" + schools +
                 '}';
     }
 
@@ -98,11 +84,11 @@ public class TeacherEntity {
         TeacherEntity that = (TeacherEntity) o;
         return Objects.equals(id, that.id) && Objects.equals(firstName,
                 that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(courses,
-                that.courses) && Objects.equals(schools, that.schools);
+                that.courses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, courses, schools);
+        return Objects.hash(id, firstName, lastName, courses);
     }
 }
