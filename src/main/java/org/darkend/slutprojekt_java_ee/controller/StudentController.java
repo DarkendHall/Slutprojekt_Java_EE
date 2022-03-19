@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.entity.StudentEntity;
+import org.darkend.slutprojekt_java_ee.dto.StudentDTO;
 import org.darkend.slutprojekt_java_ee.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("students")
@@ -27,8 +25,8 @@ public class StudentController {
     }
 
     @PostMapping()
-    public ResponseEntity<StudentEntity> createStudent(@RequestBody StudentEntity student) {
-        StudentEntity createdStudent = studentService.createStudent(student);
+    public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO student) {
+        StudentDTO createdStudent = studentService.createStudent(student);
         return ResponseEntity.created(URI.create("/students/" + createdStudent.getId()))
                 .body(createdStudent);
     }
@@ -41,14 +39,14 @@ public class StudentController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<StudentEntity> findStudentById(@PathVariable Long id) {
-        Optional<StudentEntity> foundStudent = studentService.findStudentById(id);
-        return ResponseEntity.ok(foundStudent.orElseThrow(EntityNotFoundException::new));
+    public ResponseEntity<StudentDTO> findStudentById(@PathVariable Long id) {
+        var foundStudent = studentService.findStudentById(id);
+        return ResponseEntity.ok(foundStudent);
     }
 
     @GetMapping()
-    public ResponseEntity<List<StudentEntity>> findAllStudents() {
-        List<StudentEntity> allStudents = studentService.findAllStudents();
+    public ResponseEntity<List<StudentDTO>> findAllStudents() {
+        List<StudentDTO> allStudents = studentService.findAllStudents();
         return ResponseEntity.ok(allStudents);
     }
 }
