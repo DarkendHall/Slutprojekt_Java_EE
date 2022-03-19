@@ -1,6 +1,5 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
-
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -8,17 +7,26 @@ import java.util.Objects;
 @Service
 public class StudentDTO {
 
-    private String name;
+    private Long id;
+    private String fullName;
     private String email;
     private String phoneNumber;
-    private String school;
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public StudentDTO setName(String firstName, String lastName) {
-        this.name = firstName + " " + lastName;
+    public StudentDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public StudentDTO setFullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 
@@ -40,13 +48,14 @@ public class StudentDTO {
         return this;
     }
 
-    public String getSchool() {
-        return school;
-    }
-
-    public StudentDTO setSchool(String school) {
-        this.school = school;
-        return this;
+    @Override
+    public String toString() {
+        return "StudentDTO{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 
     @Override
@@ -54,13 +63,13 @@ public class StudentDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StudentDTO that = (StudentDTO) o;
-        return Objects.equals(name, that.name) && Objects.equals(email,
-                that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(school,
-                that.school);
+        return Objects.equals(id, that.id) && Objects.equals(fullName,
+                that.fullName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber,
+                that.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, email, phoneNumber, school);
+        return Objects.hash(id, fullName, email, phoneNumber);
     }
 }
