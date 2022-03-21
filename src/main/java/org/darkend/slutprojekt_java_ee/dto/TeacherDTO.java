@@ -2,7 +2,7 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import java.util.Objects;
 
-public class TeacherDTO {
+public class TeacherDTO implements NameDTO {
 
     private Long id;
     private String fullName;
