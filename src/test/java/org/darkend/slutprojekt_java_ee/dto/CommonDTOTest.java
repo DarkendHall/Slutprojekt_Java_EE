@@ -1,30 +1,44 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
 class CommonDTOTest {
 
-    StudentDTO dto;
+    StudentDTO student = new StudentDTO().setFullName("First");
+    TeacherDTO teacher = new TeacherDTO().setFullName("First Last");
 
-    @BeforeEach
-    public void setUp() {
-        dto = new StudentDTO();
+    @Test
+    void firstNameAndLastNameShouldBeCombinedToFullName() {
+        var result = CommonDTO.generateFullName("First", "Last");
+
+        assertThat(result).isEqualTo("First Last");
+    }
+
+    @Test
+    void generateFirstNameShouldGetTheFirstOfTheTwoNames() {
+        var result = CommonDTO.generateFirstName(teacher);
+
+        assertThat(result).isEqualTo("First");
+    }
+
+    @Test
+    void generateLastNameShouldGetTheSecondOfTheTwoNames() {
+        var result = CommonDTO.generateLastName(teacher);
+
+        assertThat(result).isEqualTo("Last");
     }
 
     @Test
     void emptyStringShouldThrowExceptionOnGenerateFirstName() {
-        dto.setFullName("");
-        assertThatThrownBy(() -> CommonDTO.generateFirstName(dto)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> CommonDTO.generateFirstName(student)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void emptyStringShouldThrowExceptionOnGenerateLastName() {
-        dto.setFullName("");
-        assertThatThrownBy(() -> CommonDTO.generateLastName(dto)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> CommonDTO.generateLastName(student)).isInstanceOf(IllegalArgumentException.class);
     }
 
 }
