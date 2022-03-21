@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.entity.CourseEntity;
+import org.darkend.slutprojekt_java_ee.dto.CourseDTO;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("courses")
@@ -27,8 +25,8 @@ public class CourseController {
     }
 
     @PostMapping()
-    public ResponseEntity<CourseEntity> createCourse(@RequestBody CourseEntity course) {
-        CourseEntity createdCourse = courseService.createCourse(course);
+    public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO course) {
+        CourseDTO createdCourse = courseService.createCourse(course);
         return ResponseEntity.created(URI.create("/courses/" + createdCourse.getId()))
                 .body(createdCourse);
     }
@@ -41,15 +39,14 @@ public class CourseController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<CourseEntity> findCourseById(@PathVariable Long id) {
-        Optional<CourseEntity> foundCourse = courseService.findCourseById(id);
-        return ResponseEntity.ok(
-                foundCourse.orElseThrow(() -> new EntityNotFoundException("No course could be found with ID: " + id)));
+    public ResponseEntity<CourseDTO> findCourseById(@PathVariable Long id) {
+        CourseDTO foundCourse = courseService.findCourseById(id);
+        return ResponseEntity.ok(foundCourse);
     }
 
     @GetMapping()
-    public ResponseEntity<List<CourseEntity>> findAllCourses() {
-        List<CourseEntity> allCourses = courseService.findAllCourses();
+    public ResponseEntity<List<CourseDTO>> findAllCourses() {
+        List<CourseDTO> allCourses = courseService.findAllCourses();
         return ResponseEntity.ok(allCourses);
     }
 }

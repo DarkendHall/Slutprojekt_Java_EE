@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.entity.PrincipalEntity;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDTO;
 import org.darkend.slutprojekt_java_ee.service.PrincipalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("principals")
@@ -27,8 +25,8 @@ public class PrincipalController {
     }
 
     @PostMapping()
-    public ResponseEntity<PrincipalEntity> createPrincipal(@RequestBody PrincipalEntity principal) {
-        PrincipalEntity createdPrincipal = principalService.createPrincipal(principal);
+    public ResponseEntity<PrincipalDTO> createPrincipal(@RequestBody PrincipalDTO principal) {
+        PrincipalDTO createdPrincipal = principalService.createPrincipal(principal);
         return ResponseEntity.created(URI.create("/principals/" + createdPrincipal.getId()))
                 .body(createdPrincipal);
     }
@@ -41,14 +39,14 @@ public class PrincipalController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PrincipalEntity> findPrincipalById(@PathVariable Long id) {
-        Optional<PrincipalEntity> foundPrincipal = principalService.findPrincipalById(id);
-        return ResponseEntity.ok(foundPrincipal.orElseThrow(EntityNotFoundException::new));
+    public ResponseEntity<PrincipalDTO> findPrincipalById(@PathVariable Long id) {
+        PrincipalDTO foundPrincipal = principalService.findPrincipalById(id);
+        return ResponseEntity.ok(foundPrincipal);
     }
 
     @GetMapping()
-    public ResponseEntity<List<PrincipalEntity>> findAllPrincipals() {
-        List<PrincipalEntity> allPrincipals = principalService.findAllPrincipals();
+    public ResponseEntity<List<PrincipalDTO>> findAllPrincipals() {
+        List<PrincipalDTO> allPrincipals = principalService.findAllPrincipals();
         return ResponseEntity.ok(allPrincipals);
     }
 }

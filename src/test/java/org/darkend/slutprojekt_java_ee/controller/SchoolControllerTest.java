@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.entity.SchoolEntity;
+import org.darkend.slutprojekt_java_ee.dto.SchoolDTO;
 import org.darkend.slutprojekt_java_ee.service.SchoolService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,16 +8,13 @@ import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class SchoolControllerTest {
 
-    private final SchoolEntity school = new SchoolEntity().setId(1L)
-            .setName("School");
+    private final SchoolDTO school = new SchoolDTO();
 
     private SchoolService service;
     private SchoolController controller;
@@ -49,7 +46,7 @@ class SchoolControllerTest {
 
     @Test
     void findSchoolShouldReturnResponseOk() {
-        when(service.findSchoolById(1L)).thenReturn(Optional.of(school));
+        when(service.findSchoolById(1L)).thenReturn(school);
 
         var result = controller.findSchoolById(1L);
 

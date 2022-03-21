@@ -14,8 +14,7 @@ import static org.mockito.Mockito.*;
 
 class StudentControllerTest {
 
-    private final StudentDTO student = new StudentDTO().setId(1L)
-            .setFullName("Student student");
+    private final StudentDTO student = new StudentDTO();
 
     private StudentService service;
     private StudentController controller;

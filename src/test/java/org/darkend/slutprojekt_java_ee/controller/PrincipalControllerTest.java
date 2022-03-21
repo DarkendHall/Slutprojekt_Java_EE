@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.entity.PrincipalEntity;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDTO;
 import org.darkend.slutprojekt_java_ee.service.PrincipalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,16 +8,13 @@ import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class PrincipalControllerTest {
 
-    private final PrincipalEntity principal = new PrincipalEntity().setId(1L)
-            .setFirstName("Principal");
+    private final PrincipalDTO principal = new PrincipalDTO();
 
     private PrincipalService service;
     private PrincipalController controller;
@@ -49,7 +46,7 @@ class PrincipalControllerTest {
 
     @Test
     void findPrincipalShouldReturnResponseOk() {
-        when(service.findPrincipalById(1L)).thenReturn(Optional.of(principal));
+        when(service.findPrincipalById(1L)).thenReturn(principal);
 
         var result = controller.findPrincipalById(1L);
 

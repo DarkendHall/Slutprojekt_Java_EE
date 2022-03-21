@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.entity.SchoolEntity;
+import org.darkend.slutprojekt_java_ee.dto.SchoolDTO;
 import org.darkend.slutprojekt_java_ee.service.SchoolService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityNotFoundException;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("schools")
@@ -27,8 +25,8 @@ public class SchoolController {
     }
 
     @PostMapping()
-    public ResponseEntity<SchoolEntity> createSchool(@RequestBody SchoolEntity school) {
-        SchoolEntity createdSchool = schoolService.createSchool(school);
+    public ResponseEntity<SchoolDTO> createSchool(@RequestBody SchoolDTO school) {
+        SchoolDTO createdSchool = schoolService.createSchool(school);
         return ResponseEntity.created(URI.create("/schools/" + createdSchool.getId()))
                 .body(createdSchool);
     }
@@ -41,14 +39,14 @@ public class SchoolController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<SchoolEntity> findSchoolById(@PathVariable Long id) {
-        Optional<SchoolEntity> foundSchool = schoolService.findSchoolById(id);
-        return ResponseEntity.ok(foundSchool.orElseThrow(EntityNotFoundException::new));
+    public ResponseEntity<SchoolDTO> findSchoolById(@PathVariable Long id) {
+        SchoolDTO foundSchool = schoolService.findSchoolById(id);
+        return ResponseEntity.ok(foundSchool);
     }
 
     @GetMapping()
-    public ResponseEntity<List<SchoolEntity>> findAllSchools() {
-        List<SchoolEntity> allSchools = schoolService.findAllSchools();
+    public ResponseEntity<List<SchoolDTO>> findAllSchools() {
+        List<SchoolDTO> allSchools = schoolService.findAllSchools();
         return ResponseEntity.ok(allSchools);
     }
 }
