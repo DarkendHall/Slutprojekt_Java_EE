@@ -5,10 +5,19 @@ import java.util.Set;
 
 public class CourseDTO {
 
+    private Long id;
     private String name;
     private Set<String> students;
     private String teacher;
-    private String school;
+
+    public Long getId() {
+        return id;
+    }
+
+    public CourseDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -37,13 +46,14 @@ public class CourseDTO {
         return this;
     }
 
-    public String getSchool() {
-        return school;
-    }
-
-    public CourseDTO setSchool(String school) {
-        this.school = school;
-        return this;
+    @Override
+    public String toString() {
+        return "CourseDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", students=" + students +
+                ", teacher='" + teacher + '\'' +
+                '}';
     }
 
     @Override
@@ -51,13 +61,13 @@ public class CourseDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseDTO courseDTO = (CourseDTO) o;
-        return Objects.equals(name, courseDTO.name) && Objects.equals(students,
-                courseDTO.students) && Objects.equals(teacher, courseDTO.teacher) && Objects.equals(
-                school, courseDTO.school);
+        return Objects.equals(id, courseDTO.id) && Objects.equals(name,
+                courseDTO.name) && Objects.equals(students, courseDTO.students) && Objects.equals(
+                teacher, courseDTO.teacher);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, students, teacher, school);
+        return Objects.hash(id, name, students, teacher);
     }
 }
