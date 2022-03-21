@@ -7,8 +7,8 @@ public class CourseDTO {
 
     private Long id;
     private String name;
-    private Set<String> students;
-    private String teacher;
+    private Set<StudentDTO> students;
+    private TeacherDTO teacher;
 
     public Long getId() {
         return id;
@@ -28,20 +28,20 @@ public class CourseDTO {
         return this;
     }
 
-    public Set<String> getStudents() {
+    public Set<StudentDTO> getStudents() {
         return students;
     }
 
-    public CourseDTO setStudents(Set<String> students) {
+    public CourseDTO setStudents(Set<StudentDTO> students) {
         this.students = students;
         return this;
     }
 
-    public String getTeacher() {
+    public TeacherDTO getTeacher() {
         return teacher;
     }
 
-    public CourseDTO setTeacher(String teacher) {
+    public CourseDTO setTeacher(TeacherDTO teacher) {
         this.teacher = teacher;
         return this;
     }
@@ -52,7 +52,7 @@ public class CourseDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", students=" + students +
-                ", teacher='" + teacher + '\'' +
+                ", teacher=" + teacher +
                 '}';
     }
 
