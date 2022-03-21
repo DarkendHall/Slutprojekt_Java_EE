@@ -9,20 +9,21 @@ public class CommonDTO {
     public static String generateFirstName(StudentDTO dto) {
         String[] names = dto.getFullName()
                 .split(" ");
-        try {
-            return names[0];
-        } catch (NullPointerException e) {
+        if (names.length != 2)
             throw new IllegalArgumentException("Please provide first- and lastname");
-        }
+        return names[0];
+
     }
 
     public static String generateLastName(StudentDTO dto) {
         String[] names = dto.getFullName()
                 .split(" ");
-        try {
-            return names[1];
-        } catch (NullPointerException e) {
+        if (names.length != 2)
             throw new IllegalArgumentException("Please provide first- and lastname");
-        }
+        return names[1];
+    }
+
+    private void throwException() {
+
     }
 }
