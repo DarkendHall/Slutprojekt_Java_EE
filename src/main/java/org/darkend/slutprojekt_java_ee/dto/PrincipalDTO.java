@@ -2,11 +2,10 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import java.util.Objects;
 
-public class PrincipalDTO {
+public class PrincipalDTO implements NameDTO {
 
     private Long id;
-    private String name;
-    private String school;
+    private String fullName;
 
     public Long getId() {
         return id;
@@ -17,21 +16,12 @@ public class PrincipalDTO {
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public PrincipalDTO setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public PrincipalDTO setSchool(String school) {
-        this.school = school;
+    public PrincipalDTO setFullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 
@@ -39,8 +29,7 @@ public class PrincipalDTO {
     public String toString() {
         return "PrincipalDTO{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", school='" + school + '\'' +
+                ", fullName='" + fullName + '\'' +
                 '}';
     }
 
@@ -49,12 +38,11 @@ public class PrincipalDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PrincipalDTO that = (PrincipalDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(name,
-                that.name) && Objects.equals(school, that.school);
+        return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, school);
+        return Objects.hash(id, fullName);
     }
 }

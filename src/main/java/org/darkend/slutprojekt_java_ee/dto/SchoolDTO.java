@@ -1,6 +1,7 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class SchoolDTO {
 
@@ -8,7 +9,10 @@ public class SchoolDTO {
     private String name;
     private String city;
     private String address;
-    private String principal;
+    private PrincipalDTO principal;
+    private Set<StudentDTO> students;
+    private Set<CourseDTO> courses;
+    private Set<TeacherDTO> teachers;
 
     public Long getId() {
         return id;
@@ -46,12 +50,39 @@ public class SchoolDTO {
         return this;
     }
 
-    public String getPrincipal() {
+    public PrincipalDTO getPrincipal() {
         return principal;
     }
 
-    public SchoolDTO setPrincipal(String principal) {
+    public SchoolDTO setPrincipal(PrincipalDTO principal) {
         this.principal = principal;
+        return this;
+    }
+
+    public Set<StudentDTO> getStudents() {
+        return students;
+    }
+
+    public SchoolDTO setStudents(Set<StudentDTO> students) {
+        this.students = students;
+        return this;
+    }
+
+    public Set<TeacherDTO> getTeachers() {
+        return teachers;
+    }
+
+    public SchoolDTO setTeachers(Set<TeacherDTO> teachers) {
+        this.teachers = teachers;
+        return this;
+    }
+
+    public Set<CourseDTO> getCourses() {
+        return courses;
+    }
+
+    public SchoolDTO setCourses(Set<CourseDTO> courses) {
+        this.courses = courses;
         return this;
     }
 
@@ -62,7 +93,10 @@ public class SchoolDTO {
                 ", name='" + name + '\'' +
                 ", city='" + city + '\'' +
                 ", address='" + address + '\'' +
-                ", principal='" + principal + '\'' +
+                ", principal=" + principal +
+                ", students=" + students +
+                ", teachers=" + teachers +
+                ", courses=" + courses +
                 '}';
     }
 
@@ -73,11 +107,13 @@ public class SchoolDTO {
         SchoolDTO schoolDTO = (SchoolDTO) o;
         return Objects.equals(id, schoolDTO.id) && Objects.equals(name,
                 schoolDTO.name) && Objects.equals(city, schoolDTO.city) && Objects.equals(address,
-                schoolDTO.address) && Objects.equals(principal, schoolDTO.principal);
+                schoolDTO.address) && Objects.equals(principal, schoolDTO.principal) && Objects.equals(
+                students, schoolDTO.students) && Objects.equals(teachers,
+                schoolDTO.teachers) && Objects.equals(courses, schoolDTO.courses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, city, address, principal);
+        return Objects.hash(id, name, city, address, principal, students, teachers, courses);
     }
 }
