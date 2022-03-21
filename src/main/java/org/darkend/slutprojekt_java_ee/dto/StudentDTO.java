@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class StudentDTO {
+public class StudentDTO implements NameDTO {
 
     private Long id;
     private String fullName;
