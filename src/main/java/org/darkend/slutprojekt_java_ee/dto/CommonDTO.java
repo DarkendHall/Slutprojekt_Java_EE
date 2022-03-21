@@ -6,24 +6,23 @@ public class CommonDTO {
         return firstName + " " + lastName;
     }
 
-    public static String generateFirstName(StudentDTO dto) {
+    public static String generateFirstName(NameDTO dto) {
         String[] names = dto.getFullName()
                 .split(" ");
-        if (names.length != 2)
-            throw new IllegalArgumentException("Please provide first- and lastname");
+        checkLength(names);
         return names[0];
 
     }
 
-    public static String generateLastName(StudentDTO dto) {
+    public static String generateLastName(NameDTO dto) {
         String[] names = dto.getFullName()
                 .split(" ");
-        if (names.length != 2)
-            throw new IllegalArgumentException("Please provide first- and lastname");
+        checkLength(names);
         return names[1];
     }
 
-    private void throwException() {
-
+    private static void checkLength(String[] names) {
+        if (names.length != 2)
+            throw new IllegalArgumentException("Please provide first- and lastname");
     }
 }
