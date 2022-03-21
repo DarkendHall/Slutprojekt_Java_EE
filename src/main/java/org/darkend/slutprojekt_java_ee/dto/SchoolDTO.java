@@ -4,10 +4,20 @@ import java.util.Objects;
 
 public class SchoolDTO {
 
+    private Long id;
     private String name;
     private String city;
     private String address;
     private String principal;
+
+    public Long getId() {
+        return id;
+    }
+
+    public SchoolDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -46,17 +56,28 @@ public class SchoolDTO {
     }
 
     @Override
+    public String toString() {
+        return "SchoolDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", principal='" + principal + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SchoolDTO schoolDTO = (SchoolDTO) o;
-        return Objects.equals(name, schoolDTO.name) && Objects.equals(city,
-                schoolDTO.city) && Objects.equals(address, schoolDTO.address) && Objects.equals(
-                principal, schoolDTO.principal);
+        return Objects.equals(id, schoolDTO.id) && Objects.equals(name,
+                schoolDTO.name) && Objects.equals(city, schoolDTO.city) && Objects.equals(address,
+                schoolDTO.address) && Objects.equals(principal, schoolDTO.principal);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, city, address, principal);
+        return Objects.hash(id, name, city, address, principal);
     }
 }
