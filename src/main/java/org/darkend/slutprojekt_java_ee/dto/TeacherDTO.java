@@ -1,29 +1,36 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
 import java.util.Objects;
-import java.util.Set;
 
 public class TeacherDTO {
 
-    private String name;
-    private Set<String> courses;
+    private Long id;
+    private String fullName;
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public TeacherDTO setName(String firstName, String lastName) {
-        this.name = firstName + " " + lastName;
+    public TeacherDTO setId(Long id) {
+        this.id = id;
         return this;
     }
 
-    public Set<String> getCourses() {
-        return courses;
+    public String getFullName() {
+        return fullName;
     }
 
-    public TeacherDTO setCourses(Set<String> courses) {
-        this.courses = courses;
+    public TeacherDTO setFullName(String fullName) {
+        this.fullName = fullName;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "TeacherDTO{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                '}';
     }
 
     @Override
@@ -31,11 +38,11 @@ public class TeacherDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeacherDTO that = (TeacherDTO) o;
-        return Objects.equals(name, that.name) && Objects.equals(courses, that.courses);
+        return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, courses);
+        return Objects.hash(id, fullName);
     }
 }
