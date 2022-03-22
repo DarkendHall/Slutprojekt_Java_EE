@@ -20,8 +20,8 @@ public class SchoolService {
         this.mapper = mapper;
     }
 
-    public SchoolDto createSchool(SchoolDto schoolDTO) {
-        var entity = schoolRepository.save(mapper.map(schoolDTO, SchoolEntity.class));
+    public SchoolDto createSchool(SchoolDto schoolDto) {
+        var entity = schoolRepository.save(mapper.map(schoolDto, SchoolEntity.class));
         return mapper.map(entity, SchoolDto.class);
     }
 

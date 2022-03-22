@@ -20,8 +20,8 @@ public class PrincipalService {
         this.mapper = mapper;
     }
 
-    public PrincipalDto createPrincipal(PrincipalDto principalDTO) {
-        var entity = principalRepository.save(mapper.map(principalDTO, PrincipalEntity.class));
+    public PrincipalDto createPrincipal(PrincipalDto principalDto) {
+        var entity = principalRepository.save(mapper.map(principalDto, PrincipalEntity.class));
         return mapper.map(entity, PrincipalDto.class);
     }
 

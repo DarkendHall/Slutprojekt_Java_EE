@@ -20,8 +20,8 @@ public class CourseService {
         this.mapper = mapper;
     }
 
-    public CourseDto createCourse(CourseDto courseDTO) {
-        var entity = courseRepository.save(mapper.map(courseDTO, CourseEntity.class));
+    public CourseDto createCourse(CourseDto courseDto) {
+        var entity = courseRepository.save(mapper.map(courseDto, CourseEntity.class));
         return mapper.map(entity, CourseDto.class);
     }
 
