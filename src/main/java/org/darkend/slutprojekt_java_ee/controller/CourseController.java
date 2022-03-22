@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.CourseDTO;
+import org.darkend.slutprojekt_java_ee.dto.CourseDto;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +25,8 @@ public class CourseController {
     }
 
     @PostMapping()
-    public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO course) {
-        CourseDTO createdCourse = courseService.createCourse(course);
+    public ResponseEntity<CourseDto> createCourse(@RequestBody CourseDto course) {
+        CourseDto createdCourse = courseService.createCourse(course);
         return ResponseEntity.created(URI.create("/courses/" + createdCourse.getId()))
                 .body(createdCourse);
     }
@@ -39,14 +39,14 @@ public class CourseController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<CourseDTO> findCourseById(@PathVariable Long id) {
-        CourseDTO foundCourse = courseService.findCourseById(id);
+    public ResponseEntity<CourseDto> findCourseById(@PathVariable Long id) {
+        CourseDto foundCourse = courseService.findCourseById(id);
         return ResponseEntity.ok(foundCourse);
     }
 
     @GetMapping()
-    public ResponseEntity<List<CourseDTO>> findAllCourses() {
-        List<CourseDTO> allCourses = courseService.findAllCourses();
+    public ResponseEntity<List<CourseDto>> findAllCourses() {
+        List<CourseDto> allCourses = courseService.findAllCourses();
         return ResponseEntity.ok(allCourses);
     }
 }

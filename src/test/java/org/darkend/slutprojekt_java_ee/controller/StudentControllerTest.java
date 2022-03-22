@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.StudentDTO;
+import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class StudentControllerTest {
     @MockBean
     private StudentService service;
 
-    private final StudentDTO student = new StudentDTO().setId(2L)
+    private final StudentDto student = new StudentDto().setId(2L)
             .setFullName("Student Name")
             .setPhoneNumber("N/A")
             .setEmail("email@email.com");
@@ -46,7 +46,7 @@ class StudentControllerTest {
         when(service.findAllStudents()).thenReturn(List.of(student));
         doThrow(new EntityNotFoundException("No student found with ID: " + 2L)).when(service)
                 .deleteStudent(2L);
-        when(service.createStudent(any(StudentDTO.class))).thenAnswer(invocationOnMock -> {
+        when(service.createStudent(any(StudentDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });

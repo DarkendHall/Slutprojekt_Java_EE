@@ -3,18 +3,18 @@ package org.darkend.slutprojekt_java_ee.dto;
 import java.util.List;
 import java.util.Objects;
 
-public class CourseDTO {
+public class CourseDto {
 
     private Long id;
     private String name;
-    private List<StudentDTO> students;
-    private TeacherDTO teacher;
+    private List<StudentDto> students;
+    private TeacherDto teacher;
 
     public Long getId() {
         return id;
     }
 
-    public CourseDTO setId(Long id) {
+    public CourseDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -23,25 +23,25 @@ public class CourseDTO {
         return name;
     }
 
-    public CourseDTO setName(String name) {
+    public CourseDto setName(String name) {
         this.name = name;
         return this;
     }
 
-    public List<StudentDTO> getStudents() {
+    public List<StudentDto> getStudents() {
         return students;
     }
 
-    public CourseDTO setStudents(List<StudentDTO> students) {
+    public CourseDto setStudents(List<StudentDto> students) {
         this.students = students;
         return this;
     }
 
-    public TeacherDTO getTeacher() {
+    public TeacherDto getTeacher() {
         return teacher;
     }
 
-    public CourseDTO setTeacher(TeacherDTO teacher) {
+    public CourseDto setTeacher(TeacherDto teacher) {
         this.teacher = teacher;
         return this;
     }
@@ -60,7 +60,7 @@ public class CourseDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CourseDTO courseDTO = (CourseDTO) o;
+        CourseDto courseDTO = (CourseDto) o;
         return Objects.equals(id, courseDTO.id) && Objects.equals(name,
                 courseDTO.name) && Objects.equals(students, courseDTO.students) && Objects.equals(
                 teacher, courseDTO.teacher);

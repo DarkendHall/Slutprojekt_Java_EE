@@ -1,5 +1,5 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
-public interface NameDTO {
+public interface NameDto {
     String getFullName();
 }

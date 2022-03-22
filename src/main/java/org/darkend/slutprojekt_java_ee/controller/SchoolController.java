@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.SchoolDTO;
+import org.darkend.slutprojekt_java_ee.dto.SchoolDto;
 import org.darkend.slutprojekt_java_ee.service.SchoolService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +25,8 @@ public class SchoolController {
     }
 
     @PostMapping()
-    public ResponseEntity<SchoolDTO> createSchool(@RequestBody SchoolDTO school) {
-        SchoolDTO createdSchool = schoolService.createSchool(school);
+    public ResponseEntity<SchoolDto> createSchool(@RequestBody SchoolDto school) {
+        SchoolDto createdSchool = schoolService.createSchool(school);
         return ResponseEntity.created(URI.create("/schools/" + createdSchool.getId()))
                 .body(createdSchool);
     }
@@ -39,14 +39,14 @@ public class SchoolController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<SchoolDTO> findSchoolById(@PathVariable Long id) {
-        SchoolDTO foundSchool = schoolService.findSchoolById(id);
+    public ResponseEntity<SchoolDto> findSchoolById(@PathVariable Long id) {
+        SchoolDto foundSchool = schoolService.findSchoolById(id);
         return ResponseEntity.ok(foundSchool);
     }
 
     @GetMapping()
-    public ResponseEntity<List<SchoolDTO>> findAllSchools() {
-        List<SchoolDTO> allSchools = schoolService.findAllSchools();
+    public ResponseEntity<List<SchoolDto>> findAllSchools() {
+        List<SchoolDto> allSchools = schoolService.findAllSchools();
         return ResponseEntity.ok(allSchools);
     }
 }

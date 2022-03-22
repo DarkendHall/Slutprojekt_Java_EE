@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.service;
 
-import org.darkend.slutprojekt_java_ee.dto.PrincipalDTO;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
 import org.darkend.slutprojekt_java_ee.entity.PrincipalEntity;
 import org.darkend.slutprojekt_java_ee.repository.PrincipalRepository;
 import org.modelmapper.ModelMapper;
@@ -20,25 +20,25 @@ public class PrincipalService {
         this.mapper = mapper;
     }
 
-    public PrincipalDTO createPrincipal(PrincipalDTO principalDTO) {
+    public PrincipalDto createPrincipal(PrincipalDto principalDTO) {
         var entity = principalRepository.save(mapper.map(principalDTO, PrincipalEntity.class));
-        return mapper.map(entity, PrincipalDTO.class);
+        return mapper.map(entity, PrincipalDto.class);
     }
 
     public void deletePrincipal(Long id) {
         principalRepository.deleteById(id);
     }
 
-    public PrincipalDTO findPrincipalById(Long id) {
+    public PrincipalDto findPrincipalById(Long id) {
         var entityOptional = principalRepository.findById(id);
         var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
-        return mapper.map(entity, PrincipalDTO.class);
+        return mapper.map(entity, PrincipalDto.class);
     }
 
-    public List<PrincipalDTO> findAllPrincipals() {
+    public List<PrincipalDto> findAllPrincipals() {
         return principalRepository.findAll()
                 .stream()
-                .map(principal -> mapper.map(principal, PrincipalDTO.class))
+                .map(principal -> mapper.map(principal, PrincipalDto.class))
                 .toList();
     }
 }

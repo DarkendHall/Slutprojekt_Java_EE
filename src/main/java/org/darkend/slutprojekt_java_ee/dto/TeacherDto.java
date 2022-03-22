@@ -2,7 +2,7 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import java.util.Objects;
 
-public class TeacherDTO implements NameDTO {
+public class TeacherDto implements NameDto {
 
     private Long id;
     private String fullName;
@@ -11,7 +11,7 @@ public class TeacherDTO implements NameDTO {
         return id;
     }
 
-    public TeacherDTO setId(Long id) {
+    public TeacherDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -20,7 +20,7 @@ public class TeacherDTO implements NameDTO {
         return fullName;
     }
 
-    public TeacherDTO setFullName(String fullName) {
+    public TeacherDto setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
@@ -37,7 +37,7 @@ public class TeacherDTO implements NameDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TeacherDTO that = (TeacherDTO) o;
+        TeacherDto that = (TeacherDto) o;
         return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName);
     }
 

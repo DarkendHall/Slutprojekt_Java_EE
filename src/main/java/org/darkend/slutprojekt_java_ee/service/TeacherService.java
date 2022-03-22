@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.service;
 
-import org.darkend.slutprojekt_java_ee.dto.TeacherDTO;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.entity.TeacherEntity;
 import org.darkend.slutprojekt_java_ee.repository.TeacherRepository;
 import org.modelmapper.ModelMapper;
@@ -20,25 +20,25 @@ public class TeacherService {
         this.mapper = mapper;
     }
 
-    public TeacherDTO createTeacher(TeacherDTO teacherDTO) {
+    public TeacherDto createTeacher(TeacherDto teacherDTO) {
         var entity = teacherRepository.save(mapper.map(teacherDTO, TeacherEntity.class));
-        return mapper.map(entity, TeacherDTO.class);
+        return mapper.map(entity, TeacherDto.class);
     }
 
     public void deleteTeacher(Long id) {
         teacherRepository.deleteById(id);
     }
 
-    public TeacherDTO findTeacherById(Long id) {
+    public TeacherDto findTeacherById(Long id) {
         var entityOptional = teacherRepository.findById(id);
         var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
-        return mapper.map(entity, TeacherDTO.class);
+        return mapper.map(entity, TeacherDto.class);
     }
 
-    public List<TeacherDTO> findAllTeachers() {
+    public List<TeacherDto> findAllTeachers() {
         return teacherRepository.findAll()
                 .stream()
-                .map(teacher -> mapper.map(teacher, TeacherDTO.class))
+                .map(teacher -> mapper.map(teacher, TeacherDto.class))
                 .toList();
     }
 }

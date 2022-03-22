@@ -1,8 +1,8 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.CourseDTO;
-import org.darkend.slutprojekt_java_ee.dto.StudentDTO;
-import org.darkend.slutprojekt_java_ee.dto.TeacherDTO;
+import org.darkend.slutprojekt_java_ee.dto.CourseDto;
+import org.darkend.slutprojekt_java_ee.dto.StudentDto;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,13 +37,13 @@ class CourseControllerTest {
     @MockBean
     private CourseService service;
 
-    private final CourseDTO course = new CourseDTO().setId(1L)
+    private final CourseDto course = new CourseDto().setId(1L)
             .setName("Course Name")
-            .setStudents(List.of(new StudentDTO().setId(2L)
+            .setStudents(List.of(new StudentDto().setId(2L)
                     .setFullName("Student Name")
                     .setPhoneNumber("N/A")
                     .setEmail("email@email.com")))
-            .setTeacher(new TeacherDTO().setId(3L)
+            .setTeacher(new TeacherDto().setId(3L)
                     .setFullName("Teacher Name"));
 
     @BeforeEach
@@ -53,7 +53,7 @@ class CourseControllerTest {
         when(service.findAllCourses()).thenReturn(List.of(course));
         doThrow(new EntityNotFoundException("No course found with ID: " + 2L)).when(service)
                 .deleteCourse(2L);
-        when(service.createCourse(any(CourseDTO.class))).thenAnswer(invocationOnMock -> {
+        when(service.createCourse(any(CourseDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });

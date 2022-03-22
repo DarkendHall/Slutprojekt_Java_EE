@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.PrincipalDTO;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
 import org.darkend.slutprojekt_java_ee.service.PrincipalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +25,8 @@ public class PrincipalController {
     }
 
     @PostMapping()
-    public ResponseEntity<PrincipalDTO> createPrincipal(@RequestBody PrincipalDTO principal) {
-        PrincipalDTO createdPrincipal = principalService.createPrincipal(principal);
+    public ResponseEntity<PrincipalDto> createPrincipal(@RequestBody PrincipalDto principal) {
+        PrincipalDto createdPrincipal = principalService.createPrincipal(principal);
         return ResponseEntity.created(URI.create("/principals/" + createdPrincipal.getId()))
                 .body(createdPrincipal);
     }
@@ -39,14 +39,14 @@ public class PrincipalController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PrincipalDTO> findPrincipalById(@PathVariable Long id) {
-        PrincipalDTO foundPrincipal = principalService.findPrincipalById(id);
+    public ResponseEntity<PrincipalDto> findPrincipalById(@PathVariable Long id) {
+        PrincipalDto foundPrincipal = principalService.findPrincipalById(id);
         return ResponseEntity.ok(foundPrincipal);
     }
 
     @GetMapping()
-    public ResponseEntity<List<PrincipalDTO>> findAllPrincipals() {
-        List<PrincipalDTO> allPrincipals = principalService.findAllPrincipals();
+    public ResponseEntity<List<PrincipalDto>> findAllPrincipals() {
+        List<PrincipalDto> allPrincipals = principalService.findAllPrincipals();
         return ResponseEntity.ok(allPrincipals);
     }
 }

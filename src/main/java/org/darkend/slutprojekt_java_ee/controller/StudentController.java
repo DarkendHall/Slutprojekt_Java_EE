@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.StudentDTO;
+import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +25,8 @@ public class StudentController {
     }
 
     @PostMapping()
-    public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO student) {
-        StudentDTO createdStudent = studentService.createStudent(student);
+    public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto student) {
+        StudentDto createdStudent = studentService.createStudent(student);
         return ResponseEntity.created(URI.create("/students/" + createdStudent.getId()))
                 .body(createdStudent);
     }
@@ -39,14 +39,14 @@ public class StudentController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<StudentDTO> findStudentById(@PathVariable Long id) {
+    public ResponseEntity<StudentDto> findStudentById(@PathVariable Long id) {
         var foundStudent = studentService.findStudentById(id);
         return ResponseEntity.ok(foundStudent);
     }
 
     @GetMapping()
-    public ResponseEntity<List<StudentDTO>> findAllStudents() {
-        List<StudentDTO> allStudents = studentService.findAllStudents();
+    public ResponseEntity<List<StudentDto>> findAllStudents() {
+        List<StudentDto> allStudents = studentService.findAllStudents();
         return ResponseEntity.ok(allStudents);
     }
 }

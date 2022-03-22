@@ -1,10 +1,10 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.CourseDTO;
-import org.darkend.slutprojekt_java_ee.dto.PrincipalDTO;
-import org.darkend.slutprojekt_java_ee.dto.SchoolDTO;
-import org.darkend.slutprojekt_java_ee.dto.StudentDTO;
-import org.darkend.slutprojekt_java_ee.dto.TeacherDTO;
+import org.darkend.slutprojekt_java_ee.dto.CourseDto;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
+import org.darkend.slutprojekt_java_ee.dto.SchoolDto;
+import org.darkend.slutprojekt_java_ee.dto.StudentDto;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.service.SchoolService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,23 +38,23 @@ class SchoolControllerTest {
     @MockBean
     private SchoolService service;
 
-    private final StudentDTO student = new StudentDTO().setId(2L)
+    private final StudentDto student = new StudentDto().setId(2L)
             .setFullName("Student Name")
             .setPhoneNumber("N/A")
             .setEmail("email@email.com");
 
-    private final TeacherDTO teacher = new TeacherDTO().setId(3L)
+    private final TeacherDto teacher = new TeacherDto().setId(3L)
             .setFullName("Teacher Name");
 
-    private final SchoolDTO school = new SchoolDTO().setId(1L)
+    private final SchoolDto school = new SchoolDto().setId(1L)
             .setName("School Name")
             .setAddress("Address")
             .setCity("City")
             .setStudents(List.of(student))
             .setTeachers(List.of(teacher))
-            .setPrincipal(new PrincipalDTO().setId(4L)
+            .setPrincipal(new PrincipalDto().setId(4L)
                     .setFullName("Principal Name"))
-            .setCourses(List.of(new CourseDTO().setId(5L)
+            .setCourses(List.of(new CourseDto().setId(5L)
                     .setName("Course Name")
                     .setStudents(List.of(student))
                     .setTeacher(teacher)));
@@ -66,7 +66,7 @@ class SchoolControllerTest {
         when(service.findAllSchools()).thenReturn(List.of(school));
         doThrow(new EntityNotFoundException("No school found with ID: " + 2L)).when(service)
                 .deleteSchool(2L);
-        when(service.createSchool(any(SchoolDTO.class))).thenAnswer(invocationOnMock -> {
+        when(service.createSchool(any(SchoolDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
@@ -87,7 +87,6 @@ class SchoolControllerTest {
                 .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
                         .get(0)))
                 .andExpect(status().isOk());
-
     }
 
     @Test

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class StudentDTO implements NameDTO {
+public class StudentDto implements NameDto {
 
     private Long id;
     private String fullName;
@@ -16,7 +16,7 @@ public class StudentDTO implements NameDTO {
         return id;
     }
 
-    public StudentDTO setId(Long id) {
+    public StudentDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -25,7 +25,7 @@ public class StudentDTO implements NameDTO {
         return fullName;
     }
 
-    public StudentDTO setFullName(String fullName) {
+    public StudentDto setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
@@ -34,7 +34,7 @@ public class StudentDTO implements NameDTO {
         return email;
     }
 
-    public StudentDTO setEmail(String email) {
+    public StudentDto setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -43,7 +43,7 @@ public class StudentDTO implements NameDTO {
         return phoneNumber;
     }
 
-    public StudentDTO setPhoneNumber(String phoneNumber) {
+    public StudentDto setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
     }
@@ -62,7 +62,7 @@ public class StudentDTO implements NameDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StudentDTO that = (StudentDTO) o;
+        StudentDto that = (StudentDto) o;
         return Objects.equals(id, that.id) && Objects.equals(fullName,
                 that.fullName) && Objects.equals(email, that.email) && Objects.equals(phoneNumber,
                 that.phoneNumber);

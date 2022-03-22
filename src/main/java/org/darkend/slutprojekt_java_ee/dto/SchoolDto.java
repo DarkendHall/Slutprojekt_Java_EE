@@ -3,22 +3,22 @@ package org.darkend.slutprojekt_java_ee.dto;
 import java.util.List;
 import java.util.Objects;
 
-public class SchoolDTO {
+public class SchoolDto {
 
     private Long id;
     private String name;
     private String city;
     private String address;
-    private PrincipalDTO principal;
-    private List<StudentDTO> students;
-    private List<CourseDTO> courses;
-    private List<TeacherDTO> teachers;
+    private PrincipalDto principal;
+    private List<StudentDto> students;
+    private List<CourseDto> courses;
+    private List<TeacherDto> teachers;
 
     public Long getId() {
         return id;
     }
 
-    public SchoolDTO setId(Long id) {
+    public SchoolDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -27,7 +27,7 @@ public class SchoolDTO {
         return name;
     }
 
-    public SchoolDTO setName(String name) {
+    public SchoolDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -36,7 +36,7 @@ public class SchoolDTO {
         return city;
     }
 
-    public SchoolDTO setCity(String city) {
+    public SchoolDto setCity(String city) {
         this.city = city;
         return this;
     }
@@ -45,43 +45,43 @@ public class SchoolDTO {
         return address;
     }
 
-    public SchoolDTO setAddress(String address) {
+    public SchoolDto setAddress(String address) {
         this.address = address;
         return this;
     }
 
-    public PrincipalDTO getPrincipal() {
+    public PrincipalDto getPrincipal() {
         return principal;
     }
 
-    public SchoolDTO setPrincipal(PrincipalDTO principal) {
+    public SchoolDto setPrincipal(PrincipalDto principal) {
         this.principal = principal;
         return this;
     }
 
-    public List<StudentDTO> getStudents() {
+    public List<StudentDto> getStudents() {
         return students;
     }
 
-    public SchoolDTO setStudents(List<StudentDTO> students) {
+    public SchoolDto setStudents(List<StudentDto> students) {
         this.students = students;
         return this;
     }
 
-    public List<CourseDTO> getCourses() {
+    public List<CourseDto> getCourses() {
         return courses;
     }
 
-    public SchoolDTO setCourses(List<CourseDTO> courses) {
+    public SchoolDto setCourses(List<CourseDto> courses) {
         this.courses = courses;
         return this;
     }
 
-    public List<TeacherDTO> getTeachers() {
+    public List<TeacherDto> getTeachers() {
         return teachers;
     }
 
-    public SchoolDTO setTeachers(List<TeacherDTO> teachers) {
+    public SchoolDto setTeachers(List<TeacherDto> teachers) {
         this.teachers = teachers;
         return this;
     }
@@ -105,7 +105,7 @@ public class SchoolDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SchoolDTO schoolDTO = (SchoolDTO) o;
+        SchoolDto schoolDTO = (SchoolDto) o;
         return Objects.equals(id, schoolDTO.id) && Objects.equals(name,
                 schoolDTO.name) && Objects.equals(city, schoolDTO.city) && Objects.equals(address,
                 schoolDTO.address) && Objects.equals(principal, schoolDTO.principal) && Objects.equals(

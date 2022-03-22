@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.PrincipalDTO;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
 import org.darkend.slutprojekt_java_ee.service.PrincipalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class PrincipalControllerTest {
     @MockBean
     private PrincipalService service;
 
-    private final PrincipalDTO principal = new PrincipalDTO().setId(1L)
+    private final PrincipalDto principal = new PrincipalDto().setId(1L)
             .setFullName("Principal Name");
 
     @BeforeEach
@@ -44,7 +44,7 @@ class PrincipalControllerTest {
         when(service.findAllPrincipals()).thenReturn(List.of(principal));
         doThrow(new EntityNotFoundException("No principal found with ID: " + 2L)).when(service)
                 .deletePrincipal(2L);
-        when(service.createPrincipal(any(PrincipalDTO.class))).thenAnswer(invocationOnMock -> {
+        when(service.createPrincipal(any(PrincipalDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
@@ -56,7 +56,6 @@ class PrincipalControllerTest {
                 .andExpect(jsonPath("$.id").value(principal.getId()))
                 .andExpect(jsonPath("$.fullName").value(principal.getFullName()))
                 .andExpect(status().isOk());
-
     }
 
     @Test

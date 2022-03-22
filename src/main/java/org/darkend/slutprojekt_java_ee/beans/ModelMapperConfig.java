@@ -1,11 +1,11 @@
 package org.darkend.slutprojekt_java_ee.beans;
 
-import org.darkend.slutprojekt_java_ee.dto.CommonDTO;
+import org.darkend.slutprojekt_java_ee.dto.CommonDto;
 import org.darkend.slutprojekt_java_ee.dto.DtoToEntityConverter;
 import org.darkend.slutprojekt_java_ee.dto.EntityToDtoConverter;
-import org.darkend.slutprojekt_java_ee.dto.PrincipalDTO;
-import org.darkend.slutprojekt_java_ee.dto.StudentDTO;
-import org.darkend.slutprojekt_java_ee.dto.TeacherDTO;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
+import org.darkend.slutprojekt_java_ee.dto.StudentDto;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.entity.PrincipalEntity;
 import org.darkend.slutprojekt_java_ee.entity.StudentEntity;
 import org.darkend.slutprojekt_java_ee.entity.TeacherEntity;
@@ -40,12 +40,12 @@ public class ModelMapperConfig {
         }
 
         public void entityToDto(ModelMapper mapper) {
-            mapper.createTypeMap(StudentEntity.class, StudentDTO.class)
+            mapper.createTypeMap(StudentEntity.class, StudentDto.class)
                     .addMappings(
                             new PropertyMap<>() {
                                 @Override
                                 protected void configure() {
-                                    using(ctx -> CommonDTO.generateFullName(
+                                    using(ctx -> CommonDto.generateFullName(
                                             ((StudentEntity) ctx.getSource()).getFirstName(),
                                             ((StudentEntity) ctx.getSource()).getLastName()
                                     )).map(source, destination.getFullName());
@@ -54,13 +54,13 @@ public class ModelMapperConfig {
         }
 
         public void dtoToEntity(ModelMapper mapper) {
-            mapper.createTypeMap(StudentDTO.class, StudentEntity.class)
+            mapper.createTypeMap(StudentDto.class, StudentEntity.class)
                     .addMappings(new PropertyMap<>() {
                         @Override
                         protected void configure() {
-                            using(ctx -> CommonDTO.generateFirstName(((StudentDTO) ctx.getSource()))).map(source,
+                            using(ctx -> CommonDto.generateFirstName(((StudentDto) ctx.getSource()))).map(source,
                                     destination.getFirstName());
-                            using(ctx -> CommonDTO.generateLastName(((StudentDTO) ctx.getSource()))).map(source,
+                            using(ctx -> CommonDto.generateLastName(((StudentDto) ctx.getSource()))).map(source,
                                     destination.getLastName());
                         }
                     });
@@ -76,12 +76,12 @@ public class ModelMapperConfig {
 
         @Override
         public void dtoToEntity(ModelMapper mapper) {
-            mapper.createTypeMap(TeacherEntity.class, TeacherDTO.class)
+            mapper.createTypeMap(TeacherEntity.class, TeacherDto.class)
                     .addMappings(
                             new PropertyMap<>() {
                                 @Override
                                 protected void configure() {
-                                    using(ctx -> CommonDTO.generateFullName(
+                                    using(ctx -> CommonDto.generateFullName(
                                             ((TeacherEntity) ctx.getSource()).getFirstName(),
                                             ((TeacherEntity) ctx.getSource()).getLastName()
                                     )).map(source, destination.getFullName());
@@ -91,13 +91,13 @@ public class ModelMapperConfig {
 
         @Override
         public void entityToDto(ModelMapper mapper) {
-            mapper.createTypeMap(TeacherDTO.class, TeacherEntity.class)
+            mapper.createTypeMap(TeacherDto.class, TeacherEntity.class)
                     .addMappings(new PropertyMap<>() {
                         @Override
                         protected void configure() {
-                            using(ctx -> CommonDTO.generateFirstName(((TeacherDTO) ctx.getSource()))).map(source,
+                            using(ctx -> CommonDto.generateFirstName(((TeacherDto) ctx.getSource()))).map(source,
                                     destination.getFirstName());
-                            using(ctx -> CommonDTO.generateLastName(((TeacherDTO) ctx.getSource()))).map(source,
+                            using(ctx -> CommonDto.generateLastName(((TeacherDto) ctx.getSource()))).map(source,
                                     destination.getLastName());
                         }
                     });
@@ -113,12 +113,12 @@ public class ModelMapperConfig {
 
         @Override
         public void dtoToEntity(ModelMapper mapper) {
-            mapper.createTypeMap(PrincipalEntity.class, PrincipalDTO.class)
+            mapper.createTypeMap(PrincipalEntity.class, PrincipalDto.class)
                     .addMappings(
                             new PropertyMap<>() {
                                 @Override
                                 protected void configure() {
-                                    using(ctx -> CommonDTO.generateFullName(
+                                    using(ctx -> CommonDto.generateFullName(
                                             ((PrincipalEntity) ctx.getSource()).getFirstName(),
                                             ((PrincipalEntity) ctx.getSource()).getLastName()
                                     )).map(source, destination.getFullName());
@@ -128,13 +128,13 @@ public class ModelMapperConfig {
 
         @Override
         public void entityToDto(ModelMapper mapper) {
-            mapper.createTypeMap(PrincipalDTO.class, PrincipalEntity.class)
+            mapper.createTypeMap(PrincipalDto.class, PrincipalEntity.class)
                     .addMappings(new PropertyMap<>() {
                         @Override
                         protected void configure() {
-                            using(ctx -> CommonDTO.generateFirstName(((PrincipalDTO) ctx.getSource()))).map(source,
+                            using(ctx -> CommonDto.generateFirstName(((PrincipalDto) ctx.getSource()))).map(source,
                                     destination.getFirstName());
-                            using(ctx -> CommonDTO.generateLastName(((PrincipalDTO) ctx.getSource()))).map(source,
+                            using(ctx -> CommonDto.generateLastName(((PrincipalDto) ctx.getSource()))).map(source,
                                     destination.getLastName());
                         }
                     });

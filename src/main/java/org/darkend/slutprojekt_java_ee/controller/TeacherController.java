@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.TeacherDTO;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.service.TeacherService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,8 +25,8 @@ public class TeacherController {
     }
 
     @PostMapping()
-    public ResponseEntity<TeacherDTO> createTeacher(@RequestBody TeacherDTO teacher) {
-        TeacherDTO createdTeacher = teacherService.createTeacher(teacher);
+    public ResponseEntity<TeacherDto> createTeacher(@RequestBody TeacherDto teacher) {
+        TeacherDto createdTeacher = teacherService.createTeacher(teacher);
         return ResponseEntity.created(URI.create("/teachers/" + createdTeacher.getId()))
                 .body(createdTeacher);
     }
@@ -39,14 +39,14 @@ public class TeacherController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<TeacherDTO> findTeacherById(@PathVariable Long id) {
-        TeacherDTO foundTeacher = teacherService.findTeacherById(id);
+    public ResponseEntity<TeacherDto> findTeacherById(@PathVariable Long id) {
+        TeacherDto foundTeacher = teacherService.findTeacherById(id);
         return ResponseEntity.ok(foundTeacher);
     }
 
     @GetMapping()
-    public ResponseEntity<List<TeacherDTO>> findAllTeachers() {
-        List<TeacherDTO> allTeachers = teacherService.findAllTeachers();
+    public ResponseEntity<List<TeacherDto>> findAllTeachers() {
+        List<TeacherDto> allTeachers = teacherService.findAllTeachers();
         return ResponseEntity.ok(allTeachers);
     }
 }

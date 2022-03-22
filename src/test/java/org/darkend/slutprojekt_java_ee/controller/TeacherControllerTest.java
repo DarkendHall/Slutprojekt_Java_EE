@@ -1,6 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
-import org.darkend.slutprojekt_java_ee.dto.TeacherDTO;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.service.TeacherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class TeacherControllerTest {
     @MockBean
     private TeacherService service;
 
-    private final TeacherDTO teacher = new TeacherDTO().setId(1L)
+    private final TeacherDto teacher = new TeacherDto().setId(1L)
             .setFullName("Teacher Name");
 
     @BeforeEach
@@ -44,7 +44,7 @@ class TeacherControllerTest {
         when(service.findAllTeachers()).thenReturn(List.of(teacher));
         doThrow(new EntityNotFoundException("No teacher found with ID: " + 2L)).when(service)
                 .deleteTeacher(2L);
-        when(service.createTeacher(any(TeacherDTO.class))).thenAnswer(invocationOnMock -> {
+        when(service.createTeacher(any(TeacherDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
@@ -56,7 +56,6 @@ class TeacherControllerTest {
                 .andExpect(jsonPath("$.id").value(teacher.getId()))
                 .andExpect(jsonPath("$.fullName").value(teacher.getFullName()))
                 .andExpect(status().isOk());
-
     }
 
     @Test

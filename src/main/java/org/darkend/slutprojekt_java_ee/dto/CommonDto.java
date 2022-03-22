@@ -1,12 +1,12 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
-public class CommonDTO {
+public class CommonDto {
 
     public static String generateFullName(String firstName, String lastName) {
         return firstName + " " + lastName;
     }
 
-    public static String generateFirstName(NameDTO dto) {
+    public static String generateFirstName(NameDto dto) {
         String[] names = dto.getFullName()
                 .split(" ");
         checkLength(names);
@@ -14,7 +14,7 @@ public class CommonDTO {
 
     }
 
-    public static String generateLastName(NameDTO dto) {
+    public static String generateLastName(NameDto dto) {
         String[] names = dto.getFullName()
                 .split(" ");
         checkLength(names);

@@ -57,20 +57,20 @@ class ModelMapperConfigTest {
 
         @Test
         void fullMappingShouldBeTheEqualToManualDTO() {
-            StudentDTO studentDto = new StudentDTO().setId(1L)
+            StudentDto studentDto = new StudentDto().setId(1L)
                     .setFullName("First Last")
                     .setEmail("email@email.com")
                     .setPhoneNumber("N/A");
 
-            TeacherDTO teacherDto = new TeacherDTO().setId(1L)
+            TeacherDto teacherDto = new TeacherDto().setId(1L)
                     .setFullName("First Last");
 
-            CourseDTO courseDto = new CourseDTO().setId(1L)
+            CourseDto courseDto = new CourseDto().setId(1L)
                     .setName("Name")
                     .setStudents(List.of(studentDto))
                     .setTeacher(teacherDto);
 
-            SchoolDTO schoolDto = new SchoolDTO().setId(1L)
+            SchoolDto schoolDto = new SchoolDto().setId(1L)
                     .setName("Name")
                     .setCity("City")
                     .setAddress("Address")
@@ -78,38 +78,37 @@ class ModelMapperConfigTest {
                     .setTeachers(List.of(teacherDto))
                     .setCourses(List.of(courseDto));
 
-            PrincipalDTO principalDto = new PrincipalDTO().setId(1L)
+            PrincipalDto principalDto = new PrincipalDto().setId(1L)
                     .setFullName("First Last");
             schoolDto.setPrincipal(principalDto);
 
-            var result = mapper.map(school, SchoolDTO.class);
+            var result = mapper.map(school, SchoolDto.class);
 
             assertThat(result).isEqualTo(schoolDto);
         }
-
     }
 
     @Nested
-    class SchoolDTOToEntityTests {
+    class SchoolDtoToEntityTests {
 
-        private SchoolDTO schoolDto;
+        private SchoolDto schoolDto;
 
         @BeforeEach
         public void setUp() {
-            StudentDTO studentDto = new StudentDTO().setId(1L)
+            StudentDto studentDto = new StudentDto().setId(1L)
                     .setFullName("First Last")
                     .setEmail("email@email.com")
                     .setPhoneNumber("N/A");
 
-            TeacherDTO teacherDto = new TeacherDTO().setId(1L)
+            TeacherDto teacherDto = new TeacherDto().setId(1L)
                     .setFullName("First Last");
 
-            CourseDTO courseDto = new CourseDTO().setId(1L)
+            CourseDto courseDto = new CourseDto().setId(1L)
                     .setName("Name")
                     .setStudents(List.of(studentDto))
                     .setTeacher(teacherDto);
 
-            schoolDto = new SchoolDTO().setId(1L)
+            schoolDto = new SchoolDto().setId(1L)
                     .setName("Name")
                     .setCity("City")
                     .setAddress("Address")
@@ -117,7 +116,7 @@ class ModelMapperConfigTest {
                     .setTeachers(List.of(teacherDto))
                     .setCourses(List.of(courseDto));
 
-            PrincipalDTO principalDto = new PrincipalDTO().setId(1L)
+            PrincipalDto principalDto = new PrincipalDto().setId(1L)
                     .setFullName("First Last");
 
             schoolDto.setPrincipal(principalDto);
@@ -157,8 +156,6 @@ class ModelMapperConfigTest {
             var result = mapper.map(schoolDto, SchoolEntity.class);
 
             assertThat(result).isEqualTo(school);
-
         }
-
     }
 }
