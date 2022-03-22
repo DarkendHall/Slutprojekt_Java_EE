@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class ModelMapperConfig {
+
     @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
     public ModelMapper modelMapper() {
