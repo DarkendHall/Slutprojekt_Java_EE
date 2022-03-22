@@ -1,64 +1,188 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
+import org.darkend.slutprojekt_java_ee.dto.CourseDTO;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDTO;
 import org.darkend.slutprojekt_java_ee.dto.SchoolDTO;
+import org.darkend.slutprojekt_java_ee.dto.StudentDTO;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDTO;
 import org.darkend.slutprojekt_java_ee.service.SchoolService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.ResponseEntity;
+import org.junit.runner.RunWith;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.net.URI;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@RunWith(SpringRunner.class)
+@WebMvcTest(SchoolController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@Import(ModelMapper.class)
 class SchoolControllerTest {
 
-    private final SchoolDTO school = new SchoolDTO();
+    @Autowired
+    MockMvc mvc;
 
+    @MockBean
     private SchoolService service;
-    private SchoolController controller;
 
+    private final StudentDTO student = new StudentDTO().setId(2L)
+            .setFullName("Student Name")
+            .setPhoneNumber("N/A")
+            .setEmail("email@email.com");
+
+    private final TeacherDTO teacher = new TeacherDTO().setId(3L)
+            .setFullName("Teacher Name");
+
+    private final SchoolDTO school = new SchoolDTO().setId(1L)
+            .setName("School Name")
+            .setAddress("Address")
+            .setCity("City")
+            .setStudents(List.of(student))
+            .setTeachers(List.of(teacher))
+            .setPrincipal(new PrincipalDTO().setId(4L)
+                    .setFullName("Principal Name"))
+            .setCourses(List.of(new CourseDTO().setId(5L)
+                    .setName("Course Name")
+                    .setStudents(List.of(student))
+                    .setTeacher(teacher)));
 
     @BeforeEach
     void setUp() {
-        service = mock(SchoolService.class);
-        controller = new SchoolController(service);
-    }
-
-    @Test
-    void createSchoolShouldReturnResponseCreated() {
-        when(service.createSchool(school)).thenReturn(school);
-
-        var result = controller.createSchool(school);
-
-        assertThat(result).isEqualTo(ResponseEntity.created(URI.create("/schools/" + school.getId()))
-                .body(school));
-    }
-
-    @Test
-    void deleteSchoolShouldReturnResponseOk() {
-        var result = controller.deleteSchool(1L);
-
-        assertThat(result).isEqualTo(ResponseEntity.ok()
-                .build());
-    }
-
-    @Test
-    void findSchoolShouldReturnResponseOk() {
         when(service.findSchoolById(1L)).thenReturn(school);
-
-        var result = controller.findSchoolById(1L);
-
-        assertThat(result).isEqualTo(ResponseEntity.ok(school));
+        when(service.findSchoolById(2L)).thenThrow(new EntityNotFoundException("No school found with ID: " + 2L));
+        when(service.findAllSchools()).thenReturn(List.of(school));
+        doThrow(new EntityNotFoundException("No school found with ID: " + 2L)).when(service)
+                .deleteSchool(2L);
+        when(service.createSchool(any(SchoolDTO.class))).thenAnswer(invocationOnMock -> {
+            Object[] args = invocationOnMock.getArguments();
+            return args[0];
+        });
     }
 
     @Test
-    void findAllSchoolsShouldReturnResponseOk() {
-        when(service.findAllSchools()).thenReturn(List.of(school));
+    void getOneSchoolWithValidIdOne() throws Exception {
+        mvc.perform(get("/schools/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(school.getId()))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.city").value(school.getCity()))
+                .andExpect(jsonPath("$.address").value(school.getAddress()))
+                .andExpect(jsonPath("$.principal").value(school.getPrincipal()))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.courses[0]").value(school.getCourses()
+                        .get(0)))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(status().isOk());
 
-        var result = controller.findAllSchools();
+    }
 
-        assertThat(result).isEqualTo(ResponseEntity.ok(List.of(school)));
+    @Test
+    void getOneSchoolWithInvalidIdTwo() throws Exception {
+        mvc.perform(get("/schools/2").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(404));
+    }
+
+    @Test
+    void getAllReturnsListOfAllSchools() throws Exception {
+        mvc.perform(get("/schools").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].id").value(school.getId()))
+                .andExpect(jsonPath("$[0].name").value(school.getName()))
+                .andExpect(jsonPath("$[0].city").value(school.getCity()))
+                .andExpect(jsonPath("$[0].address").value(school.getAddress()))
+                .andExpect(jsonPath("$[0].principal").value(school.getPrincipal()))
+                .andExpect(jsonPath("$[0].students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$[0].courses[0]").value(school.getCourses()
+                        .get(0)))
+                .andExpect(jsonPath("$[0].teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void deleteOneSchoolWithValidIdOne() throws Exception {
+        mvc.perform(delete("/schools/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void deleteOneSchoolWithInvalidIdTwo() throws Exception {
+        mvc.perform(delete("/schools/2").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void addNewSchoolWithPostReturnsCreatedSchool() throws Exception {
+        mvc.perform(post("/schools").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "name": "School Name",
+                                  "city": "City",
+                                  "address": "Address",
+                                  "principal": {
+                                    "id": 4,
+                                    "fullName": "Principal Name"
+                                  },
+                                  "students": [
+                                    {
+                                      "id": 2,
+                                      "fullName": "Student Name",
+                                      "email": "email@email.com",
+                                      "phoneNumber": "N/A"
+                                    }
+                                  ],
+                                  "courses": [
+                                    {
+                                      "id": 5,
+                                      "name": "Course Name",
+                                      "students": [
+                                        {
+                                          "id": 2,
+                                          "fullName": "Student Name",
+                                          "email": "email@email.com",
+                                          "phoneNumber": "N/A"
+                                        }
+                                      ],
+                                      "teacher": {
+                                        "id": 3,
+                                        "fullName": "Teacher Name"
+                                      }
+                                    }
+                                  ],
+                                  "teachers": [
+                                    {
+                                      "id": 3,
+                                      "fullName": "Teacher Name"
+                                    }
+                                  ]
+                                }
+                                """))
+                .andExpect(jsonPath("$.id").value(school.getId()))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.city").value(school.getCity()))
+                .andExpect(jsonPath("$.address").value(school.getAddress()))
+                .andExpect(jsonPath("$.principal").value(school.getPrincipal()))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.courses[0]").value(school.getCourses()
+                        .get(0)))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(status().isCreated());
     }
 }
