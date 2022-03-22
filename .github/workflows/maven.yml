@@ -27,6 +27,12 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn -B surefire-report:report --file pom.xml
+      - name: Upload Test Results
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: target/site/surefire-report.html
       - name: Generate JaCoCo Badge
         id: jacoco
         uses: cicirello/jacoco-badge-generator@v2
@@ -58,9 +64,3 @@ jobs:
         with:
           name: jacoco-report
           path: target/site/jacoco/
-      - name: Upload Test Results
-        if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-report
-          path: target/site/surefire-report.html
