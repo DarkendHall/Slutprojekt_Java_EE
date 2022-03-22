@@ -11,11 +11,6 @@ Course:
 
 * Students (ManyToMany)
 * Teacher (ManyToOne)
-* School (ManyToOne)
-
-Principal:
-
-* School (OneToOne)
 
 School:
 
@@ -23,16 +18,6 @@ School:
 * Students (OneToMany)
 * Courses (OneToMany)
 * Teachers (ManyToMany)
-
-Student:
-
-* School (ManyToOne)
-* Courses (ManyToMany)
-
-Teacher:
-
-* Courses (OneToMany)
-* Schools (ManyToMany)
 
 --------------------
 Role:
