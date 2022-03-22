@@ -1,8 +1,7 @@
-# 'true' will fix files
 autofix: true
 
 rules:
   end-of-file:
     enable: true
-    disable-autofix: false
+    disable-autofix: true
     single-new-line: true
