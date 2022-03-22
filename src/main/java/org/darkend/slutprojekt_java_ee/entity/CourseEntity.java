@@ -9,9 +9,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class CourseEntity {
@@ -26,7 +26,7 @@ public class CourseEntity {
 
     @NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<StudentEntity> students = new HashSet<>();
+    private List<StudentEntity> students = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private TeacherEntity teacher;
@@ -49,11 +49,11 @@ public class CourseEntity {
         return this;
     }
 
-    public Set<StudentEntity> getStudents() {
+    public List<StudentEntity> getStudents() {
         return students;
     }
 
-    public CourseEntity setStudents(Set<StudentEntity> students) {
+    public CourseEntity setStudents(List<StudentEntity> students) {
         this.students = students;
         return this;
     }
@@ -66,7 +66,6 @@ public class CourseEntity {
         this.teacher = teacher;
         return this;
     }
-
 
 
     @Override

@@ -1,13 +1,13 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class CourseDTO {
 
     private Long id;
     private String name;
-    private Set<StudentDTO> students;
+    private List<StudentDTO> students;
     private TeacherDTO teacher;
 
     public Long getId() {
@@ -28,11 +28,11 @@ public class CourseDTO {
         return this;
     }
 
-    public Set<StudentDTO> getStudents() {
+    public List<StudentDTO> getStudents() {
         return students;
     }
 
-    public CourseDTO setStudents(Set<StudentDTO> students) {
+    public CourseDTO setStudents(List<StudentDTO> students) {
         this.students = students;
         return this;
     }

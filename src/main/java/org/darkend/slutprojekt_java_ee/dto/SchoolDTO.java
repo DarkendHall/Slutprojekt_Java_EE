@@ -1,7 +1,7 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class SchoolDTO {
 
@@ -10,9 +10,9 @@ public class SchoolDTO {
     private String city;
     private String address;
     private PrincipalDTO principal;
-    private Set<StudentDTO> students;
-    private Set<CourseDTO> courses;
-    private Set<TeacherDTO> teachers;
+    private List<StudentDTO> students;
+    private List<CourseDTO> courses;
+    private List<TeacherDTO> teachers;
 
     public Long getId() {
         return id;
@@ -59,35 +59,36 @@ public class SchoolDTO {
         return this;
     }
 
-    public Set<StudentDTO> getStudents() {
+    public List<StudentDTO> getStudents() {
         return students;
     }
 
-    public SchoolDTO setStudents(Set<StudentDTO> students) {
+    public SchoolDTO setStudents(List<StudentDTO> students) {
         this.students = students;
         return this;
     }
 
-    public Set<TeacherDTO> getTeachers() {
-        return teachers;
-    }
-
-    public SchoolDTO setTeachers(Set<TeacherDTO> teachers) {
-        this.teachers = teachers;
-        return this;
-    }
-
-    public Set<CourseDTO> getCourses() {
+    public List<CourseDTO> getCourses() {
         return courses;
     }
 
-    public SchoolDTO setCourses(Set<CourseDTO> courses) {
+    public SchoolDTO setCourses(List<CourseDTO> courses) {
         this.courses = courses;
         return this;
     }
 
+    public List<TeacherDTO> getTeachers() {
+        return teachers;
+    }
+
+    public SchoolDTO setTeachers(List<TeacherDTO> teachers) {
+        this.teachers = teachers;
+        return this;
+    }
+
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "SchoolDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
@@ -95,8 +96,8 @@ public class SchoolDTO {
                 ", address='" + address + '\'' +
                 ", principal=" + principal +
                 ", students=" + students +
-                ", teachers=" + teachers +
                 ", courses=" + courses +
+                ", teachers=" + teachers +
                 '}';
     }
 
@@ -108,12 +109,12 @@ public class SchoolDTO {
         return Objects.equals(id, schoolDTO.id) && Objects.equals(name,
                 schoolDTO.name) && Objects.equals(city, schoolDTO.city) && Objects.equals(address,
                 schoolDTO.address) && Objects.equals(principal, schoolDTO.principal) && Objects.equals(
-                students, schoolDTO.students) && Objects.equals(teachers,
-                schoolDTO.teachers) && Objects.equals(courses, schoolDTO.courses);
+                students, schoolDTO.students) && Objects.equals(courses,
+                schoolDTO.courses) && Objects.equals(teachers, schoolDTO.teachers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, city, address, principal, students, teachers, courses);
+        return Objects.hash(id, name, city, address, principal, students, courses, teachers);
     }
 }

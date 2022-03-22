@@ -8,9 +8,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class SchoolEntity {
@@ -32,17 +32,13 @@ public class SchoolEntity {
     private PrincipalEntity principal;
 
     @OneToMany
-    private Set<StudentEntity> students = new HashSet<>();
+    private List<StudentEntity> students = new ArrayList<>();
 
     @OneToMany
-    private Set<CourseEntity> courses = new HashSet<>();
+    private List<CourseEntity> courses = new ArrayList<>();
 
     @ManyToMany
-    private Set<TeacherEntity> teachers = new HashSet<>();
-
-    public Set<StudentEntity> getStudents() {
-        return students;
-    }
+    private List<TeacherEntity> teachers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -89,25 +85,29 @@ public class SchoolEntity {
         return this;
     }
 
-    public SchoolEntity setStudents(Set<StudentEntity> students) {
+    public List<StudentEntity> getStudents() {
+        return students;
+    }
+
+    public SchoolEntity setStudents(List<StudentEntity> students) {
         this.students = students;
         return this;
     }
 
-    public Set<CourseEntity> getCourses() {
+    public List<CourseEntity> getCourses() {
         return courses;
     }
 
-    public SchoolEntity setCourses(Set<CourseEntity> courses) {
+    public SchoolEntity setCourses(List<CourseEntity> courses) {
         this.courses = courses;
         return this;
     }
 
-    public Set<TeacherEntity> getTeachers() {
+    public List<TeacherEntity> getTeachers() {
         return teachers;
     }
 
-    public SchoolEntity setTeachers(Set<TeacherEntity> teachers) {
+    public SchoolEntity setTeachers(List<TeacherEntity> teachers) {
         this.teachers = teachers;
         return this;
     }

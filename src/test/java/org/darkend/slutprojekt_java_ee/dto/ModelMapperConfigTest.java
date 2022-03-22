@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
-import java.util.Set;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -37,14 +37,14 @@ class ModelMapperConfigTest {
 
             CourseEntity course = new CourseEntity().setId(1L)
                     .setName("Name")
-                    .setStudents(Set.of(student))
+                    .setStudents(List.of(student))
                     .setTeacher(teacher);
 
             school = new SchoolEntity().setId(1L)
                     .setName("Name")
-                    .setStudents(Set.of(student))
-                    .setTeachers(Set.of(teacher))
-                    .setCourses(Set.of(course))
+                    .setStudents(List.of(student))
+                    .setTeachers(List.of(teacher))
+                    .setCourses(List.of(course))
                     .setAddress("Address")
                     .setCity("City");
 
@@ -67,16 +67,16 @@ class ModelMapperConfigTest {
 
             CourseDTO courseDto = new CourseDTO().setId(1L)
                     .setName("Name")
-                    .setStudents(Set.of(studentDto))
+                    .setStudents(List.of(studentDto))
                     .setTeacher(teacherDto);
 
             SchoolDTO schoolDto = new SchoolDTO().setId(1L)
                     .setName("Name")
                     .setCity("City")
                     .setAddress("Address")
-                    .setStudents(Set.of(studentDto))
-                    .setTeachers(Set.of(teacherDto))
-                    .setCourses(Set.of(courseDto));
+                    .setStudents(List.of(studentDto))
+                    .setTeachers(List.of(teacherDto))
+                    .setCourses(List.of(courseDto));
 
             PrincipalDTO principalDto = new PrincipalDTO().setId(1L)
                     .setFullName("First Last");
@@ -106,16 +106,16 @@ class ModelMapperConfigTest {
 
             CourseDTO courseDto = new CourseDTO().setId(1L)
                     .setName("Name")
-                    .setStudents(Set.of(studentDto))
+                    .setStudents(List.of(studentDto))
                     .setTeacher(teacherDto);
 
             schoolDto = new SchoolDTO().setId(1L)
                     .setName("Name")
                     .setCity("City")
                     .setAddress("Address")
-                    .setStudents(Set.of(studentDto))
-                    .setTeachers(Set.of(teacherDto))
-                    .setCourses(Set.of(courseDto));
+                    .setStudents(List.of(studentDto))
+                    .setTeachers(List.of(teacherDto))
+                    .setCourses(List.of(courseDto));
 
             PrincipalDTO principalDto = new PrincipalDTO().setId(1L)
                     .setFullName("First Last");
@@ -137,14 +137,14 @@ class ModelMapperConfigTest {
 
             CourseEntity course = new CourseEntity().setId(1L)
                     .setName("Name")
-                    .setStudents(Set.of(student))
+                    .setStudents(List.of(student))
                     .setTeacher(teacher);
 
             SchoolEntity school = new SchoolEntity().setId(1L)
                     .setName("Name")
-                    .setStudents(Set.of(student))
-                    .setTeachers(Set.of(teacher))
-                    .setCourses(Set.of(course))
+                    .setStudents(List.of(student))
+                    .setTeachers(List.of(teacher))
+                    .setCourses(List.of(course))
                     .setAddress("Address")
                     .setCity("City");
 
