@@ -22,9 +22,7 @@ import java.util.List;
 public class CourseController {
 
     private final CourseService courseService;
-
     private final Logger logger = LoggerFactory.getLogger(CourseController.class);
-
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
