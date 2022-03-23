@@ -40,13 +40,12 @@ public class RoleEntity {
         return this;
     }
 
-    public Set<UserEntity> getUsers() {
-        return users;
-    }
-
-    public RoleEntity setUsers(Set<UserEntity> users) {
-        this.users = users;
-        return this;
+    @Override
+    public String toString() {
+        return "RoleEntity{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
     }
 
     @Override
