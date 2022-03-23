@@ -1,0 +1,12 @@
+autofix: true
+
+ignore:
+  - target/
+  - badges/branches.svg
+  - badges/jacoco.svg
+
+rules:
+  end-of-file:
+    enable: true
+    disable-autofix: true
+    single-new-line: true
