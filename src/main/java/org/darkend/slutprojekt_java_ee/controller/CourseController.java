@@ -1,6 +1,7 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
 import org.darkend.slutprojekt_java_ee.dto.CourseDto;
+import org.darkend.slutprojekt_java_ee.dto.ObjectToJson;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class CourseController {
 
     @PostMapping()
     public ResponseEntity<CourseDto> createCourse(@RequestBody CourseDto course) {
-        logger.warn(String.format("Received POST request with JSON body: %s", course));
+        logger.warn(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(course)));
         CourseDto createdCourse = courseService.createCourse(course);
         return ResponseEntity.created(URI.create("/courses/" + createdCourse.getId()))
                 .body(createdCourse);
