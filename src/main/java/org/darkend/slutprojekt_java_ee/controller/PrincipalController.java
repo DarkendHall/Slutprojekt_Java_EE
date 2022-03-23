@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
+import org.darkend.slutprojekt_java_ee.dto.ObjectToJson;
 import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
 import org.darkend.slutprojekt_java_ee.service.PrincipalService;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ public class PrincipalController {
 
     @PostMapping()
     public ResponseEntity<PrincipalDto> createPrincipal(@RequestBody PrincipalDto principal) {
-        logger.warn(String.format("Received POST request with JSON body: %s", principal));
+        logger.warn(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(principal)));
         PrincipalDto createdPrincipal = principalService.createPrincipal(principal);
         return ResponseEntity.created(URI.create("/principals/" + createdPrincipal.getId()))
                 .body(createdPrincipal);

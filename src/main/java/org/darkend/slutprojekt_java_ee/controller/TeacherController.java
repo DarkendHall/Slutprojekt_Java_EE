@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
+import org.darkend.slutprojekt_java_ee.dto.ObjectToJson;
 import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.service.TeacherService;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class TeacherController {
 
     @PostMapping()
     public ResponseEntity<TeacherDto> createTeacher(@RequestBody TeacherDto teacher) {
-        logger.warn(String.format("Received POST request with JSON body: %s", teacher));
+        logger.warn(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(teacher)));
         TeacherDto createdTeacher = teacherService.createTeacher(teacher);
         return ResponseEntity.created(URI.create("/teachers/" + createdTeacher.getId()))
                 .body(createdTeacher);
