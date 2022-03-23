@@ -1,16 +1,16 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class SchoolEntity {
@@ -31,12 +31,14 @@ public class SchoolEntity {
     @OneToOne(targetEntity = PrincipalEntity.class)
     private PrincipalEntity principal;
 
-    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<StudentEntity> students = new HashSet<>();
+    @OneToMany
+    private List<StudentEntity> students = new ArrayList<>();
 
-    public Set<StudentEntity> getStudents() {
-        return students;
-    }
+    @OneToMany
+    private List<CourseEntity> courses = new ArrayList<>();
+
+    @ManyToMany
+    private List<TeacherEntity> teachers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -83,9 +85,45 @@ public class SchoolEntity {
         return this;
     }
 
-    public SchoolEntity setStudents(Set<StudentEntity> students) {
+    public List<StudentEntity> getStudents() {
+        return students;
+    }
+
+    public SchoolEntity setStudents(List<StudentEntity> students) {
         this.students = students;
         return this;
+    }
+
+    public List<CourseEntity> getCourses() {
+        return courses;
+    }
+
+    public SchoolEntity setCourses(List<CourseEntity> courses) {
+        this.courses = courses;
+        return this;
+    }
+
+    public List<TeacherEntity> getTeachers() {
+        return teachers;
+    }
+
+    public SchoolEntity setTeachers(List<TeacherEntity> teachers) {
+        this.teachers = teachers;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "SchoolEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", principal=" + principal +
+                ", students=" + students +
+                ", courses=" + courses +
+                ", teachers=" + teachers +
+                '}';
     }
 
     @Override
@@ -96,11 +134,12 @@ public class SchoolEntity {
         return Objects.equals(id, that.id) && Objects.equals(name,
                 that.name) && Objects.equals(city, that.city) && Objects.equals(address,
                 that.address) && Objects.equals(principal, that.principal) && Objects.equals(students,
-                that.students);
+                that.students) && Objects.equals(courses, that.courses) && Objects.equals(teachers,
+                that.teachers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, city, address, principal, students);
+        return Objects.hash(id, name, city, address, principal, students, courses, teachers);
     }
 }

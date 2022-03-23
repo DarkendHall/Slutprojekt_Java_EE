@@ -1,18 +1,13 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class StudentEntity {
@@ -32,15 +27,9 @@ public class StudentEntity {
     @NotEmpty
     private String email;
 
-    @Size(min = 10, max = 10)
+    @NotNull
     private String phoneNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private SchoolEntity school;
-
-    @NotEmpty
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
-    private Set<CourseEntity> course = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -87,22 +76,15 @@ public class StudentEntity {
         return this;
     }
 
-    public SchoolEntity getSchool() {
-        return school;
-    }
-
-    public StudentEntity setSchool(SchoolEntity school) {
-        this.school = school;
-        return this;
-    }
-
-    public StudentEntity setCourse(Set<CourseEntity> course) {
-        this.course = course;
-        return this;
-    }
-
-    public Set<CourseEntity> getCourse() {
-        return course;
+    @Override
+    public String toString() {
+        return "StudentEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 
     @Override
@@ -112,12 +94,11 @@ public class StudentEntity {
         StudentEntity that = (StudentEntity) o;
         return Objects.equals(id, that.id) && Objects.equals(firstName,
                 that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email,
-                that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(school,
-                that.school) && Objects.equals(course, that.course);
+                that.email) && Objects.equals(phoneNumber, that.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, phoneNumber, school, course);
+        return Objects.hash(id, firstName, lastName, email, phoneNumber);
     }
 }

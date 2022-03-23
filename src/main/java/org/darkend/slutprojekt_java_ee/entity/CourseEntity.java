@@ -9,8 +9,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class CourseEntity {
@@ -25,14 +26,10 @@ public class CourseEntity {
 
     @NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<StudentEntity> students;
+    private List<StudentEntity> students = new ArrayList<>();
 
-    @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     private TeacherEntity teacher;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<SubjectEntity> subjects;
 
     public Long getId() {
         return id;
@@ -52,11 +49,11 @@ public class CourseEntity {
         return this;
     }
 
-    public Set<StudentEntity> getStudents() {
+    public List<StudentEntity> getStudents() {
         return students;
     }
 
-    public CourseEntity setStudents(Set<StudentEntity> students) {
+    public CourseEntity setStudents(List<StudentEntity> students) {
         this.students = students;
         return this;
     }
@@ -70,13 +67,16 @@ public class CourseEntity {
         return this;
     }
 
-    public Set<SubjectEntity> getSubjects() {
-        return subjects;
-    }
 
-    public CourseEntity setSubjects(Set<SubjectEntity> subjects) {
-        this.subjects = subjects;
-        return this;
+    @Override
+    public String
+    toString() {
+        return "CourseEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", students=" + students +
+                ", teacher=" + teacher +
+                '}';
     }
 
     @Override
@@ -86,11 +86,11 @@ public class CourseEntity {
         CourseEntity that = (CourseEntity) o;
         return Objects.equals(id, that.id) && Objects.equals(name,
                 that.name) && Objects.equals(students, that.students) && Objects.equals(teacher,
-                that.teacher) && Objects.equals(subjects, that.subjects);
+                that.teacher);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, students, teacher, subjects);
+        return Objects.hash(id, name, students, teacher);
     }
 }
