@@ -1,5 +1,10 @@
 autofix: true
 
+ignore:
+  - target/
+  - branches/jacoco.svg
+  - branches/branches.svg
+
 rules:
   end-of-file:
     enable: true
