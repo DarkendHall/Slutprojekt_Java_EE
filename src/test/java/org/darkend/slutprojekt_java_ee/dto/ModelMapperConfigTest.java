@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import org.assertj.core.api.Assertions;
 import org.darkend.slutprojekt_java_ee.beans.ModelMapperConfig;
 import org.darkend.slutprojekt_java_ee.entity.CourseEntity;
 import org.darkend.slutprojekt_java_ee.entity.PrincipalEntity;
@@ -10,8 +11,10 @@ import org.darkend.slutprojekt_java_ee.entity.TeacherEntity;
 import org.darkend.slutprojekt_java_ee.entity.UserEntity;
 import org.darkend.slutprojekt_java_ee.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.MappingException;
 import org.modelmapper.ModelMapper;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -41,6 +44,20 @@ class ModelMapperConfigTest {
         var result = mapper.map(userDto, UserEntity.class);
 
         assertThat(result).isEqualTo(user);
+    }
+
+    @Test
+    void ifRepositoryReturnsNullThrowException() {
+        Assertions.setMaxStackTraceElementsDisplayed(100);
+        UserDtoIn userDto = new UserDtoIn().setId(1L)
+                .setUsername("username")
+                .setPassword("password")
+                .setRoles(List.of("user"));
+
+        when(roleRepository.findByRole("user")).thenReturn(null);
+
+        assertThatThrownBy(() -> mapper.map(userDto, UserEntity.class)).isInstanceOfAny(MappingException.class,
+                EntityNotFoundException.class);
     }
 
     @Test
