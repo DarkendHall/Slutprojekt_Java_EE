@@ -2,8 +2,8 @@ autofix: true
 
 ignore:
   - target/
-  - branches/jacoco.svg
-  - branches/branches.svg
+  - badges/branches.svg
+  - badges/jacoco.svg
 
 rules:
   end-of-file:
