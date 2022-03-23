@@ -22,16 +22,14 @@ import java.util.List;
 public class TeacherController {
 
     private final TeacherService teacherService;
-
     private final Logger logger = LoggerFactory.getLogger(TeacherService.class);
-
     public TeacherController(TeacherService teacherService) {
         this.teacherService = teacherService;
     }
 
     @PostMapping()
     public ResponseEntity<TeacherDto> createTeacher(@RequestBody TeacherDto teacher) {
-        logger.warn(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(teacher)));
+        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(teacher)));
         TeacherDto createdTeacher = teacherService.createTeacher(teacher);
         return ResponseEntity.created(URI.create("/teachers/" + createdTeacher.getId()))
                 .body(createdTeacher);
@@ -39,7 +37,7 @@ public class TeacherController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
-        logger.warn(String.format("Received DELETE request with ID: %d", id));
+        logger.info(String.format("Received DELETE request with ID: %d", id));
         teacherService.deleteTeacher(id);
         return ResponseEntity.ok()
                 .build();
@@ -47,14 +45,14 @@ public class TeacherController {
 
     @GetMapping("{id}")
     public ResponseEntity<TeacherDto> findTeacherById(@PathVariable Long id) {
-        logger.warn(String.format("Received GET request with ID: %d", id));
+        logger.info(String.format("Received GET request with ID: %d", id));
         TeacherDto foundTeacher = teacherService.findTeacherById(id);
         return ResponseEntity.ok(foundTeacher);
     }
 
     @GetMapping()
     public ResponseEntity<List<TeacherDto>> findAllTeachers() {
-        logger.warn("Received GET request for all teachers");
+        logger.info("Received GET request for all teachers");
         List<TeacherDto> allTeachers = teacherService.findAllTeachers();
         return ResponseEntity.ok(allTeachers);
     }

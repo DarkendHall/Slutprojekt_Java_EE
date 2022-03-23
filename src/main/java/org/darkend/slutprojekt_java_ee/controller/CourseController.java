@@ -31,7 +31,7 @@ public class CourseController {
 
     @PostMapping()
     public ResponseEntity<CourseDto> createCourse(@RequestBody CourseDto course) {
-        logger.warn(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(course)));
+        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(course)));
         CourseDto createdCourse = courseService.createCourse(course);
         return ResponseEntity.created(URI.create("/courses/" + createdCourse.getId()))
                 .body(createdCourse);
@@ -39,7 +39,7 @@ public class CourseController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
-        logger.warn(String.format("Received DELETE request with ID: %d", id));
+        logger.info(String.format("Received DELETE request with ID: %d", id));
         courseService.deleteCourse(id);
         return ResponseEntity.ok()
                 .build();
@@ -47,14 +47,14 @@ public class CourseController {
 
     @GetMapping("{id}")
     public ResponseEntity<CourseDto> findCourseById(@PathVariable Long id) {
-        logger.warn(String.format("Received GET request with ID: %d", id));
+        logger.info(String.format("Received GET request with ID: %d", id));
         CourseDto foundCourse = courseService.findCourseById(id);
         return ResponseEntity.ok(foundCourse);
     }
 
     @GetMapping()
     public ResponseEntity<List<CourseDto>> findAllCourses() {
-        logger.warn("Received GET request for all courses");
+        logger.info("Received GET request for all courses");
         List<CourseDto> allCourses = courseService.findAllCourses();
         return ResponseEntity.ok(allCourses);
     }

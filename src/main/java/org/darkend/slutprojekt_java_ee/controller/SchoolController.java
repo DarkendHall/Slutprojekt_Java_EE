@@ -22,17 +22,14 @@ import java.util.List;
 public class SchoolController {
 
     private final SchoolService schoolService;
-
     private final Logger logger = LoggerFactory.getLogger(SchoolController.class);
-
-
     public SchoolController(SchoolService schoolService) {
         this.schoolService = schoolService;
     }
 
     @PostMapping()
     public ResponseEntity<SchoolDto> createSchool(@RequestBody SchoolDto school) {
-        logger.warn(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(school)));
+        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(school)));
         SchoolDto createdSchool = schoolService.createSchool(school);
         return ResponseEntity.created(URI.create("/schools/" + createdSchool.getId()))
                 .body(createdSchool);
@@ -40,7 +37,7 @@ public class SchoolController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteSchool(@PathVariable Long id) {
-        logger.warn(String.format("Received DELETE request with ID: %d", id));
+        logger.info(String.format("Received DELETE request with ID: %d", id));
         schoolService.deleteSchool(id);
         return ResponseEntity.ok()
                 .build();
@@ -48,14 +45,14 @@ public class SchoolController {
 
     @GetMapping("{id}")
     public ResponseEntity<SchoolDto> findSchoolById(@PathVariable Long id) {
-        logger.warn(String.format("Received GET request with ID: %d", id));
+        logger.info(String.format("Received GET request with ID: %d", id));
         SchoolDto foundSchool = schoolService.findSchoolById(id);
         return ResponseEntity.ok(foundSchool);
     }
 
     @GetMapping()
     public ResponseEntity<List<SchoolDto>> findAllSchools() {
-        logger.warn("Received GET request for all schools");
+        logger.info("Received GET request for all schools");
         List<SchoolDto> allSchools = schoolService.findAllSchools();
         return ResponseEntity.ok(allSchools);
     }

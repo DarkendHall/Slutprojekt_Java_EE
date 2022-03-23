@@ -22,16 +22,14 @@ import java.util.List;
 public class StudentController {
 
     private final StudentService studentService;
-
     private final Logger logger = LoggerFactory.getLogger(StudentController.class);
-
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @PostMapping()
     public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto student) {
-        logger.warn(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(student)));
+        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(student)));
         StudentDto createdStudent = studentService.createStudent(student);
         return ResponseEntity.created(URI.create("/students/" + createdStudent.getId()))
                 .body(createdStudent);
@@ -39,7 +37,7 @@ public class StudentController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
-        logger.warn(String.format("Received DELETE request with ID: %d", id));
+        logger.info(String.format("Received DELETE request with ID: %d", id));
         studentService.deleteStudent(id);
         return ResponseEntity.ok()
                 .build();
@@ -47,14 +45,14 @@ public class StudentController {
 
     @GetMapping("{id}")
     public ResponseEntity<StudentDto> findStudentById(@PathVariable Long id) {
-        logger.warn(String.format("Received GET request with ID: %d", id));
+        logger.info(String.format("Received GET request with ID: %d", id));
         var foundStudent = studentService.findStudentById(id);
         return ResponseEntity.ok(foundStudent);
     }
 
     @GetMapping()
     public ResponseEntity<List<StudentDto>> findAllStudents() {
-        logger.warn("Received GET request for all students");
+        logger.info("Received GET request for all students");
         List<StudentDto> allStudents = studentService.findAllStudents();
         return ResponseEntity.ok(allStudents);
     }
