@@ -23,6 +23,7 @@ public class SchoolController {
 
     private final SchoolService schoolService;
     private final Logger logger = LoggerFactory.getLogger(SchoolController.class);
+
     public SchoolController(SchoolService schoolService) {
         this.schoolService = schoolService;
     }

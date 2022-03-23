@@ -23,6 +23,7 @@ public class PrincipalController {
 
     private final PrincipalService principalService;
     private final Logger logger = LoggerFactory.getLogger(PrincipalController.class);
+
     public PrincipalController(PrincipalService principalService) {
         this.principalService = principalService;
     }
