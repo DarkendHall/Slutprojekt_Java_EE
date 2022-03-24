@@ -55,6 +55,10 @@ class ObjectToJsonTest {
         assertThat(result).isEqualTo("{\"fullName\":\"test test\"}");
     }
 
+    //{
+    //  "name" : "test"
+    //}
+
     @Test
     void nullValuesShouldNotBeIncludedWithCourseDto() {
         var result = ObjectToJson.convert(new CourseDto().setId(null)

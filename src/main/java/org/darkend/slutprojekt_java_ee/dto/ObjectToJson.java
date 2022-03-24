@@ -12,7 +12,8 @@ public class ObjectToJson {
     public static String convert(Object o) {
         try {
             return ow.writeValueAsString(o)
-                    .replace("\r\n", "")
+                    .replace("\r", "")
+                    .replace("\n", "")
                     .replace("  ", "")
                     .replace(" : ", ":")
                     .replace(", ", ",")
