@@ -1,10 +1,12 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
 @Service
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class StudentDto implements NameDto {
 
     private Long id;
