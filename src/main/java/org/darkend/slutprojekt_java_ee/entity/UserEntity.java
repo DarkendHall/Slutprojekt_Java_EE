@@ -84,12 +84,12 @@ public class UserEntity {
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
         return Objects.equals(id, that.id) && Objects.equals(username,
-                that.username) && Objects.equals(password, that.password) && Objects.equals(roles,
+                that.username) && Objects.equals(roles,
                 that.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, roles);
+        return Objects.hash(id, username, roles);
     }
 }
