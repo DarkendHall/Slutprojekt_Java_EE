@@ -4,10 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class ObjectToJsonTest {
 
@@ -15,7 +13,7 @@ class ObjectToJsonTest {
     void convertShouldReturnObjectAsString() {
         var result = ObjectToJson.convert(List.of("test", "test2", "test3", "test4"));
 
-        assertThat(result).isEqualTo("\r\n[ \"test\", \"test2\", \"test3\", \"test4\" ]");
+        assertThat(result).isEqualTo("[\"test\",\"test2\",\"test3\",\"test4\"]");
     }
 
     @Test
@@ -30,7 +28,7 @@ class ObjectToJsonTest {
         var result = ObjectToJson.convert(new TeacherDto().setId(null)
                 .setFullName("test test"));
 
-        assertThat(result).isEqualTo("\r\n{\r\n  \"fullName\" : \"test test\"\r\n}");
+        assertThat(result).isEqualTo("{\"fullName\":\"test test\"}");
     }
 
     @Test
@@ -38,7 +36,7 @@ class ObjectToJsonTest {
         var result = ObjectToJson.convert(new PrincipalDto().setId(null)
                 .setFullName("test test"));
 
-        assertThat(result).isEqualTo("\r\n{\r\n  \"fullName\" : \"test test\"\r\n}");
+        assertThat(result).isEqualTo("{\"fullName\":\"test test\"}");
     }
 
     @Test
@@ -46,7 +44,7 @@ class ObjectToJsonTest {
         var result = ObjectToJson.convert(new SchoolDto().setId(null)
                 .setName("test"));
 
-        assertThat(result).isEqualTo("\r\n{\r\n  \"name\" : \"test\"\r\n}");
+        assertThat(result).isEqualTo("{\"name\":\"test\"}");
     }
 
     @Test
@@ -54,7 +52,7 @@ class ObjectToJsonTest {
         var result = ObjectToJson.convert(new StudentDto().setId(null)
                 .setFullName("test test"));
 
-        assertThat(result).isEqualTo("\r\n{\r\n  \"fullName\" : \"test test\"\r\n}");
+        assertThat(result).isEqualTo("{\"fullName\":\"test test\"}");
     }
 
     @Test
@@ -62,6 +60,6 @@ class ObjectToJsonTest {
         var result = ObjectToJson.convert(new CourseDto().setId(null)
                 .setName("test"));
 
-        assertThat(result).isEqualTo("\r\n{\r\n  \"name\" : \"test\"\r\n}");
+        assertThat(result).isEqualTo("{\"name\":\"test\"}");
     }
 }
