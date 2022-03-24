@@ -77,7 +77,6 @@ class SchoolServiceTest {
                     .setStudents(List.of(studentEntity))
                     .setTeacher(teacherEntity)));
 
-
     @BeforeEach
     void setUp() {
         repository = mock(SchoolRepository.class);

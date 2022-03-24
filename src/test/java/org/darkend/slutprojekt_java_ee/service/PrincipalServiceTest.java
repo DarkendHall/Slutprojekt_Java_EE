@@ -31,7 +31,6 @@ class PrincipalServiceTest {
             .setFirstName("Principal")
             .setLastName("Name");
 
-
     @BeforeEach
     void setUp() {
         repository = mock(PrincipalRepository.class);

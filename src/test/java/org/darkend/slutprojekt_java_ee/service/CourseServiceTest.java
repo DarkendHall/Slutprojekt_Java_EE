@@ -48,7 +48,6 @@ class CourseServiceTest {
                     .setFirstName("Teacher")
                     .setLastName("Name"));
 
-
     @BeforeEach
     void setUp() {
         repository = mock(CourseRepository.class);
