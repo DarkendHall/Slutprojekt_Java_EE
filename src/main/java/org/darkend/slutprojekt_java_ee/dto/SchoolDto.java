@@ -90,9 +90,8 @@ public class SchoolDto {
     }
 
     @Override
-    public String
-    toString() {
-        return "SchoolDTO{" +
+    public String toString() {
+        return "SchoolDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", city='" + city + '\'' +
@@ -108,12 +107,12 @@ public class SchoolDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SchoolDto schoolDTO = (SchoolDto) o;
-        return Objects.equals(id, schoolDTO.id) && Objects.equals(name,
-                schoolDTO.name) && Objects.equals(city, schoolDTO.city) && Objects.equals(address,
-                schoolDTO.address) && Objects.equals(principal, schoolDTO.principal) && Objects.equals(
-                students, schoolDTO.students) && Objects.equals(courses,
-                schoolDTO.courses) && Objects.equals(teachers, schoolDTO.teachers);
+        SchoolDto schoolDto = (SchoolDto) o;
+        return Objects.equals(id, schoolDto.id) && Objects.equals(name,
+                schoolDto.name) && Objects.equals(city, schoolDto.city) && Objects.equals(address,
+                schoolDto.address) && Objects.equals(principal, schoolDto.principal) && Objects.equals(
+                students, schoolDto.students) && Objects.equals(courses,
+                schoolDto.courses) && Objects.equals(teachers, schoolDto.teachers);
     }
 
     @Override
