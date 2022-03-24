@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
+import java.util.Set;
 
 @Configuration
 public class StartUpConfig {
@@ -19,19 +20,20 @@ public class StartUpConfig {
     public CommandLineRunner setUpRoles(RoleRepository roleRepository, UserRepository userRepository,
                                         PasswordEncoder passwordEncoder) {
         return (args) -> {
+            if (roleRepository.findByRole("ROLE_USER") == null)
+                roleRepository.save(new RoleEntity("ROLE_USER"));
+            if (roleRepository.findByRole("ROLE_ADMIN") == null)
+                roleRepository.save(new RoleEntity("ROLE_ADMIN"));
+
             Map<String, String> env = System.getenv();
             String password = passwordEncoder.encode(env.get("PASSWORD"));
             UserEntity standardUser = new UserEntity().setId(1L)
                     .setUsername("user")
-                    .setPassword(password);
+                    .setPassword(password)
+                    .setRoles(Set.of(roleRepository.findByRole("ROLE_USER")));
 
-            if (roleRepository.findByRole("ROLE_ADMIN") == null)
-                roleRepository.save(new RoleEntity("ROLE_ADMIN"));
-            if (roleRepository.findByRole("ROLE_USER") == null)
-                roleRepository.save(new RoleEntity("ROLE_USER"));
-            if (userRepository.findById(1L)
-                    .equals(Optional.empty()) || !userRepository.findById(1L)
-                    .equals(Optional.of(standardUser)))
+            if (userRepository.findByUsername("user") != null ||
+                    Objects.equals(userRepository.findByUsername("user"), standardUser))
                 userRepository.save(standardUser);
         };
     }
