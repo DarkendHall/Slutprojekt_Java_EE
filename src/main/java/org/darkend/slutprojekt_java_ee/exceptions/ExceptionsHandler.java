@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.exceptions;
 
+import org.modelmapper.MappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -33,5 +34,14 @@ public class ExceptionsHandler {
 
         return new ResponseEntity<>(new ExceptionAsJson(LocalDateTime.now()
                 .format(dateTimeFormatter), HttpStatus.NOT_FOUND, e.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MappingException.class)
+    public ResponseEntity<Object> handleMapping(MappingException e) {
+        logger.warn(e.getMessage());
+
+        return ResponseEntity.badRequest()
+                .body(new ExceptionAsJson(LocalDateTime.now()
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 }
