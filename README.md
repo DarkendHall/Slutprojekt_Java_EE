@@ -6,8 +6,7 @@
 
 This is the project for the group project for the course Java Enterprise.
 
-### Associations
-
+<details> <summary><b>Associations</b></summary>
 Course:
 
 * Students (ManyToMany)
@@ -20,7 +19,6 @@ School:
 * Courses (OneToMany)
 * Teachers (ManyToMany)
 
---------------------
 Role:
 
 * Users (ManyToMany)
@@ -29,6 +27,26 @@ User:
 
 * Roles (ManyToMany)
 
-### JSON
+</details>
+<p></p>
+<details> <summary><b>Endpoints & JSON</b></summary>
 
-### ENDPOINTS
+Send a post request to /users/signup with JSON body:
+
+```JSON
+{
+  "username:": "<Username>",
+  "password": "<Password>"
+} 
+```
+
+Login with the same details at [/swagger-ui](http://localhost:8080/swagger-ui/)
+
+There you will find a complete list of all available endpoints as well as JSON bodies.
+</details>
+
+The people who worked on this project:
+
+* Marcus Leeman
+* Oscar Stjernfeldt
+* Christian Löfqvist
