@@ -6,19 +6,11 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 public class ObjectToJson {
 
-    private static final ObjectWriter ow = new ObjectMapper().writer()
-            .withDefaultPrettyPrinter();
+    private static final ObjectWriter ow = new ObjectMapper().writer();
 
     public static String convert(Object o) {
         try {
-            return ow.writeValueAsString(o)
-                    .replace("\r", "")
-                    .replace("\n", "")
-                    .replace("  ", "")
-                    .replace(" : ", ":")
-                    .replace(", ", ",")
-                    .replace("[ ", "[")
-                    .replace(" ]", "]");
+            return ow.writeValueAsString(o);
         } catch (JsonProcessingException e) {
             throw new IllegalArgumentException("Error converting object to JSON");
         }
