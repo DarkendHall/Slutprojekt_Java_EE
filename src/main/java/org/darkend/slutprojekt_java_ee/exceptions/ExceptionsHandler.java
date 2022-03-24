@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @ControllerAdvice
 public class ExceptionsHandler {
+
     private final Logger logger = LoggerFactory.getLogger(ExceptionsHandler.class);
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException e) {
@@ -21,7 +24,7 @@ public class ExceptionsHandler {
 
         return ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now()
-                        .toString(), HttpStatus.BAD_REQUEST, e.getMessage()));
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -29,6 +32,6 @@ public class ExceptionsHandler {
         logger.warn(e.getMessage());
 
         return new ResponseEntity<>(new ExceptionAsJson(LocalDateTime.now()
-                .toString(), HttpStatus.NOT_FOUND, e.getMessage()), HttpStatus.NOT_FOUND);
+                .format(dateTimeFormatter), HttpStatus.NOT_FOUND, e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }
