@@ -31,7 +31,7 @@ jobs:
         run: mvn -B test --file pom.xml
       - name: Report Test Results
         if: ${{ github.event_name == 'push' }}
-        run: mvn -b surefire-report:report-only --file pom.xml
+        run: mvn -B surefire-report:report-only --file pom.xml
       - name: Upload Test Results
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
