@@ -1,32 +1,17 @@
-package org.darkend.slutprojekt_java_ee.entity;
+package org.darkend.slutprojekt_java_ee.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Objects;
 
-@Entity
-public class RoleEntity {
+public class RoleDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String role;
-
-    public RoleEntity() {
-    }
-
-    public RoleEntity(String role) {
-        this.role = role;
-    }
 
     public Long getId() {
         return id;
     }
 
-    public RoleEntity setId(Long id) {
+    public RoleDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -35,14 +20,14 @@ public class RoleEntity {
         return role;
     }
 
-    public RoleEntity setRole(String role) {
+    public RoleDto setRole(String role) {
         this.role = role;
         return this;
     }
 
     @Override
     public String toString() {
-        return "RoleEntity{" +
+        return "RoleDto{" +
                 "id=" + id +
                 ", role='" + role + '\'' +
                 '}';
@@ -52,8 +37,8 @@ public class RoleEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoleEntity that = (RoleEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(role, that.role);
+        RoleDto roleDto = (RoleDto) o;
+        return Objects.equals(id, roleDto.id) && Objects.equals(role, roleDto.role);
     }
 
     @Override
