@@ -11,7 +11,13 @@ public class ObjectToJson {
 
     public static String convert(Object o) {
         try {
-            return "\r\n" + ow.writeValueAsString(o);
+            return ow.writeValueAsString(o)
+                    .replace("\r\n", "")
+                    .replace("  ", "")
+                    .replace(" : ", ":")
+                    .replace(", ", ",")
+                    .replace("[ ", "[")
+                    .replace(" ]", "]");
         } catch (JsonProcessingException e) {
             throw new IllegalArgumentException("Error converting object to JSON");
         }
