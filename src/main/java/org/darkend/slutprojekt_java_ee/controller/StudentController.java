@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
 import java.net.URI;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @PostMapping()
     public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto student) {
         StudentDto createdStudent = studentService.createStudent(student);
@@ -31,6 +33,7 @@ public class StudentController {
                 .body(createdStudent);
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
@@ -38,12 +41,14 @@ public class StudentController {
                 .build();
     }
 
+    @RolesAllowed("ROLE_USER")
     @GetMapping("{id}")
     public ResponseEntity<StudentDto> findStudentById(@PathVariable Long id) {
         var foundStudent = studentService.findStudentById(id);
         return ResponseEntity.ok(foundStudent);
     }
 
+    @RolesAllowed("ROLE_USER")
     @GetMapping()
     public ResponseEntity<List<StudentDto>> findAllStudents() {
         List<StudentDto> allStudents = studentService.findAllStudents();
