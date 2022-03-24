@@ -8,6 +8,7 @@ import org.darkend.slutprojekt_java_ee.entity.CourseEntity;
 import org.darkend.slutprojekt_java_ee.entity.StudentEntity;
 import org.darkend.slutprojekt_java_ee.entity.TeacherEntity;
 import org.darkend.slutprojekt_java_ee.repository.CourseRepository;
+import org.darkend.slutprojekt_java_ee.repository.RoleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.MappingException;
@@ -51,7 +52,7 @@ class CourseServiceTest {
     @BeforeEach
     void setUp() {
         repository = mock(CourseRepository.class);
-        ModelMapper mapper = ModelMapperConfig.getModelMapper();
+        ModelMapper mapper = ModelMapperConfig.getModelMapper(mock(RoleRepository.class));
         service = new CourseService(repository, mapper);
         when(repository.save(courseEntity)).thenReturn(courseEntity);
         when(repository.findById(1L)).thenReturn(Optional.of(courseEntity));

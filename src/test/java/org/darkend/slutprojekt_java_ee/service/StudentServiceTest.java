@@ -3,6 +3,7 @@ package org.darkend.slutprojekt_java_ee.service;
 import org.darkend.slutprojekt_java_ee.beans.ModelMapperConfig;
 import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.entity.StudentEntity;
+import org.darkend.slutprojekt_java_ee.repository.RoleRepository;
 import org.darkend.slutprojekt_java_ee.repository.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class StudentServiceTest {
     @BeforeEach
     void setUp() {
         repository = mock(StudentRepository.class);
-        ModelMapper mapper = ModelMapperConfig.getModelMapper();
+        ModelMapper mapper = ModelMapperConfig.getModelMapper(mock(RoleRepository.class));
         service = new StudentService(repository, mapper);
         when(repository.save(studentEntity)).thenReturn(studentEntity);
         when(repository.findById(1L)).thenReturn(Optional.of(studentEntity));

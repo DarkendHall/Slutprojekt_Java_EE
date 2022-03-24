@@ -4,6 +4,7 @@ import org.darkend.slutprojekt_java_ee.beans.ModelMapperConfig;
 import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
 import org.darkend.slutprojekt_java_ee.entity.PrincipalEntity;
 import org.darkend.slutprojekt_java_ee.repository.PrincipalRepository;
+import org.darkend.slutprojekt_java_ee.repository.RoleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.MappingException;
@@ -34,7 +35,7 @@ class PrincipalServiceTest {
     @BeforeEach
     void setUp() {
         repository = mock(PrincipalRepository.class);
-        ModelMapper mapper = ModelMapperConfig.getModelMapper();
+        ModelMapper mapper = ModelMapperConfig.getModelMapper(mock(RoleRepository.class));
         service = new PrincipalService(repository, mapper);
         when(repository.save(principalEntity)).thenReturn(principalEntity);
         when(repository.findById(1L)).thenReturn(Optional.of(principalEntity));
