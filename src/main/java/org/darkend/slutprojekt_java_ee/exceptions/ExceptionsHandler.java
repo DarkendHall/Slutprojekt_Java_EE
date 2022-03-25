@@ -26,7 +26,7 @@ public class ExceptionsHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException e) {
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e) {
         logger.warn(e.getMessage());
 
         return ResponseEntity.badRequest()
@@ -35,7 +35,7 @@ public class ExceptionsHandler {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException e) {
+    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException e) {
         logger.warn(e.getMessage());
 
         return new ResponseEntity<>(new ExceptionAsJson(LocalDateTime.now(clock)
@@ -43,7 +43,7 @@ public class ExceptionsHandler {
     }
 
     @ExceptionHandler(MappingException.class)
-    public ResponseEntity<Object> handleMapping(MappingException e) {
+    public ResponseEntity<Object> handleMappingException(MappingException e) {
         logger.warn(e.getMessage());
 
         return ResponseEntity.badRequest()
