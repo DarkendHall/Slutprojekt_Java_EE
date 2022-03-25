@@ -30,7 +30,7 @@ public class PrincipalDto implements NameDto {
 
     @Override
     public String toString() {
-        return "PrincipalDTO{" +
+        return "PrincipalDto{" +
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 '}';

@@ -52,7 +52,7 @@ public class StudentDto implements NameDto {
 
     @Override
     public String toString() {
-        return "StudentDTO{" +
+        return "StudentDto{" +
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
