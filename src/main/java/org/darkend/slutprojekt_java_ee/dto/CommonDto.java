@@ -1,5 +1,7 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import org.darkend.slutprojekt_java_ee.exceptions.InvalidNameException;
+
 public class CommonDto {
 
     public static String generateFullName(String firstName, String lastName) {
@@ -23,6 +25,6 @@ public class CommonDto {
 
     private static void checkLength(String[] names) {
         if (names.length != 2)
-            throw new IllegalArgumentException("Please provide first- and lastname");
+            throw new InvalidNameException("Please provide first- and lastname");
     }
 }
