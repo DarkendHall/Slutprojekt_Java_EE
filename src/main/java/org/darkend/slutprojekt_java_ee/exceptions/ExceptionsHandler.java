@@ -50,4 +50,14 @@ public class ExceptionsHandler {
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
                         .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
     }
+
+    @ExceptionHandler(InvalidNameException.class)
+    public ResponseEntity<Object> handleInvalidNameException(InvalidNameException e) {
+        logger.warn(e.getMessage());
+
+        return ResponseEntity.badRequest()
+                .body(new ExceptionAsJson(LocalDateTime.now(clock)
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
+
+    }
 }
