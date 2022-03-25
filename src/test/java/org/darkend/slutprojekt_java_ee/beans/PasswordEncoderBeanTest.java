@@ -5,11 +5,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.*;
 
-class PasswordEncoderConfigTest {
+class PasswordEncoderBeanTest {
 
     @Test
     void passwordEncoderShouldReturnPasswordEncoder() {
-        assertThat(new PasswordEncoderConfig().passwordEncoder()).isInstanceOf(PasswordEncoder.class);
+        assertThat(new PasswordEncoderBean().passwordEncoder()).isInstanceOf(PasswordEncoder.class);
     }
 
 }
