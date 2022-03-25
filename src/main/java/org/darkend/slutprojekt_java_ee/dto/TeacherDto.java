@@ -30,7 +30,7 @@ public class TeacherDto implements NameDto {
 
     @Override
     public String toString() {
-        return "TeacherDTO{" +
+        return "TeacherDto{" +
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 '}';
