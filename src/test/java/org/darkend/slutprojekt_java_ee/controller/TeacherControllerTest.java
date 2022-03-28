@@ -1,6 +1,7 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
 import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
+import org.darkend.slutprojekt_java_ee.exceptions.ExceptionsHandler;
 import org.darkend.slutprojekt_java_ee.service.TeacherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,13 +10,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Clock;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -96,5 +100,14 @@ class TeacherControllerTest {
                 .andExpect(jsonPath("$.id").value(teacher.getId()))
                 .andExpect(jsonPath("$.fullName").value(teacher.getFullName()))
                 .andExpect(status().isCreated());
+    }
+
+    @TestConfiguration
+    static class TestConfig {
+
+        @Bean
+        public Clock clock() {
+            return Clock.systemDefaultZone();
+        }
     }
 }
