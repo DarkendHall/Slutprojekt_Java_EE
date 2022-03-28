@@ -17,7 +17,8 @@ public class SpringFoxConfig {
 
     @Bean
     public Docket docket() {
-        return new Docket(DocumentationType.SWAGGER_2).select()
+        return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false)
+                .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
