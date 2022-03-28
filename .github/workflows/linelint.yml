@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ main ]
 jobs:
-  build:
+  linelint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main branch
