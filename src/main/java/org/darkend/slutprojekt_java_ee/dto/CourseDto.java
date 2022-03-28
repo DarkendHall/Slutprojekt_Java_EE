@@ -1,8 +1,11 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CourseDto {
 
     private Long id;
@@ -48,7 +51,7 @@ public class CourseDto {
 
     @Override
     public String toString() {
-        return "CourseDTO{" +
+        return "CourseDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", students=" + students +
@@ -60,10 +63,10 @@ public class CourseDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CourseDto courseDTO = (CourseDto) o;
-        return Objects.equals(id, courseDTO.id) && Objects.equals(name,
-                courseDTO.name) && Objects.equals(students, courseDTO.students) && Objects.equals(
-                teacher, courseDTO.teacher);
+        CourseDto courseDto = (CourseDto) o;
+        return Objects.equals(id, courseDto.id) && Objects.equals(name,
+                courseDto.name) && Objects.equals(students, courseDto.students) && Objects.equals(
+                teacher, courseDto.teacher);
     }
 
     @Override

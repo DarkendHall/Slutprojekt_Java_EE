@@ -1,7 +1,10 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PrincipalDto implements NameDto {
 
     private Long id;
@@ -27,7 +30,7 @@ public class PrincipalDto implements NameDto {
 
     @Override
     public String toString() {
-        return "PrincipalDTO{" +
+        return "PrincipalDto{" +
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 '}';

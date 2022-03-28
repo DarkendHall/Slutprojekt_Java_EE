@@ -1,10 +1,12 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
 @Service
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class StudentDto implements NameDto {
 
     private Long id;
@@ -50,7 +52,7 @@ public class StudentDto implements NameDto {
 
     @Override
     public String toString() {
-        return "StudentDTO{" +
+        return "StudentDto{" +
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
