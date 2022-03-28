@@ -1,7 +1,14 @@
-package org.darkend.slutprojekt_java_ee.dto;
+package org.darkend.slutprojekt_java_ee.beans;
 
 import org.assertj.core.api.Assertions;
-import org.darkend.slutprojekt_java_ee.beans.ModelMapperConfig;
+import org.darkend.slutprojekt_java_ee.dto.CourseDto;
+import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
+import org.darkend.slutprojekt_java_ee.dto.RoleDto;
+import org.darkend.slutprojekt_java_ee.dto.SchoolDto;
+import org.darkend.slutprojekt_java_ee.dto.StudentDto;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
+import org.darkend.slutprojekt_java_ee.dto.UserDtoIn;
+import org.darkend.slutprojekt_java_ee.dto.UserDtoOut;
 import org.darkend.slutprojekt_java_ee.entity.CourseEntity;
 import org.darkend.slutprojekt_java_ee.entity.PrincipalEntity;
 import org.darkend.slutprojekt_java_ee.entity.RoleEntity;

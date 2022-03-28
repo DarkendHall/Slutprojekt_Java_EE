@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.4</version>
+        <version>2.6.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>org.darkend</groupId>
     <artifactId>Slutprojekt_Java_EE</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>Slutprojekt_Java_EE</name>
     <description>Slutprojekt_Java_EE</description>
     <packaging>jar</packaging>

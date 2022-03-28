@@ -1,5 +1,7 @@
 [![Build status](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/maven.yml/badge.svg)](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/maven.yml)
 [![Qodana](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/qodana.yml/badge.svg)](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/qodana.yml)
+[![LineLint](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/linelint.yml/badge.svg)](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/linelint.yml)
+
 ![Code Coverage](https://raw.githubusercontent.com/DarkendHall/Slutprojekt_Java_EE/badges/jacoco.svg)
 
 # Slutprojekt Java EE
