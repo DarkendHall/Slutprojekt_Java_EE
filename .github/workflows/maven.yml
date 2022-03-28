@@ -43,7 +43,6 @@ jobs:
           generate-summary: true
           fail-on-coverage-decrease: true
       - name: Log coverage percentage(if it changed)
-        if: ${{ github.event_name == 'push' }}
         run: |
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
       - name: Commit and push
