@@ -17,7 +17,7 @@ public class SecurityConfig {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/users/signup")
+                .antMatchers("/", "/index", "/users/signup", "/swagger-ui/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
