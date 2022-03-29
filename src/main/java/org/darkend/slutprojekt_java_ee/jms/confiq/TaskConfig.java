@@ -16,5 +16,4 @@ public class TaskConfig {
     TaskExecutor taskExecutor() {
         return new SimpleAsyncTaskExecutor();
     }
-
 }
