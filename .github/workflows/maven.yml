@@ -42,7 +42,7 @@ jobs:
         with:
           generate-summary: true
           fail-on-coverage-decrease: true
-      - name: Log coverage percentage(if it changed)
+      - name: Log coverage percentage
         run: |
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
       - name: Commit and push
