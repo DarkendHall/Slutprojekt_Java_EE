@@ -1,25 +1,21 @@
 package org.darkend.slutprojekt_java_ee.jms.sender;
 
-import org.darkend.slutprojekt_java_ee.jms.message.MessageObject;
+import org.darkend.slutprojekt_java_ee.entity.MailEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Component
 public class Sender {
 
-    JmsTemplate jmsTemplate;
+    private final JmsTemplate jmsTemplate;
 
     public Sender(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
     }
 
-    public void sendMessage(String msg) {
+    public void sendMessage(MailEntity mail) {
         System.out.println("Sending message...");
-        MessageObject messageObject = new MessageObject(UUID.randomUUID(), msg, LocalDateTime.now());
-        jmsTemplate.convertAndSend("QUEUE", messageObject);
+        jmsTemplate.convertAndSend("QUEUE", mail);
         System.out.println("Message sent!");
     }
 }
