@@ -21,5 +21,4 @@ jobs:
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v5.0.2
         with:
-          linter: jetbrains/qodana-jvm
-          fail-threshold: 0
+          args: --fail-threshold 0
