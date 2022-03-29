@@ -27,7 +27,7 @@ public class MailService {
         this.sender = sender;
     }
 
-    public MailDto createMail(MailDto mailDto, Long courseId) {
+    public MailDto newMail(MailDto mailDto, Long courseId) {
         var courseOptional = courseRepository.findById(courseId);
         var courseEntity = courseOptional.orElseThrow(
                 () -> new EntityNotFoundException("No mail found with ID: " + courseId));

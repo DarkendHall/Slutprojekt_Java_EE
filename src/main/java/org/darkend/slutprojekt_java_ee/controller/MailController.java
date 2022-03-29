@@ -33,6 +33,6 @@ public class MailController {
     public MailDto sendEmail(@RequestBody MailDto mail, @PathVariable Long id) {
         logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(mail)));
 
-        return mailService.createMail(mail, id);
+        return mailService.newMail(mail, id);
     }
 }
