@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v3
-      - name: Checkout badges branch dedicated to storing badges only
+      - name: Checkout badges branch dedicated to storing badges and summary
         uses: actions/checkout@v3
         with:
           ref: badges
