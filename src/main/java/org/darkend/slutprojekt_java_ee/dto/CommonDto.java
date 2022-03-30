@@ -13,7 +13,6 @@ public class CommonDto {
                 .split(" ");
         checkLength(names);
         return names[0];
-
     }
 
     public static String generateLastName(NameDto dto) {

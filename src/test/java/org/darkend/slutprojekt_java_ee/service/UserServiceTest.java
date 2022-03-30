@@ -76,8 +76,8 @@ class UserServiceTest {
         doThrow(new ConstraintViolationException(null, null)).when(userRepository)
                 .save(invalidUserEntity);
 
-        assertThatThrownBy(() -> service.createUser(invalidUserDto)).isInstanceOfAny(
-                ConstraintViolationException.class, MappingException.class);
+        assertThatThrownBy(() -> service.createUser(invalidUserDto)).isInstanceOfAny(ConstraintViolationException.class,
+                MappingException.class);
     }
 
     @Test

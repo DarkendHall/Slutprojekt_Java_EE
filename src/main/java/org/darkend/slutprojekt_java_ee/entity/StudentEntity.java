@@ -30,7 +30,6 @@ public class StudentEntity {
     @NotNull
     private String phoneNumber;
 
-
     public Long getId() {
         return id;
     }
