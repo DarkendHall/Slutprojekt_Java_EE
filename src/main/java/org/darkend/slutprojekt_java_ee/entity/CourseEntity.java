@@ -25,7 +25,6 @@ public class CourseEntity {
     @Size(min = 2)
     private String name;
 
-    @NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
     private List<StudentEntity> students = new ArrayList<>();
 
