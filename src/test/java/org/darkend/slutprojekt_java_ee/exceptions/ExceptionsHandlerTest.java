@@ -1,13 +1,20 @@
 package org.darkend.slutprojekt_java_ee.exceptions;
 
+import org.darkend.slutprojekt_java_ee.controller.CourseController;
+import org.darkend.slutprojekt_java_ee.dto.CourseDto;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.MappingException;
 import org.modelmapper.spi.ErrorMessage;
+import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -19,7 +26,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 class ExceptionsHandlerTest {
 
@@ -85,6 +92,26 @@ class ExceptionsHandlerTest {
         var exception = new InvalidNameException("test");
 
         var result = handler.handleInvalidNameException(exception);
+
+        assertThat(result).isEqualTo(ResponseEntity.badRequest()
+                .body(new ExceptionAsJson(LocalDateTime.now(clock)
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, exception.getMessage())));
+    }
+
+    @Test
+    void handleMethodArgumentNotValidException() throws NoSuchMethodException {
+        Validator validator = Validation.buildDefaultValidatorFactory()
+                .getValidator();
+
+        CourseDto courseDto = new CourseDto().setId(1L);
+        BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(courseDto, "courseDto");
+        SpringValidatorAdapter adapter = new SpringValidatorAdapter(validator);
+        adapter.validate(courseDto, bindingResult);
+        var exception = new MethodArgumentNotValidException(new MethodParameter(
+                CourseController.class.getDeclaredMethod("createCourse", CourseDto.class, HttpServletResponse.class),
+                0), bindingResult);
+
+        var result = handler.handleMethodArgumentNotValidException(exception);
 
         assertThat(result).isEqualTo(ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
