@@ -2,12 +2,19 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PrincipalDto implements NameDto {
 
+    @Null
     private Long id;
+
+    @NotEmpty
+    @Size(min = 5)
     private String fullName;
 
     public Long getId() {
