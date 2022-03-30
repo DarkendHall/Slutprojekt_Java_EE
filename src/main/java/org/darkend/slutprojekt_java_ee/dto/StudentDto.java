@@ -3,15 +3,27 @@ package org.darkend.slutprojekt_java_ee.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Service
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StudentDto implements NameDto {
 
+    @Null
     private Long id;
+
+    @NotEmpty
+    @Size(min = 5)
     private String fullName;
+
+    @NotEmpty
     private String email;
+
+    @NotNull
     private String phoneNumber;
 
     public Long getId() {
