@@ -8,6 +8,7 @@ import org.darkend.slutprojekt_java_ee.service.TeacherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
@@ -45,6 +47,7 @@ public class TeacherController {
         return createdTeacher;
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("{id}")
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized"), @ApiResponse(responseCode = "403", description = "Forbidden")})
@@ -53,6 +56,7 @@ public class TeacherController {
         teacherService.deleteTeacher(id);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("{id}")
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized")})
@@ -61,6 +65,7 @@ public class TeacherController {
         return teacherService.findTeacherById(id);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping()
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized")})
