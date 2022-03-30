@@ -12,6 +12,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 class ExceptionsHandlerTest {
 
@@ -85,6 +86,17 @@ class ExceptionsHandlerTest {
         var exception = new InvalidNameException("test");
 
         var result = handler.handleInvalidNameException(exception);
+
+        assertThat(result).isEqualTo(ResponseEntity.badRequest()
+                .body(new ExceptionAsJson(LocalDateTime.now(clock)
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, exception.getMessage())));
+    }
+
+    @Test
+    void handleSQLIntegrityConstraintsException() {
+        var exception = new SQLIntegrityConstraintViolationException("error");
+
+        var result = handler.handleSQLIntegrityConstraintViolationException(exception);
 
         assertThat(result).isEqualTo(ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)

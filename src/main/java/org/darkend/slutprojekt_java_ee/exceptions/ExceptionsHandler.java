@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -59,5 +60,15 @@ public class ExceptionsHandler {
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
                         .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
 
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Object> handleSQLIntegrityConstraintViolationException(
+            SQLIntegrityConstraintViolationException e) {
+        logger.warn(e.getMessage());
+
+        return ResponseEntity.badRequest()
+                .body(new ExceptionAsJson(LocalDateTime.now(clock)
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
     }
 }
