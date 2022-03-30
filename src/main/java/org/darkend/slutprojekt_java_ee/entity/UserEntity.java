@@ -8,9 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class UserEntity {
@@ -26,7 +26,7 @@ public class UserEntity {
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<RoleEntity> roles = new HashSet<>();
+    private List<RoleEntity> roles = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -55,27 +55,33 @@ public class UserEntity {
         return this;
     }
 
-    public Set<RoleEntity> getRoles() {
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 
-    public UserEntity setRoles(Set<RoleEntity> roles) {
+    public UserEntity setRoles(List<RoleEntity> roles) {
         this.roles = roles;
         return this;
     }
 
     public UserEntity addRole(RoleEntity role) {
         roles.add(role);
-        role.getUsers()
-                .add(this);
         return this;
     }
 
     public UserEntity removeRole(RoleEntity role) {
         roles.remove(role);
-        role.getUsers()
-                .remove(this);
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 
     @Override

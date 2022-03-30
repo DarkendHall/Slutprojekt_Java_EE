@@ -4,9 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class RoleEntity {
@@ -16,9 +14,6 @@ public class RoleEntity {
     private Long id;
 
     private String role;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<UserEntity> users;
 
     public RoleEntity() {
     }
@@ -45,13 +40,12 @@ public class RoleEntity {
         return this;
     }
 
-    public Set<UserEntity> getUsers() {
-        return users;
-    }
-
-    public RoleEntity setUsers(Set<UserEntity> users) {
-        this.users = users;
-        return this;
+    @Override
+    public String toString() {
+        return "RoleEntity{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
     }
 
     @Override
@@ -59,12 +53,11 @@ public class RoleEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoleEntity that = (RoleEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(role,
-                that.role) && Objects.equals(users, that.users);
+        return Objects.equals(id, that.id) && Objects.equals(role, that.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role, users);
+        return Objects.hash(id, role);
     }
 }
