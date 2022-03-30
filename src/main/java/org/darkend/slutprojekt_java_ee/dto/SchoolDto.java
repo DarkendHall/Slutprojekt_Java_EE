@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SchoolDto {
 
-    @Null
     private Long id;
 
     @NotEmpty

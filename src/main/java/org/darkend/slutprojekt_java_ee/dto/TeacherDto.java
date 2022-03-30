@@ -3,14 +3,12 @@ package org.darkend.slutprojekt_java_ee.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TeacherDto implements NameDto {
 
-    @NotNull
     private Long id;
 
     @NotEmpty

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +11,6 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CourseDto {
 
-    @Null
     private Long id;
 
     @NotEmpty
