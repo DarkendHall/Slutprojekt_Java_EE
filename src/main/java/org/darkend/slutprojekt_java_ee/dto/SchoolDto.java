@@ -2,19 +2,36 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SchoolDto {
 
+    @Null
     private Long id;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String city;
+
+    @NotEmpty
     private String address;
+
     private PrincipalDto principal;
+
+    @NotNull
     private List<StudentDto> students;
+
+    @NotNull
     private List<CourseDto> courses;
+
+    @NotNull
     private List<TeacherDto> teachers;
 
     public Long getId() {
