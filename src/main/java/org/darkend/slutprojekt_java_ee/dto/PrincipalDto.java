@@ -14,7 +14,7 @@ public class PrincipalDto implements NameDto {
     private Long id;
 
     @NotEmpty
-    @Size(min = 5)
+    @Size(min = 5, message = "You need a first- and a lastname with a minimum of 2 characters each")
     private String fullName;
 
     public Long getId() {
