@@ -1,7 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
 import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
-import org.darkend.slutprojekt_java_ee.exceptions.ExceptionsHandler;
 import org.darkend.slutprojekt_java_ee.service.TeacherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

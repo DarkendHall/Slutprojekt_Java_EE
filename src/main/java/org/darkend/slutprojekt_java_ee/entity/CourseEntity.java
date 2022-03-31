@@ -67,7 +67,6 @@ public class CourseEntity {
         return this;
     }
 
-
     @Override
     public String
     toString() {
