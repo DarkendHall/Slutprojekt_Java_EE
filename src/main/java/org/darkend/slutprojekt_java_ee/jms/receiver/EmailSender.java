@@ -17,7 +17,7 @@ public class EmailSender {
     private final String email = System.getenv("MJ_EMAIL_ADDRESS");
 
     private final ClientOptions options = ClientOptions.builder()
-            .apiKey(System.getenv("MJ_PUBLIC_KEY"))
+            .apiKey(System.getenv("MJ_PRIMARY_KEY"))
             .apiSecretKey(System.getenv("MJ_SECRET_KEY"))
             .build();
 
