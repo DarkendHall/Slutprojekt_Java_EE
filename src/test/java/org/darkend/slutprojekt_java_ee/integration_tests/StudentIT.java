@@ -101,7 +101,7 @@ class StudentIT {
                 .andExpect(jsonPath("$.phoneNumber").value(studentDto.getPhoneNumber()))
                 .andExpect(status().isCreated());
 
-        verify(repository, atMostOnce()).save(studentEntity);
+        verify(repository, times(1)).save(studentEntity);
     }
 
     @Test

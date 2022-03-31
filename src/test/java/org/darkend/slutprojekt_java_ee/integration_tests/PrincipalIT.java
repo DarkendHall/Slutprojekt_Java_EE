@@ -90,7 +90,7 @@ class PrincipalIT {
                 .andExpect(jsonPath("$.fullName").value("First Last"))
                 .andExpect(status().isCreated());
 
-        verify(repository, atMostOnce()).save(principalEntity);
+        verify(repository, times(1)).save(principalEntity);
     }
 
     @Test

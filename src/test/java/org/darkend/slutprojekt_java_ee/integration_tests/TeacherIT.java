@@ -89,7 +89,7 @@ class TeacherIT {
                 .andExpect(jsonPath("$.fullName").value("First Last"))
                 .andExpect(status().isCreated());
 
-        verify(repository, atMostOnce()).save(teacherEntity);
+        verify(repository, times(1)).save(teacherEntity);
     }
 
     @Test

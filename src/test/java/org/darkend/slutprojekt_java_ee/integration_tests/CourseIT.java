@@ -128,7 +128,7 @@ class CourseIT {
                 .andExpect(jsonPath("$.teacher").value(courseDto.getTeacher()))
                 .andExpect(status().isCreated());
 
-        verify(repository, atMostOnce()).save(courseEntity);
+        verify(repository, times(1)).save(courseEntity);
     }
 
     @Test
