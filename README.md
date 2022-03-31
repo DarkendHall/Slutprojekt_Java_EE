@@ -49,7 +49,7 @@ User:
 <p></p>
 <details> <summary><b>Endpoints & JSON</b></summary>
 
-Send a post request to /users/signup with JSON body:
+Send a post request to [/users/signup](http://localhost:8080/users/signup/) with JSON body:
 
 ```JSON
 {

@@ -101,6 +101,18 @@ class PrincipalControllerTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    void addInvalidPrincipalWithPostReturnsBadRequest() throws Exception {
+        mvc.perform(post("/principals").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "fullName": "Name"
+                                }
+                                """))
+                .andExpect(status().isBadRequest());
+    }
+
     @TestConfiguration
     static class TestConfig {
 

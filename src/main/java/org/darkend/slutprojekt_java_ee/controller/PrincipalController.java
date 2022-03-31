@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,10 +35,9 @@ public class PrincipalController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized"), @ApiResponse(responseCode = "400",
+    @ApiResponses({@ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "400",
             description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
-    public PrincipalDto createPrincipal(@RequestBody PrincipalDto principal, HttpServletResponse response) {
+    public PrincipalDto createPrincipal(@Valid @RequestBody PrincipalDto principal, HttpServletResponse response) {
         logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(principal)));
         PrincipalDto createdPrincipal = principalService.createPrincipal(principal);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()

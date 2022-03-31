@@ -2,6 +2,10 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,8 +13,17 @@ import java.util.Objects;
 public class CourseDto {
 
     private Long id;
+
+    @NotEmpty
+    @Size(min = 2)
     private String name;
+
+    @NotEmpty
+    @Valid
     private List<StudentDto> students;
+
+    @NotNull
+    @Valid
     private TeacherDto teacher;
 
     public Long getId() {
