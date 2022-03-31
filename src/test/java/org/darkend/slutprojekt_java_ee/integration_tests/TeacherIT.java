@@ -95,6 +95,13 @@ class TeacherIT {
                 .andExpect(status().is(404));
     }
 
+    @Test
+    void deleteShouldRemoveTeacherWithSameId() throws Exception {
+        mvc.perform(delete("/teachers/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        verify(repository, times(1)).deleteById(1L);
+    }
+
     @TestConfiguration
     static class TestConfig {
 
