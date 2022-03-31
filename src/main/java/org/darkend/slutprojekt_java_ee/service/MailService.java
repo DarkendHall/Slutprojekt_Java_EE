@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.stream.Collectors;
 
 @Service
 public class MailService {
@@ -20,7 +21,8 @@ public class MailService {
     private final ModelMapper mapper;
     private final Sender sender;
 
-    public MailService(MailRepository mailRepository, CourseRepository courseRepository, ModelMapper mapper, Sender sender) {
+    public MailService(MailRepository mailRepository, CourseRepository courseRepository, ModelMapper mapper,
+                       Sender sender) {
         this.mailRepository = mailRepository;
         this.courseRepository = courseRepository;
         this.mapper = mapper;
@@ -36,7 +38,7 @@ public class MailService {
                 .stream()
                 .map(StudentEntity::getEmail)
                 .map(email -> new RecipientEntity().setEmail(email))
-                .toList();
+                .collect(Collectors.toList());
 
         var mailEntity = mapper.map(mailDto, MailEntity.class)
                 .setRecipients(recipients);

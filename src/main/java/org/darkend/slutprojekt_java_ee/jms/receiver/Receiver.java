@@ -10,6 +10,8 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class Receiver {
 
@@ -25,7 +27,7 @@ public class Receiver {
         var recipients = message.getRecipients()
                 .stream()
                 .map(RecipientEntity::getEmail)
-                .toList();
+                .collect(Collectors.toList());
         try {
             var response = emailSender.sendMail(message.getMsg(), recipients);
             logger.info(String.format("Email was sent with data %s", response.getData()));
