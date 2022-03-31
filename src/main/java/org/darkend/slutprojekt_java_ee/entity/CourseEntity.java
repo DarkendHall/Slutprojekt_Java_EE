@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +25,10 @@ public class CourseEntity {
     @Size(min = 2)
     private String name;
 
-    @NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
     private List<StudentEntity> students = new ArrayList<>();
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private TeacherEntity teacher;
 

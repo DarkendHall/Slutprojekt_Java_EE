@@ -2,12 +2,18 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PrincipalDto implements NameDto {
 
     private Long id;
+
+    @NotEmpty
+    @Size(min = 5,
+            message = "You need a first- and a lastname with a minimum of 2 characters each seperated by a space")
     private String fullName;
 
     public Long getId() {
