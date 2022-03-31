@@ -51,6 +51,10 @@ class TeacherIT {
     void setUp() {
         when(repository.findById(1L)).thenReturn(Optional.of(teacherEntity));
         when(repository.findAll()).thenReturn(List.of(teacherEntity));
+        when(repository.save(any(TeacherEntity.class))).thenAnswer(invocationOnMock -> {
+            Object[] args = invocationOnMock.getArguments();
+            return args[0];
+        });
     }
 
     @Test
@@ -67,6 +71,21 @@ class TeacherIT {
                 .andExpect(jsonPath("$[0].id").value(teacherDto.getId()))
                 .andExpect(jsonPath("$[0].fullName").value(teacherDto.getFullName()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void createShouldReturnTeacherWithCorrectValues() throws Exception {
+        mvc.perform(post("/teachers").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "fullName": "First Last"
+                                }
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.fullName").value("First Last"));
+
+        verify(repository, atMostOnce()).save(teacherEntity);
     }
 
     @TestConfiguration
