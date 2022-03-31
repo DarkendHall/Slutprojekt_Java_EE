@@ -40,11 +40,18 @@ jobs:
         id: jacoco
         uses: cicirello/jacoco-badge-generator@v2
         with:
+          generate-coverage-badge: true
           generate-summary: true
           fail-on-coverage-decrease: true
       - name: Log coverage percentage
         run: |
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
+      - name: Build and analyze SonarCloud
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_ORGANIZATION: ${{secrets.SONAR_ORGANIZATION}}
+        run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DarkendHall_Slutprojekt_Java_EE
       - name: Commit and push
         if: ${{ github.event_name != 'pull_request' }}
         run: |
