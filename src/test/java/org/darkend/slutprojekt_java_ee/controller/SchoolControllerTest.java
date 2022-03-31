@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -67,7 +68,7 @@ class SchoolControllerTest {
         when(service.findSchoolById(1L)).thenReturn(school);
         when(service.findSchoolById(2L)).thenThrow(new EntityNotFoundException("No school found with ID: " + 2L));
         when(service.findAllSchools()).thenReturn(List.of(school));
-        doThrow(new EntityNotFoundException("No school found with ID: " + 2L)).when(service)
+        doThrow(new EmptyResultDataAccessException("No teacher found with ID: " + 2L, 1)).when(service)
                 .deleteSchool(2L);
         when(service.createSchool(any(SchoolDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();

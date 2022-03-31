@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,7 +46,7 @@ class TeacherControllerTest {
         when(service.findTeacherById(1L)).thenReturn(teacher);
         when(service.findTeacherById(2L)).thenThrow(new EntityNotFoundException("No teacher found with ID: " + 2L));
         when(service.findAllTeachers()).thenReturn(List.of(teacher));
-        doThrow(new EntityNotFoundException("No teacher found with ID: " + 2L)).when(service)
+        doThrow(new EmptyResultDataAccessException("No teacher found with ID: " + 2L, 1)).when(service)
                 .deleteTeacher(2L);
         when(service.createTeacher(any(TeacherDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
