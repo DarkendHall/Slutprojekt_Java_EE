@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,7 @@ public class CourseController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses({@ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "400",
             description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
-    public CourseDto createCourse(@RequestBody CourseDto course, HttpServletResponse response) {
+    public CourseDto createCourse(@Valid @RequestBody CourseDto course, HttpServletResponse response) {
         logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(course)));
         CourseDto createdCourse = courseService.createCourse(course);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()
