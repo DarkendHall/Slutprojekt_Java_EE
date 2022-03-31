@@ -4,8 +4,7 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Objects;
 
-public record ExceptionAsJson(String timestamp, HttpStatus status,
-                              String message) {
+public record ExceptionAsJson(String timestamp, HttpStatus status, String message) {
 
     public String getTimestamp() {
         return timestamp;

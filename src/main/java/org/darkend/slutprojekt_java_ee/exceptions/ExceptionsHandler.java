@@ -5,12 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +28,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e) {
-        logger.warn(e.getMessage());
+        logger.error(e.getMessage());
 
         return ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
@@ -37,7 +37,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException e) {
-        logger.warn(e.getMessage());
+        logger.error(e.getMessage());
 
         return new ResponseEntity<>(new ExceptionAsJson(LocalDateTime.now(clock)
                 .format(dateTimeFormatter), HttpStatus.NOT_FOUND, e.getMessage()), HttpStatus.NOT_FOUND);
@@ -45,7 +45,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(MappingException.class)
     public ResponseEntity<Object> handleMappingException(MappingException e) {
-        logger.warn(e.getMessage());
+        logger.error(e.getMessage());
 
         return ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
@@ -54,7 +54,18 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(InvalidNameException.class)
     public ResponseEntity<Object> handleInvalidNameException(InvalidNameException e) {
-        logger.warn(e.getMessage());
+        logger.error(e.getMessage());
+
+        return ResponseEntity.badRequest()
+                .body(new ExceptionAsJson(LocalDateTime.now(clock)
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
+
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Object> handleSQLIntegrityConstraintViolationException(
+            SQLIntegrityConstraintViolationException e) {
+        logger.error(e.getMessage());
 
         return ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)

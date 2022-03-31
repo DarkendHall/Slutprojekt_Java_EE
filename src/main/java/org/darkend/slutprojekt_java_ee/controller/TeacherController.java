@@ -35,8 +35,7 @@ public class TeacherController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized"), @ApiResponse(responseCode = "400",
+    @ApiResponses({@ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "400",
             description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
     public TeacherDto createTeacher(@Valid @RequestBody TeacherDto teacher, HttpServletResponse response) {
         logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(teacher)));

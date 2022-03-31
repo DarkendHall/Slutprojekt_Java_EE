@@ -89,7 +89,6 @@ class ModelMapperConfigTest {
         assertThat(result).isEqualTo(user);
     }
 
-
     @Test
     void fullMappingShouldBeEqualToManualSchoolDto() {
         TeacherEntity teacher = new TeacherEntity().setId(1L)
@@ -150,7 +149,6 @@ class ModelMapperConfigTest {
 
         assertThat(result).isEqualTo(schoolDto);
     }
-
 
     @Test
     void fullMappingShouldBeEqualToManualSchoolEntity() {
