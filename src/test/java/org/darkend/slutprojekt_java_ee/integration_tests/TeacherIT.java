@@ -112,6 +112,18 @@ class TeacherIT {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void createWithInvalidTeacherShouldReturnBadRequest() throws Exception {
+        mvc.perform(post("/teachers").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "fullName": "Name"
+                                }
+                                """))
+                .andExpect(status().isBadRequest());
+    }
+
     @TestConfiguration
     static class TestConfig {
 
