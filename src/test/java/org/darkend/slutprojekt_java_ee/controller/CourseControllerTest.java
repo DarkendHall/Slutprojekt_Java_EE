@@ -54,7 +54,7 @@ class CourseControllerTest {
         when(service.findCourseById(1L)).thenReturn(course);
         when(service.findCourseById(2L)).thenThrow(new EntityNotFoundException("No course found with ID: " + 2L));
         when(service.findAllCourses()).thenReturn(List.of(course));
-        doThrow(new EmptyResultDataAccessException("No teacher found with ID: " + 2L, 1)).when(service)
+        doThrow(new EmptyResultDataAccessException("No course found with ID: " + 2L, 1)).when(service)
                 .deleteCourse(2L);
         when(service.createCourse(any(CourseDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();

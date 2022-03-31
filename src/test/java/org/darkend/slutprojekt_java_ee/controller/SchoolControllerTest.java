@@ -68,7 +68,7 @@ class SchoolControllerTest {
         when(service.findSchoolById(1L)).thenReturn(school);
         when(service.findSchoolById(2L)).thenThrow(new EntityNotFoundException("No school found with ID: " + 2L));
         when(service.findAllSchools()).thenReturn(List.of(school));
-        doThrow(new EmptyResultDataAccessException("No teacher found with ID: " + 2L, 1)).when(service)
+        doThrow(new EmptyResultDataAccessException("No school found with ID: " + 2L, 1)).when(service)
                 .deleteSchool(2L);
         when(service.createSchool(any(SchoolDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();

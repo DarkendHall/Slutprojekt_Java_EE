@@ -48,7 +48,7 @@ class StudentControllerTest {
         when(service.findStudentById(1L)).thenReturn(student);
         when(service.findStudentById(2L)).thenThrow(new EntityNotFoundException("No student found with ID: " + 2L));
         when(service.findAllStudents()).thenReturn(List.of(student));
-        doThrow(new EmptyResultDataAccessException("No teacher found with ID: " + 2L, 1)).when(service)
+        doThrow(new EmptyResultDataAccessException("No student found with ID: " + 2L, 1)).when(service)
                 .deleteStudent(2L);
         when(service.createStudent(any(StudentDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();

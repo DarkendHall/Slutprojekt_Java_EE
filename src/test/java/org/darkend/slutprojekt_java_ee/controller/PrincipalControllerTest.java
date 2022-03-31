@@ -46,7 +46,7 @@ class PrincipalControllerTest {
         when(service.findPrincipalById(1L)).thenReturn(principal);
         when(service.findPrincipalById(2L)).thenThrow(new EntityNotFoundException("No principal found with ID: " + 2L));
         when(service.findAllPrincipals()).thenReturn(List.of(principal));
-        doThrow(new EmptyResultDataAccessException("No teacher found with ID: " + 2L, 1)).when(service)
+        doThrow(new EmptyResultDataAccessException("No principal found with ID: " + 2L, 1)).when(service)
                 .deletePrincipal(2L);
         when(service.createPrincipal(any(PrincipalDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
