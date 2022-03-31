@@ -23,9 +23,9 @@ public class PrincipalEntity extends PersonEntity {
     @Override
     public String toString() {
         return "PrincipalEntity{" +
-                "id=" + super.getId() +
-                ", firstName='" + super.getFirstName() + '\'' +
-                ", lastName='" + super.getLastName() + '\'' +
+                "id=" + getId() +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
                 '}';
     }
 

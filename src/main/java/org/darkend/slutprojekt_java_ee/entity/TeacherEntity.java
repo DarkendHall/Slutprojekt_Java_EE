@@ -23,9 +23,9 @@ public class TeacherEntity extends PersonEntity {
     @Override
     public String toString() {
         return "TeacherEntity{" +
-                "id=" + super.getId() +
-                ", firstName='" + super.getFirstName() + '\'' +
-                ", lastName='" + super.getLastName() + '\'' +
+                "id=" + getId() +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
                 '}';
     }
 
