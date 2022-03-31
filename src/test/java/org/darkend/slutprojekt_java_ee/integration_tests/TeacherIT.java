@@ -91,8 +91,7 @@ class TeacherIT {
 
     @Test
     void getShouldReturnNotFoundWithInvalidId() throws Exception {
-        mvc.perform(get("/teachers" +
-                        "/2").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/teachers/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(404));
     }
 
