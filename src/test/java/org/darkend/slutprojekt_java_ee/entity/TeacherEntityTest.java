@@ -42,11 +42,16 @@ class TeacherEntityTest {
 
     @Test
     void testEquals() {
-        assertThat(teacher).isEqualTo(new TeacherEntity());
+        assertThat(teacher.equals(new TeacherEntity())).isTrue();
     }
 
     @Test
     void testHashCode() {
         assertThat(teacher.hashCode()).isEqualTo(new TeacherEntity().hashCode());
+    }
+
+    @Test
+    void testEqualsWithPersonEntity() {
+        assertThat(teacher.equals(new PersonEntity())).isFalse();
     }
 }
