@@ -187,8 +187,7 @@ public class ModelMapperConfig {
                     .addMappings(new PropertyMap<>() {
                         @Override
                         protected void configure() {
-                            using(ctx -> (findRoles(ctx))).map(source,
-                                    destination.getRoles());
+                            using(ctx -> (findRoles(ctx))).map(source, destination.getRoles());
                         }
                     });
         }
