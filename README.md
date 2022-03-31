@@ -20,6 +20,9 @@ You need to set the following environment variables:
 | DB_USER              | Username of the database user                          |           |
 | DB_PASSWORD          | Password of the database user                          |           |
 | PASSWORD             | The password for the standard user                     |           |
+| MJ_EMAIL_ADDRESS     | The email address of the MailJet sender                |           |
+| MJ_PRIMARY_KEY       | The primary key of the MailJet account                 |           |
+| MJ_SECRET_KEY        | The secret key of the MailJet account                  |           |
 
 After those have been set, you're good to go!
 
