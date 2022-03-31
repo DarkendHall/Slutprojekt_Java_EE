@@ -28,9 +28,9 @@ public class Receiver {
                 .toList();
         try {
             var response = emailSender.sendMail(message.getMsg(), recipients);
-            logger.info(String.format("Email was sent with data %s", response.getData()));
+            logger.info("Email was sent with data {}", response.getData());
         } catch (MailjetException e) {
-            logger.warn(String.format("Failed to send message because: %s", e));
+            logger.warn("Failed to send message because: {}", e.getMessage());
         }
     }
 }

@@ -24,14 +24,13 @@ public class MailController {
         this.mailService = mailService;
     }
 
-
     @PostMapping("courses/{id}/message")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized"), @ApiResponse(responseCode = "400",
             description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
     public MailDto sendEmail(@RequestBody MailDto mail, @PathVariable Long id) {
-        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(mail)));
+        logger.info("Received POST request with JSON body: {}", ObjectToJson.convert(mail));
 
         return mailService.newMail(mail, id);
     }
