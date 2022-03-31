@@ -60,7 +60,6 @@ public class ExceptionsHandler {
         return ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
                         .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
-
     }
 
     @ExceptionHandler
@@ -71,7 +70,6 @@ public class ExceptionsHandler {
         return ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
                         .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
-
     }
 
     @ExceptionHandler
