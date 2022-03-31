@@ -14,6 +14,8 @@ import java.util.List;
 
 public class EmailSender {
 
+    private final String email = System.getenv("MJ_EMAIL_ADDRESS");
+
     private final ClientOptions options = ClientOptions.builder()
             .apiKey(System.getenv("MJ_PUBLIC_KEY"))
             .apiSecretKey(System.getenv("MJ_SECRET_KEY"))
@@ -24,7 +26,7 @@ public class EmailSender {
     public MailjetResponse sendMail(String msg, List<String> recipients) throws MailjetException {
         var request = new MailjetRequest(Emailv31.resource);
         request.property(Emailv31.MESSAGES, new JSONArray()
-                .put(new JSONObject().put(Emailv31.Message.FROM, new JSONObject().put("Email", "ags_ownz@hotmail.com")
+                .put(new JSONObject().put(Emailv31.Message.FROM, new JSONObject().put("Email", email)
                                 .put("Name", "School System"))
                         .put(Emailv31.Message.TO, getRecipients(recipients))
                         .put(Emailv31.Message.SUBJECT, "Important message from your School!")
