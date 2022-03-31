@@ -11,7 +11,7 @@
 
     <groupId>org.darkend</groupId>
     <artifactId>Slutprojekt_Java_EE</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>Slutprojekt_Java_EE</name>
     <description>Slutprojekt_Java_EE</description>
     <packaging>jar</packaging>
@@ -19,6 +19,9 @@
     <properties>
         <java.version>17</java.version>
         <testcontainers.version>1.16.3</testcontainers.version>
+        <!--suppress UnresolvedMavenProperty -->
+        <sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -98,6 +101,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.9.1.2184</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
