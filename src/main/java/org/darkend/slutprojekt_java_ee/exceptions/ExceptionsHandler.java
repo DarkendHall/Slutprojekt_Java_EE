@@ -76,7 +76,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler
     public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        logger.warn(e.getMessage());
+        logger.error(e.getMessage());
 
         return ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
