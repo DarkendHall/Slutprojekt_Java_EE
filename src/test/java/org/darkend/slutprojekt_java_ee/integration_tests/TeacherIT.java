@@ -88,6 +88,13 @@ class TeacherIT {
         verify(repository, atMostOnce()).save(teacherEntity);
     }
 
+    @Test
+    void getShouldReturnNotFoundWithInvalidId() throws Exception {
+        mvc.perform(get("/teachers" +
+                        "/2").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(404));
+    }
+
     @TestConfiguration
     static class TestConfig {
 
