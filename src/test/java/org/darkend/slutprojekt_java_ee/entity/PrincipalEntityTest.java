@@ -42,11 +42,16 @@ class PrincipalEntityTest {
 
     @Test
     void testEquals() {
-        assertThat(principal).isEqualTo(new PrincipalEntity());
+        assertThat(principal.equals(new PrincipalEntity())).isTrue();
     }
 
     @Test
     void testHashCode() {
         assertThat(principal.hashCode()).isEqualTo(new PrincipalEntity().hashCode());
+    }
+
+    @Test
+    void testEqualsWithPersonEntity() {
+        assertThat(principal.equals(new PersonEntity())).isFalse();
     }
 }
