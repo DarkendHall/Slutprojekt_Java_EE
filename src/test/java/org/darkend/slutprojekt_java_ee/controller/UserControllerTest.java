@@ -63,12 +63,27 @@ class UserControllerTest {
                                   ]
                                 }
                                 """))
-                .andDo(System.out::println)
                 .andExpect(jsonPath("$.id").value(userIn.getId()))
                 .andExpect(jsonPath("$.username").value(userIn.getUsername()))
                 .andExpect(jsonPath("$.roles[0]").value(userIn.getRoles()
                         .get(0)))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void addInvalidUsersWithPostReturnsBadRequest() throws Exception {
+        mvc.perform(post("/users/signup").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 2,
+                                  "username": "user",
+                                  "password": "pass",
+                                  "roles": [
+                                  	"ROLE_USER"
+                                  ]
+                                }
+                                """))
+                .andExpect(status().isBadRequest());
     }
 
     @TestConfiguration
