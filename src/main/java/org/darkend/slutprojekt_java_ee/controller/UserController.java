@@ -33,7 +33,6 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponse(responseCode = "400", description = "Bad Request")
     @ApiResponse(responseCode = "401", description = "Unauthorized")
-    @ApiResponse(responseCode = "403", description = "Forbidden")
     public UserDtoOut createUser(@Valid @RequestBody UserDtoIn user, HttpServletResponse response) {
         logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(user)));
         UserDtoOut createdUser = userService.createUser(user);

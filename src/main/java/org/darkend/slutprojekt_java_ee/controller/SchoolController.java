@@ -1,7 +1,6 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.darkend.slutprojekt_java_ee.dto.ObjectToJson;
 import org.darkend.slutprojekt_java_ee.dto.SchoolDto;
 import org.darkend.slutprojekt_java_ee.service.SchoolService;
@@ -37,8 +36,9 @@ public class SchoolController {
     @Secured("ROLE_ADMIN")
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiResponses({@ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "400",
-            description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
+    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
     public SchoolDto createSchool(@Valid @RequestBody SchoolDto school, HttpServletResponse response) {
         logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(school)));
         SchoolDto createdSchool = schoolService.createSchool(school);
@@ -49,8 +49,9 @@ public class SchoolController {
 
     @Secured("ROLE_ADMIN")
     @DeleteMapping("{id}")
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized"), @ApiResponse(responseCode = "403", description = "Forbidden")})
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "404", description = "Not found")
     public void deleteSchool(@PathVariable Long id) {
         logger.info(String.format("Received DELETE request for ID: %d", id));
         schoolService.deleteSchool(id);
@@ -58,8 +59,8 @@ public class SchoolController {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("{id}")
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized")})
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto findSchoolById(@PathVariable Long id) {
         logger.info(String.format("Received GET request for ID: %d", id));
         return schoolService.findSchoolById(id);
@@ -67,8 +68,8 @@ public class SchoolController {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping()
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized")})
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "404", description = "Not found")
     public List<SchoolDto> findAllSchools() {
         logger.info("Received GET request for all schools");
         return schoolService.findAllSchools();
