@@ -30,7 +30,7 @@ class RoleDtoTest {
 
     @Test
     void testToString() {
-        assertThat(role.toString()).isEqualTo("RoleDto{id=null, role='null'}");
+        assertThat(role).hasToString("RoleDto{id=null, role='null'}");
     }
 
     @Test
@@ -40,6 +40,6 @@ class RoleDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(role.hashCode()).isEqualTo(new RoleDto().hashCode());
+        assertThat(role).hasSameHashCodeAs(new RoleDto());
     }
 }

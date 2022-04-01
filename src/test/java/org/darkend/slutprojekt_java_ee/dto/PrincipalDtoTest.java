@@ -30,7 +30,7 @@ class PrincipalDtoTest {
 
     @Test
     void testToString() {
-        assertThat(principal.toString()).isEqualTo("PrincipalDto{id=null, fullName='null'}");
+        assertThat(principal).hasToString("PrincipalDto{id=null, fullName='null'}");
     }
 
     @Test
@@ -40,6 +40,6 @@ class PrincipalDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(principal.hashCode()).isEqualTo(new PrincipalDto().hashCode());
+        assertThat(principal).hasSameHashCodeAs(new PrincipalDto());
     }
 }

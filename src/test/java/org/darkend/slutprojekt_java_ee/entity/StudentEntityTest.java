@@ -51,17 +51,22 @@ class StudentEntityTest {
 
     @Test
     void testToString() {
-        assertThat(student.toString()).isEqualTo(
+        assertThat(student).hasToString(
                 "StudentEntity{id=null, firstName='null', lastName='null', email='null', phoneNumber='null'}");
     }
 
     @Test
     void testEquals() {
-        assertThat(student).isEqualTo(new StudentEntity());
+        assertThat(student.equals(new StudentEntity())).isTrue();
     }
 
     @Test
     void testHashCode() {
-        assertThat(student.hashCode()).isEqualTo(new StudentEntity().hashCode());
+        assertThat(student).hasSameHashCodeAs(new StudentEntity());
+    }
+
+    @Test
+    void testEqualsWithPersonEntity() {
+        assertThat(student.equals(new PersonEntity())).isFalse();
     }
 }
