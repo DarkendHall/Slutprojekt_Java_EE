@@ -249,6 +249,57 @@ class SchoolControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    @WithMockUser(username = "user")
+    void addNewSchoolWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(post("/schools").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "name": "School Name",
+                                  "city": "City",
+                                  "address": "Address",
+                                  "principal": {
+                                    "id": 4,
+                                    "fullName": "Principal Name"
+                                  },
+                                  "students": [
+                                    {
+                                      "id": 2,
+                                      "fullName": "Student Name",
+                                      "email": "email@email.com",
+                                      "phoneNumber": "N/A"
+                                    }
+                                  ],
+                                  "courses": [
+                                    {
+                                      "id": 5,
+                                      "name": "Course Name",
+                                      "students": [
+                                        {
+                                          "id": 2,
+                                          "fullName": "Student Name",
+                                          "email": "email@email.com",
+                                          "phoneNumber": "N/A"
+                                        }
+                                      ],
+                                      "teacher": {
+                                        "id": 3,
+                                        "fullName": "Teacher Name"
+                                      }
+                                    }
+                                  ],
+                                  "teachers": [
+                                    {
+                                      "id": 3,
+                                      "fullName": "Teacher Name"
+                                    }
+                                  ]
+                                }
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
     @TestConfiguration
     static class TestConfig {
 
