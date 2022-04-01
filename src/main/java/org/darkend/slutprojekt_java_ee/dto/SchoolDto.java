@@ -2,6 +2,9 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,12 +12,29 @@ import java.util.Objects;
 public class SchoolDto {
 
     private Long id;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String city;
+
+    @NotEmpty
     private String address;
+
+    @Valid
     private PrincipalDto principal;
+
+    @NotNull
+    @Valid
     private List<StudentDto> students;
+
+    @NotNull
+    @Valid
     private List<CourseDto> courses;
+
+    @NotNull
+    @Valid
     private List<TeacherDto> teachers;
 
     public Long getId() {

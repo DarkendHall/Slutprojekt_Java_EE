@@ -5,11 +5,9 @@ import org.springframework.http.HttpStatus;
 
 import static org.assertj.core.api.Assertions.*;
 
-
 class ExceptionAsJsonTest {
 
     ExceptionAsJson json = new ExceptionAsJson("time", HttpStatus.NOT_FOUND, "msg");
-
 
     @Test
     void getTimestamp() {

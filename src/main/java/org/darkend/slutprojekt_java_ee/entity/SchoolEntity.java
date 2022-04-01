@@ -8,6 +8,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,12 +32,15 @@ public class SchoolEntity {
     @OneToOne(targetEntity = PrincipalEntity.class)
     private PrincipalEntity principal;
 
+    @NotNull
     @OneToMany
     private List<StudentEntity> students = new ArrayList<>();
 
+    @NotNull
     @OneToMany
     private List<CourseEntity> courses = new ArrayList<>();
 
+    @NotNull
     @ManyToMany
     private List<TeacherEntity> teachers = new ArrayList<>();
 

@@ -31,7 +31,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @RunWith(SpringRunner.class)
 @WebMvcTest(CourseController.class)
 @ContextConfiguration
@@ -141,6 +140,30 @@ class CourseControllerTest {
                         .get(0)))
                 .andExpect(jsonPath("$.teacher").value(course.getTeacher()))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void addInvalidCourseWithPostReturnsBadRequest() throws Exception {
+        mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "name": "Course Name",
+                                  "students": [
+                                    {
+                                      "id": 2,
+                                      "fullName": "Name",
+                                      "email": "email@email.com",
+                                      "phoneNumber": "N/A"
+                                    }
+                                  ],
+                                  "teacher": {
+                                    "id": 3,
+                                    "fullName": "Teacher Name"
+                                  }
+                                }
+                                """))
+                .andExpect(status().isBadRequest());
     }
 
     @TestConfiguration

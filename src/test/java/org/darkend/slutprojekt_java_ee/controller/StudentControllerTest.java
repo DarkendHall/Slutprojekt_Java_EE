@@ -121,6 +121,20 @@ class StudentControllerTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    void addInvalidStudentWithPostReturnsBadRequest() throws Exception {
+        mvc.perform(post("/students").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 2,
+                                  "fullName": "Name",
+                                  "email": "email@email.com",
+                                  "phoneNumber": "N/A"
+                                }
+                                """))
+                .andExpect(status().isBadRequest());
+    }
+
     @TestConfiguration
     static class TestConfig {
 

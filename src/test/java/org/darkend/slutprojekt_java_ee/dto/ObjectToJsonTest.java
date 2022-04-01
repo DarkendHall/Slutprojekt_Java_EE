@@ -19,8 +19,9 @@ class ObjectToJsonTest {
     @Test
     void convertInvalidObjectShouldThrowException() {
         Object invalid = mock(Object.class);
-        when(invalid.toString()).thenReturn(invalid.getClass().getName());
-        assertThatThrownBy(()->ObjectToJson.convert(invalid)).isInstanceOf(IllegalArgumentException.class);
+        when(invalid.toString()).thenReturn(invalid.getClass()
+                .getName());
+        assertThatThrownBy(() -> ObjectToJson.convert(invalid)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -40,7 +41,7 @@ class ObjectToJsonTest {
     }
 
     @Test
-    void nullValuesShouldNotBeIncludedWithSchoolDto(){
+    void nullValuesShouldNotBeIncludedWithSchoolDto() {
         var result = ObjectToJson.convert(new SchoolDto().setId(null)
                 .setName("test"));
 

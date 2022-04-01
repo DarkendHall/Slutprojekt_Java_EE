@@ -7,7 +7,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-
 class SchoolEntityTest {
 
     private SchoolEntity school;
