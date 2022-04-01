@@ -60,6 +60,6 @@ class CourseDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(course.hashCode()).isEqualTo(new CourseDto().hashCode());
+        assertThat(course).hasSameHashCodeAs(new CourseDto());
     }
 }

@@ -94,6 +94,6 @@ class SchoolEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(school.hashCode()).isEqualTo(new SchoolEntity().hashCode());
+        assertThat(school).hasSameHashCodeAs(new SchoolEntity());
     }
 }

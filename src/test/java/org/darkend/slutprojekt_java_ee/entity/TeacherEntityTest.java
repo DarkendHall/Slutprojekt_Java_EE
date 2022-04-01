@@ -47,7 +47,7 @@ class TeacherEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(teacher.hashCode()).isEqualTo(new TeacherEntity().hashCode());
+        assertThat(teacher).hasSameHashCodeAs(new TeacherEntity());
     }
 
     @Test

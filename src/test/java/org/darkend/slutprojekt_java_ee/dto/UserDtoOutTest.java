@@ -49,6 +49,6 @@ class UserDtoOutTest {
 
     @Test
     void testHashCode() {
-        assertThat(user.hashCode()).isEqualTo(new UserDtoOut().hashCode());
+        assertThat(user).hasSameHashCodeAs(new UserDtoOut());
     }
 }

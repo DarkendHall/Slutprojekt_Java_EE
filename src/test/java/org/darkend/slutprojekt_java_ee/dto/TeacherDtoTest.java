@@ -40,6 +40,6 @@ class TeacherDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(teacher.hashCode()).isEqualTo(new TeacherDto().hashCode());
+        assertThat(teacher).hasSameHashCodeAs(new TeacherDto());
     }
 }

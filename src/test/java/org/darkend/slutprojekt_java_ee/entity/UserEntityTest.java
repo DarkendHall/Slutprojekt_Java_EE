@@ -80,6 +80,6 @@ class UserEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(user.hashCode()).isEqualTo(new UserEntity().hashCode());
+        assertThat(user).hasSameHashCodeAs(new UserEntity());
     }
 }

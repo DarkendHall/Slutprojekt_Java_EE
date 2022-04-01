@@ -60,7 +60,7 @@ class CourseEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(course.hashCode()).isEqualTo(new CourseEntity().hashCode());
+        assertThat(course).hasSameHashCodeAs(new CourseEntity());
     }
 
 }

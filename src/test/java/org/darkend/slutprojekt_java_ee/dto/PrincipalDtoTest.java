@@ -40,6 +40,6 @@ class PrincipalDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(principal.hashCode()).isEqualTo(new PrincipalDto().hashCode());
+        assertThat(principal).hasSameHashCodeAs(new PrincipalDto());
     }
 }

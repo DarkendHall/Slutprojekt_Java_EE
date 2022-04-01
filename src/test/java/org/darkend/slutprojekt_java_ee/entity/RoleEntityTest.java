@@ -40,7 +40,7 @@ class RoleEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(role.hashCode()).isEqualTo(new RoleEntity().hashCode());
+        assertThat(role).hasSameHashCodeAs(new RoleEntity());
     }
 
     @Test

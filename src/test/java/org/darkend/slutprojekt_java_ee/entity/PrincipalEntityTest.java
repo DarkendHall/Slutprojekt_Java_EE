@@ -47,7 +47,7 @@ class PrincipalEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(principal.hashCode()).isEqualTo(new PrincipalEntity().hashCode());
+        assertThat(principal).hasSameHashCodeAs(new PrincipalEntity());
     }
 
     @Test

@@ -47,6 +47,6 @@ class PersonEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(principal.hashCode()).isEqualTo(new PersonEntity().hashCode());
+        assertThat(principal).hasSameHashCodeAs(new PersonEntity());
     }
 }
