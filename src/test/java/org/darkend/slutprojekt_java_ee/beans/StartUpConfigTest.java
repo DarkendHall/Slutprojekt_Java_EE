@@ -3,7 +3,9 @@ package org.darkend.slutprojekt_java_ee.beans;
 import org.darkend.slutprojekt_java_ee.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class StartUpConfigTest {
 

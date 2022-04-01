@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SpringFoxConfigTest {
 

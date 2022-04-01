@@ -3,7 +3,7 @@ package org.darkend.slutprojekt_java_ee.exceptions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ExceptionAsJsonTest {
 
