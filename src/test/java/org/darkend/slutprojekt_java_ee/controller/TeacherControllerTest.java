@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -33,12 +32,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TeacherController.class)
-@AutoConfigureMockMvc(addFilters = false)
 @Import({ModelMapper.class, SecurityConfig.class, GlobalMethodSecurityConfig.class})
 class TeacherControllerTest {
 
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
 
     @MockBean
     private TeacherService service;
@@ -114,6 +112,7 @@ class TeacherControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addInvalidTeacherWithPostReturnsBadRequest() throws Exception {
         mvc.perform(post("/teachers").contentType(MediaType.APPLICATION_JSON)
                         .content("""
