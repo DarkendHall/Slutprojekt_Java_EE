@@ -30,7 +30,7 @@ class RoleEntityTest {
 
     @Test
     void testToString() {
-        assertThat(role.toString()).isEqualTo("RoleEntity{id=null, role='null'}");
+        assertThat(role).hasToString("RoleEntity{id=null, role='null'}");
     }
 
     @Test

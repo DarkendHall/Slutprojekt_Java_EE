@@ -50,7 +50,7 @@ class CourseEntityTest {
 
     @Test
     void testToString() {
-        assertThat(course.toString()).isEqualTo("CourseEntity{id=null, name='null', students=[], teacher=null}");
+        assertThat(course).hasToString("CourseEntity{id=null, name='null', students=[], teacher=null}");
     }
 
     @Test

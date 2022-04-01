@@ -46,7 +46,7 @@ class UserDtoInTest {
 
     @Test
     void testToString() {
-        assertThat(user.toString()).isEqualTo("UserDtoIn{id=null, username='null', password='null', roles=null}");
+        assertThat(user).hasToString("UserDtoIn{id=null, username='null', password='null', roles=null}");
     }
 
     @Test

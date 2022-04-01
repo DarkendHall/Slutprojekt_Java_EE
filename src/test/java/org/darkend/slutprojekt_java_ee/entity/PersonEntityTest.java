@@ -37,7 +37,7 @@ class PersonEntityTest {
 
     @Test
     void testToString() {
-        assertThat(principal.toString()).isEqualTo("PersonEntity{id=null, firstName='null', lastName='null'}");
+        assertThat(principal).hasToString("PersonEntity{id=null, firstName='null', lastName='null'}");
     }
 
     @Test

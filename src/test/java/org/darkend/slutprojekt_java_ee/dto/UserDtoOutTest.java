@@ -39,7 +39,7 @@ class UserDtoOutTest {
 
     @Test
     void testToString() {
-        assertThat(user.toString()).isEqualTo("UserDtoOut{id=null, username='null', roles=null}");
+        assertThat(user).hasToString("UserDtoOut{id=null, username='null', roles=null}");
     }
 
     @Test

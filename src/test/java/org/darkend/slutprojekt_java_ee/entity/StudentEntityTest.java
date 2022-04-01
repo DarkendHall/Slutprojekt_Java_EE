@@ -51,7 +51,7 @@ class StudentEntityTest {
 
     @Test
     void testToString() {
-        assertThat(student.toString()).isEqualTo(
+        assertThat(student).hasToString(
                 "StudentEntity{id=null, firstName='null', lastName='null', email='null', phoneNumber='null'}");
     }
 

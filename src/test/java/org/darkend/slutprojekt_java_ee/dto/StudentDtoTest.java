@@ -44,7 +44,7 @@ class StudentDtoTest {
 
     @Test
     void testToString() {
-        assertThat(student.toString()).isEqualTo(
+        assertThat(student).hasToString(
                 "StudentDto{id=null, fullName='null', email='null', phoneNumber='null'}");
     }
 

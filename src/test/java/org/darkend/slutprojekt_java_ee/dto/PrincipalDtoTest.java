@@ -30,7 +30,7 @@ class PrincipalDtoTest {
 
     @Test
     void testToString() {
-        assertThat(principal.toString()).isEqualTo("PrincipalDto{id=null, fullName='null'}");
+        assertThat(principal).hasToString("PrincipalDto{id=null, fullName='null'}");
     }
 
     @Test
