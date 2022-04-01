@@ -3,6 +3,7 @@ package org.darkend.slutprojekt_java_ee.exceptions;
 import org.modelmapper.MappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -79,5 +80,13 @@ public class ExceptionsHandler {
         return ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
                         .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException e) {
+        logger.error(e.getMessage());
+
+        return new ResponseEntity<>(new ExceptionAsJson(LocalDateTime.now(clock)
+                .format(dateTimeFormatter), HttpStatus.NOT_FOUND, e.getMessage()), HttpStatus.NOT_FOUND);
     }
 }
