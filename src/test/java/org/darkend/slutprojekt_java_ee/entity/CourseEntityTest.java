@@ -50,7 +50,7 @@ class CourseEntityTest {
 
     @Test
     void testToString() {
-        assertThat(course.toString()).isEqualTo("CourseEntity{id=null, name='null', students=[], teacher=null}");
+        assertThat(course).hasToString("CourseEntity{id=null, name='null', students=[], teacher=null}");
     }
 
     @Test
@@ -60,7 +60,7 @@ class CourseEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(course.hashCode()).isEqualTo(new CourseEntity().hashCode());
+        assertThat(course).hasSameHashCodeAs(new CourseEntity());
     }
 
 }

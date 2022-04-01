@@ -6,7 +6,6 @@ import org.darkend.slutprojekt_java_ee.security.SecurityConfig;
 import org.darkend.slutprojekt_java_ee.service.TeacherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,6 +14,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -33,7 +33,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @WebMvcTest(TeacherController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @Import({ModelMapper.class, SecurityConfig.class, GlobalMethodSecurityConfig.class})
@@ -53,7 +52,7 @@ class TeacherControllerTest {
         when(service.findTeacherById(1L)).thenReturn(teacher);
         when(service.findTeacherById(2L)).thenThrow(new EntityNotFoundException("No teacher found with ID: " + 2L));
         when(service.findAllTeachers()).thenReturn(List.of(teacher));
-        doThrow(new EntityNotFoundException("No teacher found with ID: " + 2L)).when(service)
+        doThrow(new EmptyResultDataAccessException("No teacher found with ID: " + 2L, 1)).when(service)
                 .deleteTeacher(2L);
         when(service.createTeacher(any(TeacherDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();

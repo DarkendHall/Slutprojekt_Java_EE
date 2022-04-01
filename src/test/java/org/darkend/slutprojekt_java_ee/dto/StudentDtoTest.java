@@ -44,7 +44,7 @@ class StudentDtoTest {
 
     @Test
     void testToString() {
-        assertThat(student.toString()).isEqualTo(
+        assertThat(student).hasToString(
                 "StudentDto{id=null, fullName='null', email='null', phoneNumber='null'}");
     }
 
@@ -55,6 +55,6 @@ class StudentDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(student.hashCode()).isEqualTo(new StudentDto().hashCode());
+        assertThat(student).hasSameHashCodeAs(new StudentDto());
     }
 }

@@ -30,7 +30,7 @@ class TeacherDtoTest {
 
     @Test
     void testToString() {
-        assertThat(teacher.toString()).isEqualTo("TeacherDto{id=null, fullName='null'}");
+        assertThat(teacher).hasToString("TeacherDto{id=null, fullName='null'}");
     }
 
     @Test
@@ -40,6 +40,6 @@ class TeacherDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(teacher.hashCode()).isEqualTo(new TeacherDto().hashCode());
+        assertThat(teacher).hasSameHashCodeAs(new TeacherDto());
     }
 }
