@@ -137,6 +137,21 @@ class StudentControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    @WithMockUser(username = "user")
+    void addNewStudentWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(post("/students").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 2,
+                                  "fullName": "Student Name",
+                                  "email": "email@email.com",
+                                  "phoneNumber": "N/A"
+                                }
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
     @TestConfiguration
     static class TestConfig {
 
