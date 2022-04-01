@@ -36,14 +36,13 @@ jobs:
         with:
           name: test-report
           path: target/site/surefire-report.html
-      - name: Generate JaCoCo Badge
+      - name: Generate summary
         id: jacoco
         uses: cicirello/jacoco-badge-generator@v2
         with:
           badges-directory: badges
-          generate-coverage-badge: true
           generate-summary: true
-          fail-on-coverage-decrease: true
+          fail-on-coverage-decrease: false
       - name: Log coverage percentage
         run: |
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
@@ -53,6 +52,13 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_ORGANIZATION: ${{secrets.SONAR_ORGANIZATION}}
         run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DarkendHall_Slutprojekt_Java_EE
+      - name: Generate JaCoCo Badge
+        id: jacoco
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          badges-directory: badges
+          generate-coverage-badge: true
+          fail-on-coverage-decrease: true
       - name: Commit and push
         if: ${{ github.event_name != 'pull_request' }}
         run: |
