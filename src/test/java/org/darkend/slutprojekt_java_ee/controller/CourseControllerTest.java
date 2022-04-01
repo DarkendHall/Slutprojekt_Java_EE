@@ -3,6 +3,7 @@ package org.darkend.slutprojekt_java_ee.controller;
 import org.darkend.slutprojekt_java_ee.dto.CourseDto;
 import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
+import org.darkend.slutprojekt_java_ee.security.GlobalMethodSecurityConfig;
 import org.darkend.slutprojekt_java_ee.security.SecurityConfig;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,13 +29,12 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CourseController.class)
 @ContextConfiguration
-@Import({ModelMapper.class, SecurityConfig.class})
+@Import({ModelMapper.class, SecurityConfig.class, GlobalMethodSecurityConfig.class})
 class CourseControllerTest {
 
     @Autowired
@@ -143,6 +143,7 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addInvalidCourseWithPostReturnsBadRequest() throws Exception {
         mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -164,6 +165,31 @@ class CourseControllerTest {
                                 }
                                 """))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void addNewCourseWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "name": "Course Name",
+                                  "students": [
+                                    {
+                                      "id": 2,
+                                      "fullName": "Student Name",
+                                      "email": "email@email.com",
+                                      "phoneNumber": "N/A"
+                                    }
+                                  ],
+                                  "teacher": {
+                                    "id": 3,
+                                    "fullName": "Teacher Name"
+                                  }
+                                }
+                                """))
+                .andExpect(status().isForbidden());
     }
 
     @TestConfiguration
