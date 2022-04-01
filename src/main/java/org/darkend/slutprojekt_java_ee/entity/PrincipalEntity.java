@@ -36,4 +36,9 @@ public class PrincipalEntity extends PersonEntity {
         else
             return false;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
