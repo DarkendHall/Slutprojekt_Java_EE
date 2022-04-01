@@ -37,16 +37,21 @@ class TeacherEntityTest {
 
     @Test
     void testToString() {
-        assertThat(teacher.toString()).isEqualTo("TeacherEntity{id=null, firstName='null', lastName='null'}");
+        assertThat(teacher).hasToString("TeacherEntity{id=null, firstName='null', lastName='null'}");
     }
 
     @Test
     void testEquals() {
-        assertThat(teacher).isEqualTo(new TeacherEntity());
+        assertThat(teacher.equals(new TeacherEntity())).isTrue();
     }
 
     @Test
     void testHashCode() {
-        assertThat(teacher.hashCode()).isEqualTo(new TeacherEntity().hashCode());
+        assertThat(teacher).hasSameHashCodeAs(new TeacherEntity());
+    }
+
+    @Test
+    void testEqualsWithPersonEntity() {
+        assertThat(teacher.equals(new PersonEntity())).isFalse();
     }
 }

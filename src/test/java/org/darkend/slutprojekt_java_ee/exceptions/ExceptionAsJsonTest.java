@@ -26,7 +26,7 @@ class ExceptionAsJsonTest {
 
     @Test
     void testToString() {
-        assertThat(json.toString()).isEqualTo("ExceptionAsJson{timestamp='time', status=404 NOT_FOUND, message='msg'}");
+        assertThat(json).hasToString("ExceptionAsJson{timestamp='time', status=404 NOT_FOUND, message='msg'}");
     }
 
     @Test
@@ -36,6 +36,6 @@ class ExceptionAsJsonTest {
 
     @Test
     void testHashCode() {
-        assertThat(json.hashCode()).isEqualTo(new ExceptionAsJson("time", HttpStatus.NOT_FOUND, "msg").hashCode());
+        assertThat(json).hasSameHashCodeAs(new ExceptionAsJson("time", HttpStatus.NOT_FOUND, "msg"));
     }
 }

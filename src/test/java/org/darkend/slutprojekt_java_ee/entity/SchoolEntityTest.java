@@ -82,8 +82,9 @@ class SchoolEntityTest {
 
     @Test
     void testToString() {
-        assertThat(school.toString()).isEqualTo(
-                "SchoolEntity{id=null, name='null', city='null', address='null', principal=null, students=[], courses=[], teachers=[]}");
+        assertThat(school).hasToString(
+                "SchoolEntity{id=null, name='null', city='null', address='null', principal=null, students=[], " +
+                        "courses=[], teachers=[]}");
     }
 
     @Test
@@ -93,6 +94,6 @@ class SchoolEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(school.hashCode()).isEqualTo(new SchoolEntity().hashCode());
+        assertThat(school).hasSameHashCodeAs(new SchoolEntity());
     }
 }

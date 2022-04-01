@@ -70,7 +70,7 @@ class UserEntityTest {
 
     @Test
     void testToString() {
-        assertThat(user.toString()).isEqualTo("UserEntity{id=null, username='null', password='null', roles=[]}");
+        assertThat(user).hasToString("UserEntity{id=null, username='null', password='null', roles=[]}");
     }
 
     @Test
@@ -80,6 +80,6 @@ class UserEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(user.hashCode()).isEqualTo(new UserEntity().hashCode());
+        assertThat(user).hasSameHashCodeAs(new UserEntity());
     }
 }
