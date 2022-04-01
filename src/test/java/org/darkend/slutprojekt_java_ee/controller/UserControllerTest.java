@@ -2,6 +2,7 @@ package org.darkend.slutprojekt_java_ee.controller;
 
 import org.darkend.slutprojekt_java_ee.dto.UserDtoIn;
 import org.darkend.slutprojekt_java_ee.dto.UserDtoOut;
+import org.darkend.slutprojekt_java_ee.security.GlobalMethodSecurityConfig;
 import org.darkend.slutprojekt_java_ee.security.SecurityConfig;
 import org.darkend.slutprojekt_java_ee.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
-@Import({ModelMapper.class, SecurityConfig.class})
+@Import({ModelMapper.class, SecurityConfig.class, GlobalMethodSecurityConfig.class})
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
