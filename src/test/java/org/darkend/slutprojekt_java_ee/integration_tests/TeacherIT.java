@@ -25,9 +25,16 @@ import java.time.Clock;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TeacherController.class)
 @Import({TeacherService.class, CommonDto.class, ModelMapperConfig.class})
@@ -107,8 +114,7 @@ class TeacherIT {
 
     @Test
     void deleteShouldReturnNotFoundWithInvalidId() throws Exception {
-        mvc.perform(delete("/teachers" +
-                        "/2").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(delete("/teachers/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
