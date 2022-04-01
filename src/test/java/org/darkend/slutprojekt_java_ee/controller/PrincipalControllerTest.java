@@ -124,6 +124,19 @@ class PrincipalControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    @WithMockUser(username = "user")
+    void addNewPrincipalWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(post("/principals").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "fullName": "Principal Name"
+                                }
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
     @TestConfiguration
     static class TestConfig {
 
