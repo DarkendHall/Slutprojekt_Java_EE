@@ -82,8 +82,9 @@ class SchoolDtoTest {
 
     @Test
     void testToString() {
-        assertThat(school.toString()).isEqualTo(
-                "SchoolDto{id=null, name='null', city='null', address='null', principal=null, students=null, courses=null, teachers=null}");
+        assertThat(school).hasToString(
+                "SchoolDto{id=null, name='null', city='null', address='null', principal=null, students=null, " +
+                        "courses=null, teachers=null}");
     }
 
     @Test
@@ -93,6 +94,6 @@ class SchoolDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(school.hashCode()).isEqualTo(new SchoolDto().hashCode());
+        assertThat(school).hasSameHashCodeAs(new SchoolDto());
     }
 }

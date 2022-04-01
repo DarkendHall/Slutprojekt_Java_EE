@@ -4,7 +4,6 @@ import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,8 +12,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,7 +24,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringRunner.class)
 @WebMvcTest(StudentController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @Import(ModelMapper.class)
@@ -47,7 +45,7 @@ class StudentControllerTest {
         when(service.findStudentById(1L)).thenReturn(student);
         when(service.findStudentById(2L)).thenThrow(new EntityNotFoundException("No student found with ID: " + 2L));
         when(service.findAllStudents()).thenReturn(List.of(student));
-        doThrow(new EntityNotFoundException("No student found with ID: " + 2L)).when(service)
+        doThrow(new EmptyResultDataAccessException("No student found with ID: " + 2L, 1)).when(service)
                 .deleteStudent(2L);
         when(service.createStudent(any(StudentDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();

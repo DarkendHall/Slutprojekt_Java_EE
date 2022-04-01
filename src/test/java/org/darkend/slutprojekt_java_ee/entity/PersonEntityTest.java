@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-class PrincipalEntityTest {
+class PersonEntityTest {
 
-    private PrincipalEntity principal;
+    private PersonEntity principal;
 
     @BeforeEach
     void setUp() {
-        principal = new PrincipalEntity();
+        principal = new PersonEntity();
     }
 
     @Test
@@ -37,21 +37,16 @@ class PrincipalEntityTest {
 
     @Test
     void testToString() {
-        assertThat(principal).hasToString("PrincipalEntity{id=null, firstName='null', lastName='null'}");
+        assertThat(principal).hasToString("PersonEntity{id=null, firstName='null', lastName='null'}");
     }
 
     @Test
     void testEquals() {
-        assertThat(principal.equals(new PrincipalEntity())).isTrue();
+        assertThat(principal).isEqualTo(new PersonEntity());
     }
 
     @Test
     void testHashCode() {
-        assertThat(principal).hasSameHashCodeAs(new PrincipalEntity());
-    }
-
-    @Test
-    void testEqualsWithPersonEntity() {
-        assertThat(principal.equals(new PersonEntity())).isFalse();
+        assertThat(principal).hasSameHashCodeAs(new PersonEntity());
     }
 }
