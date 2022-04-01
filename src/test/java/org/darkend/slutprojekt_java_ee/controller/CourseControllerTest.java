@@ -3,19 +3,22 @@ package org.darkend.slutprojekt_java_ee.controller;
 import org.darkend.slutprojekt_java_ee.dto.CourseDto;
 import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
+import org.darkend.slutprojekt_java_ee.security.SecurityConfig;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -25,13 +28,14 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CourseController.class)
-@AutoConfigureMockMvc(addFilters = false)
-@Import(ModelMapper.class)
+@ContextConfiguration
+@Import({ModelMapper.class, SecurityConfig.class})
 class CourseControllerTest {
 
     @Autowired
@@ -63,6 +67,7 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void getOneCourseWithValidIdOne() throws Exception {
         mvc.perform(get("/courses/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
@@ -74,12 +79,14 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void getOneCourseWithInvalidIdTwo() throws Exception {
         mvc.perform(get("/courses/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(404));
     }
 
     @Test
+    @WithMockUser(username = "user")
     void getAllReturnsListOfAllCourses() throws Exception {
         mvc.perform(get("/courses").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(1L))
@@ -91,18 +98,23 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteOneCourseWithValidIdOne() throws Exception {
-        mvc.perform(delete("/courses/1").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(delete("/courses/1").accept(MediaType.APPLICATION_JSON)
+                        .with(SecurityMockMvcRequestPostProcessors.user("admin")
+                                .roles("ADMIN")))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteOneCourseWithInvalidIdTwo() throws Exception {
         mvc.perform(delete("/courses/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addNewCourseWithPostReturnsCreatedCourse() throws Exception {
         mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
                         .content("""
