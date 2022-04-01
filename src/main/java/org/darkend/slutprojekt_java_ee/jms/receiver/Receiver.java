@@ -20,7 +20,7 @@ public class Receiver {
     @JmsListener(destination = JmsConfig.QUEUE)
     public void listener(@Payload MailEntity message) {
 
-        logger.info(String.format("Received message: %s", message));
+        logger.info("Received message: {}", message);
 
         var recipients = message.getRecipients()
                 .stream()
