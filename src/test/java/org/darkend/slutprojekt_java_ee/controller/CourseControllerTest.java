@@ -162,6 +162,7 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void setStudentsInCourseShouldUpdateListOfStudents() throws Exception {
         mvc.perform(patch("/courses/1/students").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -190,6 +191,7 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void setTeacherInCourseShouldUpdateListOfTeacher() throws Exception {
         mvc.perform(patch("/courses/1/teacher").contentType(MediaType.APPLICATION_JSON)
                         .content("""

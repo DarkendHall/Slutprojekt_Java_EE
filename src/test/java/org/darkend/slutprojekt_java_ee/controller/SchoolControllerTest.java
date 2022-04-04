@@ -237,6 +237,7 @@ class SchoolControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void setCoursesInSchoolShouldUpdateListOfCourses() throws Exception {
         var newCourse = new CourseDto().setId(1L)
                 .setName("Course Name")
@@ -276,6 +277,7 @@ class SchoolControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void setStudentsInSchoolShouldUpdateListOfStudents() throws Exception {
         mvc.perform(patch("/schools/1/students").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -305,6 +307,7 @@ class SchoolControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void setTeachersInSchoolShouldUpdateListOfTeachers() throws Exception {
         mvc.perform(patch("/schools/2/teachers").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -332,6 +335,7 @@ class SchoolControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void setPrincipalInSchoolShouldUpdatePrincipal() throws Exception {
         mvc.perform(patch("/schools/2/principal").contentType(MediaType.APPLICATION_JSON)
                         .content("""
