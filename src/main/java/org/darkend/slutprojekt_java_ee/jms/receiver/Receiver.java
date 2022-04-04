@@ -15,7 +15,11 @@ public class Receiver {
 
     private final Logger logger = LoggerFactory.getLogger(Receiver.class);
 
-    private final EmailSender emailSender = new EmailSender();
+    private final EmailSender emailSender;
+
+    public Receiver(EmailSender emailSender) {
+        this.emailSender = emailSender;
+    }
 
     @JmsListener(destination = JmsConfig.QUEUE)
     public void listener(@Payload MailEntity message) {
