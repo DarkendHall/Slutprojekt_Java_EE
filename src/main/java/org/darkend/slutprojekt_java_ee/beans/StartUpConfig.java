@@ -11,7 +11,7 @@ public class StartUpConfig {
 
     @Bean
     public CommandLineRunner setUpRoles(RoleRepository roleRepository) {
-        return (args) -> {
+        return args -> {
             if (roleRepository.findByRole("ROLE_USER") == null)
                 roleRepository.save(new RoleEntity("ROLE_USER"));
             if (roleRepository.findByRole("ROLE_ADMIN") == null)

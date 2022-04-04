@@ -40,7 +40,8 @@ public class TeacherController {
     @ApiResponse(responseCode = "401", description = "Unauthorized")
     @ApiResponse(responseCode = "403", description = "Forbidden")
     public TeacherDto createTeacher(@Valid @RequestBody TeacherDto teacher, HttpServletResponse response) {
-        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(teacher)));
+        String jsonBody = ObjectToJson.convert(teacher);
+        logger.info("Received POST request with JSON body: {}", jsonBody);
         TeacherDto createdTeacher = teacherService.createTeacher(teacher);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()
                 .build() + "/" + createdTeacher.getId());
@@ -53,7 +54,7 @@ public class TeacherController {
     @ApiResponse(responseCode = "403", description = "Forbidden")
     @ApiResponse(responseCode = "404", description = "Not found")
     public void deleteTeacher(@PathVariable Long id) {
-        logger.info(String.format("Received DELETE request for ID: %d", id));
+        logger.info("Received DELETE request for ID: {}", id);
         teacherService.deleteTeacher(id);
     }
 
@@ -62,7 +63,7 @@ public class TeacherController {
     @ApiResponse(responseCode = "401", description = "Unauthorized")
     @ApiResponse(responseCode = "404", description = "Not found")
     public TeacherDto findTeacherById(@PathVariable Long id) {
-        logger.info(String.format("Received GET request for ID: %d", id));
+        logger.info("Received GET request for ID: {}", id);
         return teacherService.findTeacherById(id);
     }
 

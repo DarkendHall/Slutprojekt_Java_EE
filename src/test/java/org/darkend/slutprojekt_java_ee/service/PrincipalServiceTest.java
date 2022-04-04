@@ -82,7 +82,7 @@ class PrincipalServiceTest {
         doThrow(new EmptyResultDataAccessException(1)).when(repository)
                 .deleteById(2L);
 
-        assertThatThrownBy(() -> service.deletePrincipal(2L));
+        assertThatThrownBy(() -> service.deletePrincipal(2L)).isExactlyInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @Test

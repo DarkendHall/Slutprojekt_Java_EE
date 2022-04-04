@@ -148,7 +148,7 @@ class SchoolServiceTest {
         doThrow(new EmptyResultDataAccessException(1)).when(repository)
                 .deleteById(2L);
 
-        assertThatThrownBy(() -> service.deleteSchool(2L));
+        assertThatThrownBy(() -> service.deleteSchool(2L)).isExactlyInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @Test

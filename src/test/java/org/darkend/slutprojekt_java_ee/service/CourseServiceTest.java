@@ -112,7 +112,7 @@ class CourseServiceTest {
         doThrow(new EmptyResultDataAccessException(1)).when(repository)
                 .deleteById(2L);
 
-        assertThatThrownBy(() -> service.deleteCourse(2L));
+        assertThatThrownBy(() -> service.deleteCourse(2L)).isExactlyInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @Test

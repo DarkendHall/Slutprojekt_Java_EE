@@ -40,7 +40,8 @@ public class StudentController {
     @ApiResponse(responseCode = "401", description = "Unauthorized")
     @ApiResponse(responseCode = "403", description = "Forbidden")
     public StudentDto createStudent(@Valid @RequestBody StudentDto student, HttpServletResponse response) {
-        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(student)));
+        String jsonBody = ObjectToJson.convert(student);
+        logger.info("Received POST request with JSON body: {}", jsonBody);
         StudentDto createdStudent = studentService.createStudent(student);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()
                 .build() + "/" + createdStudent.getId());
@@ -53,7 +54,7 @@ public class StudentController {
     @ApiResponse(responseCode = "403", description = "Forbidden")
     @ApiResponse(responseCode = "404", description = "Not found")
     public void deleteStudent(@PathVariable Long id) {
-        logger.info(String.format("Received DELETE request for ID: %d", id));
+        logger.info("Received DELETE request for ID: {}", id);
         studentService.deleteStudent(id);
     }
 
@@ -62,7 +63,7 @@ public class StudentController {
     @ApiResponse(responseCode = "401", description = "Unauthorized")
     @ApiResponse(responseCode = "404", description = "Not found")
     public StudentDto findStudentById(@PathVariable Long id) {
-        logger.info(String.format("Received GET request for ID: %d", id));
+        logger.info("Received GET request for ID: {}", id);
         return studentService.findStudentById(id);
     }
 

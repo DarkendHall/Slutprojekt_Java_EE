@@ -97,7 +97,7 @@ class UserServiceTest {
         doThrow(new EmptyResultDataAccessException(1)).when(userRepository)
                 .deleteById(2L);
 
-        assertThatThrownBy(() -> service.deleteUser(2L));
+        assertThatThrownBy(() -> service.deleteUser(2L)).isExactlyInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @Test
