@@ -20,7 +20,8 @@ public class MailService {
     private final ModelMapper mapper;
     private final Sender sender;
 
-    public MailService(MailRepository mailRepository, CourseRepository courseRepository, ModelMapper mapper, Sender sender) {
+    public MailService(MailRepository mailRepository, CourseRepository courseRepository, ModelMapper mapper,
+                       Sender sender) {
         this.mailRepository = mailRepository;
         this.courseRepository = courseRepository;
         this.mapper = mapper;

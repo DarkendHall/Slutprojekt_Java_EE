@@ -5,7 +5,6 @@ import org.springframework.jms.support.converter.MessageConverter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 class JmsConfigTest {
 
     private final JmsConfig jmsConfig = new JmsConfig();

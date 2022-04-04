@@ -9,7 +9,9 @@ import org.springframework.jms.core.JmsTemplate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatNoException;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class SenderTest {
 
