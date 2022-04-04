@@ -34,7 +34,8 @@ public class UserController {
     @ApiResponse(responseCode = "400", description = "Bad Request")
     @ApiResponse(responseCode = "401", description = "Unauthorized")
     public UserDtoOut createUser(@Valid @RequestBody UserDtoIn user, HttpServletResponse response) {
-        logger.info("Received POST request with JSON body: {}", ObjectToJson.convert(user));
+        String jsonBody = ObjectToJson.convert(user);
+        logger.info("Received POST request with JSON body: {}", jsonBody);
         UserDtoOut createdUser = userService.createUser(user);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()
                 .build() + "/" + createdUser.getId());
