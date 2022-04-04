@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
 
@@ -24,7 +23,7 @@ public class UserPrincipal implements UserDetails {
                 .stream()
                 .map(RoleEntity::getRole)
                 .map(String::toUpperCase)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

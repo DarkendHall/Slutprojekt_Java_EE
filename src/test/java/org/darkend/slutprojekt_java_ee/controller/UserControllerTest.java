@@ -51,7 +51,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void addNewUserWithPostReturnsCreatedUser() throws Exception {
+    void addNewUserWithPostReturnsCreatedUser() throws Exception {
         mvc.perform(post("/users/signup").contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -71,7 +71,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void addInvalidUsersWithPostReturnsBadRequest() throws Exception {
+    void addInvalidUsersWithPostReturnsBadRequest() throws Exception {
         mvc.perform(post("/users/signup").contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {

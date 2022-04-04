@@ -23,7 +23,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    private final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -34,7 +34,7 @@ public class UserController {
     @ApiResponse(responseCode = "400", description = "Bad Request")
     @ApiResponse(responseCode = "401", description = "Unauthorized")
     public UserDtoOut createUser(@Valid @RequestBody UserDtoIn user, HttpServletResponse response) {
-        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(user)));
+        logger.info("Received POST request with JSON body: {}", ObjectToJson.convert(user));
         UserDtoOut createdUser = userService.createUser(user);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()
                 .build() + "/" + createdUser.getId());
