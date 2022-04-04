@@ -27,7 +27,8 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(SchoolController.class)
@@ -73,6 +74,41 @@ class SchoolControllerTest {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
+        when(service.setStudentsInSchool(List.of(new StudentDto().setId(1L)
+                .setFullName("Student Name")
+                .setEmail("email@email.com")
+                .setPhoneNumber("N/A"), new StudentDto().setId(2L)
+                .setFullName("Test Name")
+                .setEmail("test@email.com")
+                .setPhoneNumber("123")), 1L)).thenReturn(school);
+        when(service.setTeachersInSchool(List.of(new TeacherDto().setId(1L)
+                .setFullName("Teacher Name"), new TeacherDto().setId(2L)
+                .setFullName("Test Name")), 2L)).thenReturn(school);
+        when(service.setCoursesInSchool(anyList(), anyLong())).thenReturn(new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(student))
+                .setTeachers(List.of(teacher))
+                .setPrincipal(new PrincipalDto().setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(new CourseDto().setId(1L)
+                        .setName("Course Name")
+                        .setStudents(List.of(student))
+                        .setTeacher(teacher))));
+        when(service.setPrincipalInSchool(new PrincipalDto().setId(1L)
+                .setFullName("Principal Name"), 2L)).thenReturn(new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(student))
+                .setTeachers(List.of(teacher))
+                .setPrincipal(new PrincipalDto().setId(1L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(new CourseDto().setId(5L)
+                        .setName("Course Name")
+                        .setStudents(List.of(student))
+                        .setTeacher(teacher))));
     }
 
     @Test
@@ -186,6 +222,123 @@ class SchoolControllerTest {
                 .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
                         .get(0)))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void setCoursesInSchoolShouldUpdateListOfCourses() throws Exception {
+        var newCourse = new CourseDto().setId(1L)
+                .setName("Course Name")
+                .setStudents(List.of(student))
+                .setTeacher(new TeacherDto().setId(3L)
+                        .setFullName("Teacher Name"));
+
+        mvc.perform(patch("/schools/1/courses").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "name": "Course Name",
+                                    "students": [
+                                      {
+                                 	    "id": 2,
+                                 	    "fullName": "Student Name",
+                                 	    "email": "email@email.com",
+                                   	    "phoneNumber": "N/A"
+                                      }
+                                    ],
+                                    "teacher": {
+                                   	  "id": 3,
+                                      "fullName": "Teacher Name"
+                                    }
+                                  }
+                                ]
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.courses[0].id").value(newCourse.getId()))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void setStudentsInSchoolShouldUpdateListOfStudents() throws Exception {
+        mvc.perform(patch("/schools/1/students").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Student Name",
+                                    "email": "email@email.com",
+                                    "phoneNumber": "N/A"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name",
+                                    "email": "test@email.com",
+                                    "phoneNumber": "123"
+                                  }
+                                ]
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.students[0].fullName").value("Student Name"))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void setTeachersInSchoolShouldUpdateListOfTeachers() throws Exception {
+        mvc.perform(patch("/schools/2/teachers").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Teacher Name"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name"
+                                  }
+                                ]
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(jsonPath("$.teachers[0].fullName").value("Teacher Name"))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.city").value(school.getCity()))
+                .andExpect(jsonPath("$.address").value(school.getAddress()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void setPrincipalInSchoolShouldUpdatePrincipal() throws Exception {
+        mvc.perform(patch("/schools/2/principal").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                  {
+                                    "id": 1,
+                                    "fullName": "Principal Name"
+                                  }
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.principal").value(new PrincipalDto().setId(1L)
+                        .setFullName("Principal Name")))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.city").value(school.getCity()))
+                .andExpect(jsonPath("$.address").value(school.getAddress()))
+                .andExpect(status().isOk());
     }
 
     @TestConfiguration

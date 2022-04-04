@@ -6,7 +6,6 @@ import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,10 +23,10 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@RunWith(SpringRunner.class)
 @WebMvcTest(CourseController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @Import(ModelMapper.class)
@@ -40,17 +38,28 @@ class CourseControllerTest {
     @MockBean
     private CourseService service;
 
-    private final CourseDto course = new CourseDto().setId(1L)
+    private CourseDto course;
+
+    private final CourseDto course2 = new CourseDto().setId(1L)
             .setName("Course Name")
             .setStudents(List.of(new StudentDto().setId(2L)
                     .setFullName("Student Name")
                     .setPhoneNumber("N/A")
                     .setEmail("email@email.com")))
-            .setTeacher(new TeacherDto().setId(3L)
+            .setTeacher(new TeacherDto().setId(1L)
                     .setFullName("Teacher Name"));
 
     @BeforeEach
     void setUp() {
+        course = new CourseDto().setId(1L)
+                .setName("Course Name")
+                .setStudents(List.of(new StudentDto().setId(2L)
+                        .setFullName("Student Name")
+                        .setPhoneNumber("N/A")
+                        .setEmail("email@email.com")))
+                .setTeacher(new TeacherDto().setId(3L)
+                        .setFullName("Teacher Name"));
+
         when(service.findCourseById(1L)).thenReturn(course);
         when(service.findCourseById(2L)).thenThrow(new EntityNotFoundException("No course found with ID: " + 2L));
         when(service.findAllCourses()).thenReturn(List.of(course));
@@ -60,6 +69,15 @@ class CourseControllerTest {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
+        when(service.setStudentsInCourse(List.of(new StudentDto().setId(1L)
+                .setFullName("Student Name")
+                .setEmail("email@email.com")
+                .setPhoneNumber("N/A"), new StudentDto().setId(2L)
+                .setFullName("Test Name")
+                .setEmail("test@email.com")
+                .setPhoneNumber("123")), 1L)).thenReturn(course);
+        when(service.setTeacherInCourse(new TeacherDto().setId(1L)
+                .setFullName("Teacher Name"), 1L)).thenReturn(course2);
     }
 
     @Test
@@ -129,6 +147,51 @@ class CourseControllerTest {
                         .get(0)))
                 .andExpect(jsonPath("$.teacher").value(course.getTeacher()))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void setStudentsInCourseShouldUpdateListOfStudents() throws Exception {
+        mvc.perform(patch("/courses/1/students").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Student Name",
+                                    "email": "email@email.com",
+                                    "phoneNumber": "N/A"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name",
+                                    "email": "test@email.com",
+                                    "phoneNumber": "123"
+                                  }
+                                ]
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(course.getName()))
+                .andExpect(jsonPath("$.students[0]").value(course.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.students[0].fullName").value("Student Name"))
+                .andExpect(jsonPath("$.teacher").value(course.getTeacher()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void setTeacherInCourseShouldUpdateListOfTeacher() throws Exception {
+        mvc.perform(patch("/courses/1/teacher").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "fullName": "Teacher Name"
+                                }
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(course2.getName()))
+                .andExpect(jsonPath("$.teacher").value(course2.getTeacher()))
+                .andExpect(jsonPath("$.teacher.fullName").value("Teacher Name"))
+                .andExpect(jsonPath("$.teacher.id").value(1L))
+                .andExpect(status().isOk());
     }
 
     @TestConfiguration

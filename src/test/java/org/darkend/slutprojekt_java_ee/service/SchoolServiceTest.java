@@ -24,7 +24,8 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 class SchoolServiceTest {
@@ -163,5 +164,86 @@ class SchoolServiceTest {
         var result = service.findAllSchools();
 
         assertThat(result).isEqualTo(List.of(schoolDto));
+    }
+
+    @Test
+    void setCoursesShouldUpdateCoursesInSchool() {
+        var course = new CourseDto().setName("Course Name");
+        var school = new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(studentDto))
+                .setTeachers(List.of(teacherDto))
+                .setPrincipal(new PrincipalDto().setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(course));
+
+        var result = service.setCoursesInSchool(List.of(course), 1L);
+
+        assertThat(result).isEqualTo(school);
+    }
+
+    @Test
+    void setStudentsShouldUpdateStudentsInSchool() {
+        var student = new StudentDto().setFullName("Student Name");
+        var school = new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(student))
+                .setTeachers(List.of(teacherDto))
+                .setPrincipal(new PrincipalDto().setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(new CourseDto().setId(5L)
+                        .setName("Course Name")
+                        .setStudents(List.of(studentDto))
+                        .setTeacher(teacherDto)));
+
+        var result = service.setStudentsInSchool(List.of(student), 1L);
+
+        assertThat(result).isEqualTo(school);
+    }
+
+    @Test
+    void setTeachersShouldUpdateTeachersInSchool() {
+        var teacher = new TeacherDto().setFullName("Teacher Name");
+        var school = new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(studentDto))
+                .setTeachers(List.of(teacher))
+                .setPrincipal(new PrincipalDto().setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(new CourseDto().setId(5L)
+                        .setName("Course Name")
+                        .setStudents(List.of(studentDto))
+                        .setTeacher(teacherDto)));
+
+        var result = service.setTeachersInSchool(List.of(teacher), 1L);
+
+        assertThat(result).isEqualTo(school);
+    }
+
+    @Test
+    void setPrincipalShouldUpdatePrincipalInSchool() {
+        var principal = new PrincipalDto().setFullName("Principal Name");
+        var school = new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(studentDto))
+                .setTeachers(List.of(teacherDto))
+                .setPrincipal(principal.setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(new CourseDto().setId(5L)
+                        .setName("Course Name")
+                        .setStudents(List.of(studentDto))
+                        .setTeacher(teacherDto)));
+
+        var result = service.setPrincipalInSchool(principal, 1L);
+
+        assertThat(result).isEqualTo(school);
     }
 }
