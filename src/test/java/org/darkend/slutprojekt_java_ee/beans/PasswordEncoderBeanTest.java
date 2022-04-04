@@ -3,7 +3,7 @@ package org.darkend.slutprojekt_java_ee.beans;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PasswordEncoderBeanTest {
 

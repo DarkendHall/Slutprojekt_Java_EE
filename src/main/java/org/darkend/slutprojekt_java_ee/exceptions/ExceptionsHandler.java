@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.exceptions;
 
+import org.hibernate.TransientPropertyValueException;
 import org.modelmapper.MappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,4 +90,14 @@ public class ExceptionsHandler {
         return new ResponseEntity<>(new ExceptionAsJson(LocalDateTime.now(clock)
                 .format(dateTimeFormatter), HttpStatus.NOT_FOUND, e.getMessage()), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<Object> handleTransientPropertyValueException(TransientPropertyValueException e) {
+        logger.error(e.getMessage());
+
+        return ResponseEntity.badRequest()
+                .body(new ExceptionAsJson(LocalDateTime.now(clock)
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
+
 }

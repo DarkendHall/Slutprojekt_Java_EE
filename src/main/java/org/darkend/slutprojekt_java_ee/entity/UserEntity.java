@@ -1,6 +1,7 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     @Size(min = 3)
     private String username;
 
@@ -90,12 +92,12 @@ public class UserEntity {
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
         return Objects.equals(id, that.id) && Objects.equals(username,
-                that.username) && Objects.equals(password, that.password) && Objects.equals(roles,
+                that.username) && Objects.equals(roles,
                 that.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, roles);
+        return Objects.hash(id, username, roles);
     }
 }
