@@ -30,7 +30,7 @@ public class MailService {
     public MailDto newMail(MailDto mailDto, Long courseId) {
         var courseOptional = courseRepository.findById(courseId);
         var courseEntity = courseOptional.orElseThrow(
-                () -> new EntityNotFoundException("No mail found with ID: " + courseId));
+                () -> new EntityNotFoundException("No course found with ID: " + courseId));
 
         var recipients = courseEntity.getStudents()
                 .stream()
