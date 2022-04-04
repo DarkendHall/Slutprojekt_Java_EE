@@ -126,6 +126,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.7</version>
+                <configuration>
+                    <excludes>
+                        <exclude>org/darkend/slutprojekt_java_ee/Application.java</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
