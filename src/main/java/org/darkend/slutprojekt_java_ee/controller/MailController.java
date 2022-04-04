@@ -7,6 +7,7 @@ import org.darkend.slutprojekt_java_ee.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ public class MailController {
         this.mailService = mailService;
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("courses/{id}/message")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponse(responseCode = "400", description = "Bad Request")
