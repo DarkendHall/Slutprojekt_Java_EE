@@ -97,5 +97,4 @@ class MailServiceTest {
     void deleteMailWithInvalidIdShouldThrowException() {
         assertThatThrownBy(() -> service.deleteMail(2L)).isExactlyInstanceOf(EmptyResultDataAccessException.class);
     }
-
 }

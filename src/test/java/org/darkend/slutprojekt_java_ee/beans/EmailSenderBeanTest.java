@@ -15,5 +15,4 @@ class EmailSenderBeanTest {
     void emailSenderShouldReturnEmailSender() {
         assertThat(emailSenderBean.emailSender(mock(MailjetClient.class))).isExactlyInstanceOf(EmailSender.class);
     }
-
 }

@@ -12,5 +12,4 @@ public class EmailSenderBean {
     public EmailSender emailSender(MailjetClient client) {
         return new EmailSender(client);
     }
-
 }

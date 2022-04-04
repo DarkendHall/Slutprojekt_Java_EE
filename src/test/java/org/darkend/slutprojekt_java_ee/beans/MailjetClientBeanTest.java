@@ -13,5 +13,4 @@ class MailjetClientBeanTest {
     void mailjetClientShouldReturnMailjetClient() {
         assertThat(mailjetClientBean.mailjetClient()).isExactlyInstanceOf(MailjetClient.class);
     }
-
 }
