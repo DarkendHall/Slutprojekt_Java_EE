@@ -19,8 +19,13 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class UserServiceTest {
 
@@ -76,8 +81,8 @@ class UserServiceTest {
         doThrow(new ConstraintViolationException(null, null)).when(userRepository)
                 .save(invalidUserEntity);
 
-        assertThatThrownBy(() -> service.createUser(invalidUserDto)).isInstanceOfAny(
-                ConstraintViolationException.class, MappingException.class);
+        assertThatThrownBy(() -> service.createUser(invalidUserDto)).isInstanceOfAny(ConstraintViolationException.class,
+                MappingException.class);
     }
 
     @Test
@@ -92,7 +97,7 @@ class UserServiceTest {
         doThrow(new EmptyResultDataAccessException(1)).when(userRepository)
                 .deleteById(2L);
 
-        assertThatThrownBy(() -> service.deleteUser(2L));
+        assertThatThrownBy(() -> service.deleteUser(2L)).isExactlyInstanceOf(EmptyResultDataAccessException.class);
     }
 
     @Test

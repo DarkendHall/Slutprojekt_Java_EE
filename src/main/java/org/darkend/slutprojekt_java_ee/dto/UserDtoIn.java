@@ -2,6 +2,8 @@ package org.darkend.slutprojekt_java_ee.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,8 +11,17 @@ import java.util.Objects;
 public class UserDtoIn {
 
     private Long id;
+
+    @NotNull
+    @Size(min = 2)
     private String username;
+
+    @NotNull
+    @Size(min = 8)
     private String password;
+
+    @NotNull
+    @Size(min = 1)
     private List<String> roles;
 
     public Long getId() {

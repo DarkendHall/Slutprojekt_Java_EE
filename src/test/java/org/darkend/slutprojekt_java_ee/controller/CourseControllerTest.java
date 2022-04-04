@@ -3,33 +3,39 @@ package org.darkend.slutprojekt_java_ee.controller;
 import org.darkend.slutprojekt_java_ee.dto.CourseDto;
 import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
+import org.darkend.slutprojekt_java_ee.security.GlobalMethodSecurityConfig;
+import org.darkend.slutprojekt_java_ee.security.SecurityConfig;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Clock;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @WebMvcTest(CourseController.class)
-@AutoConfigureMockMvc(addFilters = false)
-@Import(ModelMapper.class)
+@Import({ModelMapper.class, SecurityConfig.class, GlobalMethodSecurityConfig.class})
 class CourseControllerTest {
 
     @Autowired
@@ -63,7 +69,7 @@ class CourseControllerTest {
         when(service.findCourseById(1L)).thenReturn(course);
         when(service.findCourseById(2L)).thenThrow(new EntityNotFoundException("No course found with ID: " + 2L));
         when(service.findAllCourses()).thenReturn(List.of(course));
-        doThrow(new EntityNotFoundException("No course found with ID: " + 2L)).when(service)
+        doThrow(new EmptyResultDataAccessException("No course found with ID: " + 2L, 1)).when(service)
                 .deleteCourse(2L);
         when(service.createCourse(any(CourseDto.class))).thenAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
@@ -81,6 +87,7 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void getOneCourseWithValidIdOne() throws Exception {
         mvc.perform(get("/courses/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
@@ -92,12 +99,14 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user")
     void getOneCourseWithInvalidIdTwo() throws Exception {
         mvc.perform(get("/courses/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(404));
     }
 
     @Test
+    @WithMockUser(username = "user")
     void getAllReturnsListOfAllCourses() throws Exception {
         mvc.perform(get("/courses").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(1L))
@@ -109,18 +118,21 @@ class CourseControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteOneCourseWithValidIdOne() throws Exception {
         mvc.perform(delete("/courses/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteOneCourseWithInvalidIdTwo() throws Exception {
         mvc.perform(delete("/courses/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addNewCourseWithPostReturnsCreatedCourse() throws Exception {
         mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -192,6 +204,56 @@ class CourseControllerTest {
                 .andExpect(jsonPath("$.teacher.fullName").value("Teacher Name"))
                 .andExpect(jsonPath("$.teacher.id").value(1L))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void addInvalidCourseWithPostReturnsBadRequest() throws Exception {
+        mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "name": "Course Name",
+                                  "students": [
+                                    {
+                                      "id": 2,
+                                      "fullName": "Name",
+                                      "email": "email@email.com",
+                                      "phoneNumber": "N/A"
+                                    }
+                                  ],
+                                  "teacher": {
+                                    "id": 3,
+                                    "fullName": "Teacher Name"
+                                  }
+                                }
+                                """))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void addNewCourseWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "name": "Course Name",
+                                  "students": [
+                                    {
+                                      "id": 2,
+                                      "fullName": "Student Name",
+                                      "email": "email@email.com",
+                                      "phoneNumber": "N/A"
+                                    }
+                                  ],
+                                  "teacher": {
+                                    "id": 3,
+                                    "fullName": "Teacher Name"
+                                  }
+                                }
+                                """))
+                .andExpect(status().isForbidden());
     }
 
     @TestConfiguration

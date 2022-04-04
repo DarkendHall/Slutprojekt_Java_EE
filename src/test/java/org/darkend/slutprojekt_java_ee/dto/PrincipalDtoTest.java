@@ -3,7 +3,7 @@ package org.darkend.slutprojekt_java_ee.dto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PrincipalDtoTest {
 
@@ -30,7 +30,7 @@ class PrincipalDtoTest {
 
     @Test
     void testToString() {
-        assertThat(principal.toString()).isEqualTo("PrincipalDto{id=null, fullName='null'}");
+        assertThat(principal).hasToString("PrincipalDto{id=null, fullName='null'}");
     }
 
     @Test
@@ -40,6 +40,6 @@ class PrincipalDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(principal.hashCode()).isEqualTo(new PrincipalDto().hashCode());
+        assertThat(principal).hasSameHashCodeAs(new PrincipalDto());
     }
 }

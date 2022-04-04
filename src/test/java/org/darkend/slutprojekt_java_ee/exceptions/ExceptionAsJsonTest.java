@@ -3,13 +3,11 @@ package org.darkend.slutprojekt_java_ee.exceptions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import static org.assertj.core.api.Assertions.*;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ExceptionAsJsonTest {
 
     ExceptionAsJson json = new ExceptionAsJson("time", HttpStatus.NOT_FOUND, "msg");
-
 
     @Test
     void getTimestamp() {
@@ -28,7 +26,7 @@ class ExceptionAsJsonTest {
 
     @Test
     void testToString() {
-        assertThat(json.toString()).isEqualTo("ExceptionAsJson{timestamp='time', status=404 NOT_FOUND, message='msg'}");
+        assertThat(json).hasToString("ExceptionAsJson{timestamp='time', status=404 NOT_FOUND, message='msg'}");
     }
 
     @Test
@@ -38,6 +36,6 @@ class ExceptionAsJsonTest {
 
     @Test
     void testHashCode() {
-        assertThat(json.hashCode()).isEqualTo(new ExceptionAsJson("time", HttpStatus.NOT_FOUND, "msg").hashCode());
+        assertThat(json).hasSameHashCodeAs(new ExceptionAsJson("time", HttpStatus.NOT_FOUND, "msg"));
     }
 }

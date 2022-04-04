@@ -1,5 +1,4 @@
 [![Build status](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/maven.yml/badge.svg)](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/maven.yml)
-[![Qodana](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/qodana.yml/badge.svg)](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/qodana.yml)
 [![LineLint](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/linelint.yml/badge.svg)](https://github.com/DarkendHall/Slutprojekt_Java_EE/actions/workflows/linelint.yml)
 
 ![Code Coverage](https://raw.githubusercontent.com/DarkendHall/Slutprojekt_Java_EE/badges/jacoco.svg)
@@ -7,6 +6,22 @@
 # Slutprojekt Java EE
 
 This is the project for the group project for the course Java Enterprise.
+
+<p><u>Installation:</u></p>
+
+You need to set the following environment variables:
+
+| Environment variable | Description                                            | Default   |
+|----------------------|--------------------------------------------------------|-----------|
+| MYSQL_HOST           | The URL/IP address of the MySQL server                 | localhost |
+| DB_DATABASE          | The database that you want to connect to on the server |           |
+| DB_PORT              | The port of the MySQL server                           | 3306      |
+| DB_USER              | Username of the database user                          |           |
+| DB_PASSWORD          | Password of the database user                          |           |
+| PASSWORD             | The password for the standard user                     |           |
+
+After those have been set, you're good to go!
+
 
 <details> <summary><b>Associations</b></summary>
 Course:
@@ -33,7 +48,7 @@ User:
 <p></p>
 <details> <summary><b>Endpoints & JSON</b></summary>
 
-Send a post request to /users/signup with JSON body:
+Send a post request to [/users/signup](http://localhost:8080/users/signup/) with JSON body:
 
 ```JSON
 {
@@ -50,5 +65,5 @@ There you will find a complete list of all available endpoints as well as JSON b
 The people who worked on this project:
 
 * Marcus Leeman
-* Oscar Stjernfeldt
+* Oscar Eriksson Stjernfeldt
 * Christian Löfqvist

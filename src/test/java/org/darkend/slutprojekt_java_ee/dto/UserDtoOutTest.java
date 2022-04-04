@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UserDtoOutTest {
 
@@ -39,7 +39,7 @@ class UserDtoOutTest {
 
     @Test
     void testToString() {
-        assertThat(user.toString()).isEqualTo("UserDtoOut{id=null, username='null', roles=null}");
+        assertThat(user).hasToString("UserDtoOut{id=null, username='null', roles=null}");
     }
 
     @Test
@@ -49,6 +49,6 @@ class UserDtoOutTest {
 
     @Test
     void testHashCode() {
-        assertThat(user.hashCode()).isEqualTo(new UserDtoOut().hashCode());
+        assertThat(user).hasSameHashCodeAs(new UserDtoOut());
     }
 }

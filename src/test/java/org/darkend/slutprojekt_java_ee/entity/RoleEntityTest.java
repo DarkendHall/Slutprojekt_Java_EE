@@ -3,7 +3,7 @@ package org.darkend.slutprojekt_java_ee.entity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RoleEntityTest {
 
@@ -30,7 +30,7 @@ class RoleEntityTest {
 
     @Test
     void testToString() {
-        assertThat(role.toString()).isEqualTo("RoleEntity{id=null, role='null'}");
+        assertThat(role).hasToString("RoleEntity{id=null, role='null'}");
     }
 
     @Test
@@ -40,7 +40,7 @@ class RoleEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(role.hashCode()).isEqualTo(new RoleEntity().hashCode());
+        assertThat(role).hasSameHashCodeAs(new RoleEntity());
     }
 
     @Test

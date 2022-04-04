@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CourseDtoTest {
 
@@ -50,7 +50,7 @@ class CourseDtoTest {
 
     @Test
     void testToString() {
-        assertThat(course.toString()).isEqualTo("CourseDto{id=null, name='null', students=null, teacher=null}");
+        assertThat(course).hasToString("CourseDto{id=null, name='null', students=null, teacher=null}");
     }
 
     @Test
@@ -60,6 +60,6 @@ class CourseDtoTest {
 
     @Test
     void testHashCode() {
-        assertThat(course.hashCode()).isEqualTo(new CourseDto().hashCode());
+        assertThat(course).hasSameHashCodeAs(new CourseDto());
     }
 }

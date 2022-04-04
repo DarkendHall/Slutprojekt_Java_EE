@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 public class ObjectToJson {
 
+    private ObjectToJson() {
+    }
+
     private static final ObjectWriter ow = new ObjectMapper().writer();
 
     public static String convert(Object o) {

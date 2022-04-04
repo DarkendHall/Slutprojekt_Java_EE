@@ -24,8 +24,10 @@ import org.modelmapper.ModelMapper;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ModelMapperConfigTest {
 
@@ -89,7 +91,6 @@ class ModelMapperConfigTest {
         assertThat(result).isEqualTo(user);
     }
 
-
     @Test
     void fullMappingShouldBeEqualToManualSchoolDto() {
         TeacherEntity teacher = new TeacherEntity().setId(1L)
@@ -150,7 +151,6 @@ class ModelMapperConfigTest {
 
         assertThat(result).isEqualTo(schoolDto);
     }
-
 
     @Test
     void fullMappingShouldBeEqualToManualSchoolEntity() {

@@ -4,8 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ObjectToJsonTest {
 
@@ -19,8 +21,9 @@ class ObjectToJsonTest {
     @Test
     void convertInvalidObjectShouldThrowException() {
         Object invalid = mock(Object.class);
-        when(invalid.toString()).thenReturn(invalid.getClass().getName());
-        assertThatThrownBy(()->ObjectToJson.convert(invalid)).isInstanceOf(IllegalArgumentException.class);
+        when(invalid.toString()).thenReturn(invalid.getClass()
+                .getName());
+        assertThatThrownBy(() -> ObjectToJson.convert(invalid)).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -40,7 +43,7 @@ class ObjectToJsonTest {
     }
 
     @Test
-    void nullValuesShouldNotBeIncludedWithSchoolDto(){
+    void nullValuesShouldNotBeIncludedWithSchoolDto() {
         var result = ObjectToJson.convert(new SchoolDto().setId(null)
                 .setName("test"));
 

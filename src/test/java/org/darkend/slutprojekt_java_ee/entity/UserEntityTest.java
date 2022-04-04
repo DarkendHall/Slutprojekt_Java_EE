@@ -1,12 +1,11 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UserEntityTest {
 
@@ -71,7 +70,7 @@ class UserEntityTest {
 
     @Test
     void testToString() {
-        assertThat(user.toString()).isEqualTo("UserEntity{id=null, username='null', password='null', roles=[]}");
+        assertThat(user).hasToString("UserEntity{id=null, username='null', password='null', roles=[]}");
     }
 
     @Test
@@ -81,6 +80,6 @@ class UserEntityTest {
 
     @Test
     void testHashCode() {
-        assertThat(user.hashCode()).isEqualTo(new UserEntity().hashCode());
+        assertThat(user).hasSameHashCodeAs(new UserEntity());
     }
 }
