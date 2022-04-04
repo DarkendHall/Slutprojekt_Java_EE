@@ -18,7 +18,7 @@ public class StartUpConfig {
     @Bean
     public CommandLineRunner setUpRoles(RoleRepository roleRepository, UserRepository userRepository,
                                         PasswordEncoder passwordEncoder) {
-        return (args) -> {
+        return args -> {
             Map<String, String> env = System.getenv();
             String password = passwordEncoder.encode(env.get("PASSWORD"));
             UserEntity standardUser = new UserEntity().setId(1L)

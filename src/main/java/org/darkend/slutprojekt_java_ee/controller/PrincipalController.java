@@ -38,7 +38,8 @@ public class PrincipalController {
     @ApiResponses({@ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "400",
             description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
     public PrincipalDto createPrincipal(@Valid @RequestBody PrincipalDto principal, HttpServletResponse response) {
-        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(principal)));
+        String jsonBody = ObjectToJson.convert(principal);
+        logger.info("Received POST request with JSON body: {}", jsonBody);
         PrincipalDto createdPrincipal = principalService.createPrincipal(principal);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()
                 .build() + "/" + createdPrincipal.getId());
@@ -49,7 +50,7 @@ public class PrincipalController {
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized"), @ApiResponse(responseCode = "403", description = "Forbidden")})
     public void deletePrincipal(@PathVariable Long id) {
-        logger.info(String.format("Received DELETE request for ID: %d", id));
+        logger.info("Received DELETE request for ID: {}", id);
         principalService.deletePrincipal(id);
     }
 
@@ -57,7 +58,7 @@ public class PrincipalController {
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized")})
     public PrincipalDto findPrincipalById(@PathVariable Long id) {
-        logger.info(String.format("Received GET request for ID: %d", id));
+        logger.info("Received GET request for ID: {}", id);
         return principalService.findPrincipalById(id);
     }
 

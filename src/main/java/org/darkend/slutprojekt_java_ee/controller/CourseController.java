@@ -38,7 +38,8 @@ public class CourseController {
     @ApiResponses({@ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "400",
             description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
     public CourseDto createCourse(@Valid @RequestBody CourseDto course, HttpServletResponse response) {
-        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(course)));
+        String jsonBody = ObjectToJson.convert(course);
+        logger.info("Received POST request with JSON body: {}", jsonBody);
         CourseDto createdCourse = courseService.createCourse(course);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()
                 .build() + "/" + createdCourse.getId());
@@ -49,7 +50,7 @@ public class CourseController {
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized"), @ApiResponse(responseCode = "403", description = "Forbidden")})
     public void deleteCourse(@PathVariable Long id) {
-        logger.info(String.format("Received DELETE request for ID: %d", id));
+        logger.info("Received DELETE request for ID: {}", id);
         courseService.deleteCourse(id);
     }
 
@@ -57,7 +58,7 @@ public class CourseController {
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized")})
     public CourseDto findCourseById(@PathVariable Long id) {
-        logger.info(String.format("Received GET request for ID: %d", id));
+        logger.info("Received GET request for ID: {}", id);
         return courseService.findCourseById(id);
     }
 

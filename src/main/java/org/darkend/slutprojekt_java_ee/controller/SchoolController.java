@@ -38,7 +38,8 @@ public class SchoolController {
     @ApiResponses({@ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "400",
             description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
     public SchoolDto createSchool(@Valid @RequestBody SchoolDto school, HttpServletResponse response) {
-        logger.info(String.format("Received POST request with JSON body: %s", ObjectToJson.convert(school)));
+        String jsonBody = ObjectToJson.convert(school);
+        logger.info("Received POST request with JSON body: {}", jsonBody);
         SchoolDto createdSchool = schoolService.createSchool(school);
         response.addHeader("Location", ServletUriComponentsBuilder.fromCurrentRequest()
                 .build() + "/" + createdSchool.getId());
@@ -49,7 +50,7 @@ public class SchoolController {
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized"), @ApiResponse(responseCode = "403", description = "Forbidden")})
     public void deleteSchool(@PathVariable Long id) {
-        logger.info(String.format("Received DELETE request for ID: %d", id));
+        logger.info("Received DELETE request for ID: {}", id);
         schoolService.deleteSchool(id);
     }
 
@@ -57,7 +58,7 @@ public class SchoolController {
     @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
             description = "Unauthorized")})
     public SchoolDto findSchoolById(@PathVariable Long id) {
-        logger.info(String.format("Received GET request for ID: %d", id));
+        logger.info("Received GET request for ID: {}", id);
         return schoolService.findSchoolById(id);
     }
 
