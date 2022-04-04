@@ -79,7 +79,7 @@ public class StudentController {
         return studentService.findAllStudents();
     }
 
-
+    @Secured("ROLE_ADMIN")
     @PatchMapping("{id}/email")
     @ApiResponse(responseCode = "400", description = "Bad Request")
     @ApiResponse(responseCode = "401", description = "Unauthorized")
@@ -90,6 +90,7 @@ public class StudentController {
         return studentService.updateEmail(email, id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("{id}/phonenumber")
     @ApiResponse(responseCode = "400", description = "Bad Request")
     @ApiResponse(responseCode = "401", description = "Unauthorized")

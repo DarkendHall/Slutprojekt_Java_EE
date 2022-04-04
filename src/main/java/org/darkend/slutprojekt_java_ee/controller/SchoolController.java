@@ -82,40 +82,48 @@ public class SchoolController {
         return schoolService.findAllSchools();
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("{id}/courses")
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized"), @ApiResponse(responseCode = "400",
-            description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
+    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto setCoursesInSchool(@PathVariable Long id, @RequestBody List<CourseDto> courses) {
         String jsonBody = ObjectToJson.convert(courses);
         logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(courses));
         return schoolService.setCoursesInSchool(courses, id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("{id}/students")
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized"), @ApiResponse(responseCode = "400",
-            description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
+    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto setStudentsInSchool(@PathVariable Long id, @RequestBody List<StudentDto> students) {
         String jsonBody = ObjectToJson.convert(students);
         logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(students));
         return schoolService.setStudentsInSchool(students, id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("{id}/teachers")
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized"), @ApiResponse(responseCode = "400",
-            description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
+    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto setTeachersInSchool(@PathVariable Long id, @RequestBody List<TeacherDto> teachers) {
         String jsonBody = ObjectToJson.convert(teachers);
         logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(teachers));
         return schoolService.setTeachersInSchool(teachers, id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("{id}/principal")
-    @ApiResponses({@ApiResponse(responseCode = "404", description = "Not found"), @ApiResponse(responseCode = "401",
-            description = "Unauthorized"), @ApiResponse(responseCode = "400",
-            description = "Bad Request"), @ApiResponse(responseCode = "403", description = "Forbidden")})
+    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto setPrincipalInCourse(@PathVariable Long id, @RequestBody PrincipalDto principal) {
         String jsonBody = ObjectToJson.convert(principal);
         logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(principal));

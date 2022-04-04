@@ -79,6 +79,7 @@ public class CourseController {
         return courseService.findAllCourses();
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("{id}/students")
     @ApiResponse(responseCode = "400", description = "Bad Request")
     @ApiResponse(responseCode = "401", description = "Unauthorized")
@@ -90,6 +91,7 @@ public class CourseController {
         return courseService.setStudentsInCourse(students, id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("{id}/teacher")
     @ApiResponse(responseCode = "400", description = "Bad Request")
     @ApiResponse(responseCode = "401", description = "Unauthorized")

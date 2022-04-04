@@ -24,13 +24,8 @@ import javax.persistence.EntityNotFoundException;
 import java.time.Clock;
 import java.util.List;
 
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -163,53 +158,6 @@ class CourseControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void setStudentsInCourseShouldUpdateListOfStudents() throws Exception {
-        mvc.perform(patch("/courses/1/students").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                [
-                                  {
-                                    "id": 1,
-                                    "fullName": "Student Name",
-                                    "email": "email@email.com",
-                                    "phoneNumber": "N/A"
-                                  },
-                                  {
-                                    "id": 2,
-                                    "fullName": "Test Name",
-                                    "email": "test@email.com",
-                                    "phoneNumber": "123"
-                                  }
-                                ]
-                                """))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value(course.getName()))
-                .andExpect(jsonPath("$.students[0]").value(course.getStudents()
-                        .get(0)))
-                .andExpect(jsonPath("$.students[0].fullName").value("Student Name"))
-                .andExpect(jsonPath("$.teacher").value(course.getTeacher()))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void setTeacherInCourseShouldUpdateListOfTeacher() throws Exception {
-        mvc.perform(patch("/courses/1/teacher").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {
-                                  "id": 1,
-                                  "fullName": "Teacher Name"
-                                }
-                                """))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value(course2.getName()))
-                .andExpect(jsonPath("$.teacher").value(course2.getTeacher()))
-                .andExpect(jsonPath("$.teacher.fullName").value("Teacher Name"))
-                .andExpect(jsonPath("$.teacher.id").value(1L))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addInvalidCourseWithPostReturnsBadRequest() throws Exception {
         mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -253,6 +201,89 @@ class CourseControllerTest {
                                     "id": 3,
                                     "fullName": "Teacher Name"
                                   }
+                                }
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void setStudentsInCourseShouldUpdateListOfStudents() throws Exception {
+        mvc.perform(patch("/courses/1/students").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Student Name",
+                                    "email": "email@email.com",
+                                    "phoneNumber": "N/A"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name",
+                                    "email": "test@email.com",
+                                    "phoneNumber": "123"
+                                  }
+                                ]
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(course.getName()))
+                .andExpect(jsonPath("$.students[0]").value(course.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.students[0].fullName").value("Student Name"))
+                .andExpect(jsonPath("$.teacher").value(course.getTeacher()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void setStudentsWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/courses/1/students").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Student Name",
+                                    "email": "email@email.com",
+                                    "phoneNumber": "N/A"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name",
+                                    "email": "test@email.com",
+                                    "phoneNumber": "123"
+                                  }
+                                ]
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void setTeacherInCourseShouldUpdateListOfTeacher() throws Exception {
+        mvc.perform(patch("/courses/1/teacher").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "fullName": "Teacher Name"
+                                }
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(course2.getName()))
+                .andExpect(jsonPath("$.teacher").value(course2.getTeacher()))
+                .andExpect(jsonPath("$.teacher.fullName").value("Teacher Name"))
+                .andExpect(jsonPath("$.teacher.id").value(1L))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void setTeacherWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/courses/1/teacher").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "id": 1,
+                                  "fullName": "Teacher Name"
                                 }
                                 """))
                 .andExpect(status().isForbidden());

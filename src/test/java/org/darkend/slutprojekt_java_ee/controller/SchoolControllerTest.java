@@ -238,127 +238,6 @@ class SchoolControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void setCoursesInSchoolShouldUpdateListOfCourses() throws Exception {
-        var newCourse = new CourseDto().setId(1L)
-                .setName("Course Name")
-                .setStudents(List.of(student))
-                .setTeacher(new TeacherDto().setId(3L)
-                        .setFullName("Teacher Name"));
-
-        mvc.perform(patch("/schools/1/courses").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                [
-                                  {
-                                    "id": 1,
-                                    "name": "Course Name",
-                                    "students": [
-                                      {
-                                 	    "id": 2,
-                                 	    "fullName": "Student Name",
-                                 	    "email": "email@email.com",
-                                   	    "phoneNumber": "N/A"
-                                      }
-                                    ],
-                                    "teacher": {
-                                   	  "id": 3,
-                                      "fullName": "Teacher Name"
-                                    }
-                                  }
-                                ]
-                                """))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value(school.getName()))
-                .andExpect(jsonPath("$.courses[0].id").value(newCourse.getId()))
-                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
-                        .get(0)))
-                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
-                        .get(0)))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void setStudentsInSchoolShouldUpdateListOfStudents() throws Exception {
-        mvc.perform(patch("/schools/1/students").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                [
-                                  {
-                                    "id": 1,
-                                    "fullName": "Student Name",
-                                    "email": "email@email.com",
-                                    "phoneNumber": "N/A"
-                                  },
-                                  {
-                                    "id": 2,
-                                    "fullName": "Test Name",
-                                    "email": "test@email.com",
-                                    "phoneNumber": "123"
-                                  }
-                                ]
-                                """))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value(school.getName()))
-                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
-                        .get(0)))
-                .andExpect(jsonPath("$.students[0].fullName").value("Student Name"))
-                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
-                        .get(0)))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void setTeachersInSchoolShouldUpdateListOfTeachers() throws Exception {
-        mvc.perform(patch("/schools/2/teachers").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                [
-                                  {
-                                    "id": 1,
-                                    "fullName": "Teacher Name"
-                                  },
-                                  {
-                                    "id": 2,
-                                    "fullName": "Test Name"
-                                  }
-                                ]
-                                """))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value(school.getName()))
-                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
-                        .get(0)))
-                .andExpect(jsonPath("$.teachers[0].fullName").value("Teacher Name"))
-                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
-                        .get(0)))
-                .andExpect(jsonPath("$.city").value(school.getCity()))
-                .andExpect(jsonPath("$.address").value(school.getAddress()))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
-    void setPrincipalInSchoolShouldUpdatePrincipal() throws Exception {
-        mvc.perform(patch("/schools/2/principal").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                  {
-                                    "id": 1,
-                                    "fullName": "Principal Name"
-                                  }
-                                """))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value(school.getName()))
-                .andExpect(jsonPath("$.principal").value(new PrincipalDto().setId(1L)
-                        .setFullName("Principal Name")))
-                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
-                        .get(0)))
-                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
-                        .get(0)))
-                .andExpect(jsonPath("$.city").value(school.getCity()))
-                .andExpect(jsonPath("$.address").value(school.getAddress()))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addInvalidSchoolWithPostReturnsBadRequest() throws Exception {
         mvc.perform(post("/schools").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -455,6 +334,215 @@ class SchoolControllerTest {
                                     }
                                   ]
                                 }
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void setCoursesInSchoolShouldUpdateListOfCourses() throws Exception {
+        var newCourse = new CourseDto().setId(1L)
+                .setName("Course Name")
+                .setStudents(List.of(student))
+                .setTeacher(new TeacherDto().setId(3L)
+                        .setFullName("Teacher Name"));
+
+        mvc.perform(patch("/schools/1/courses").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "name": "Course Name",
+                                    "students": [
+                                      {
+                                 	    "id": 2,
+                                 	    "fullName": "Student Name",
+                                 	    "email": "email@email.com",
+                                   	    "phoneNumber": "N/A"
+                                      }
+                                    ],
+                                    "teacher": {
+                                   	  "id": 3,
+                                      "fullName": "Teacher Name"
+                                    }
+                                  }
+                                ]
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.courses[0].id").value(newCourse.getId()))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void setCoursesWithRoleUserShouldReturnForbidden() throws Exception {
+        var newCourse = new CourseDto().setId(1L)
+                .setName("Course Name")
+                .setStudents(List.of(student))
+                .setTeacher(new TeacherDto().setId(3L)
+                        .setFullName("Teacher Name"));
+
+        mvc.perform(patch("/schools/1/courses").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "name": "Course Name",
+                                    "students": [
+                                      {
+                                 	    "id": 2,
+                                 	    "fullName": "Student Name",
+                                 	    "email": "email@email.com",
+                                   	    "phoneNumber": "N/A"
+                                      }
+                                    ],
+                                    "teacher": {
+                                   	  "id": 3,
+                                      "fullName": "Teacher Name"
+                                    }
+                                  }
+                                ]
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void setStudentsInSchoolShouldUpdateListOfStudents() throws Exception {
+        mvc.perform(patch("/schools/1/students").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Student Name",
+                                    "email": "email@email.com",
+                                    "phoneNumber": "N/A"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name",
+                                    "email": "test@email.com",
+                                    "phoneNumber": "123"
+                                  }
+                                ]
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.students[0].fullName").value("Student Name"))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void setStudentsWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/schools/1/students").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Student Name",
+                                    "email": "email@email.com",
+                                    "phoneNumber": "N/A"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name",
+                                    "email": "test@email.com",
+                                    "phoneNumber": "123"
+                                  }
+                                ]
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void setTeachersInSchoolShouldUpdateListOfTeachers() throws Exception {
+        mvc.perform(patch("/schools/2/teachers").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Teacher Name"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name"
+                                  }
+                                ]
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(jsonPath("$.teachers[0].fullName").value("Teacher Name"))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.city").value(school.getCity()))
+                .andExpect(jsonPath("$.address").value(school.getAddress()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void setTeachersWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/schools/2/teachers").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                [
+                                  {
+                                    "id": 1,
+                                    "fullName": "Teacher Name"
+                                  },
+                                  {
+                                    "id": 2,
+                                    "fullName": "Test Name"
+                                  }
+                                ]
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void setPrincipalInSchoolShouldUpdatePrincipal() throws Exception {
+        mvc.perform(patch("/schools/2/principal").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                  {
+                                    "id": 1,
+                                    "fullName": "Principal Name"
+                                  }
+                                """))
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.name").value(school.getName()))
+                .andExpect(jsonPath("$.principal").value(new PrincipalDto().setId(1L)
+                        .setFullName("Principal Name")))
+                .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
+                        .get(0)))
+                .andExpect(jsonPath("$.students[0]").value(school.getStudents()
+                        .get(0)))
+                .andExpect(jsonPath("$.city").value(school.getCity()))
+                .andExpect(jsonPath("$.address").value(school.getAddress()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void setPrincipalWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/schools/2/principal").contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                  {
+                                    "id": 1,
+                                    "fullName": "Principal Name"
+                                  }
                                 """))
                 .andExpect(status().isForbidden());
     }
