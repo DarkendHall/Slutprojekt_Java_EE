@@ -1,7 +1,10 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.persistence.Id;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,12 +38,10 @@ class RoleEntityTest {
 
     @Test
     void testEquals() {
-        assertThat(role).isEqualTo(new RoleEntity());
-    }
-
-    @Test
-    void testHashCode() {
-        assertThat(role).hasSameHashCodeAs(new RoleEntity());
+        EqualsVerifier.simple()
+                .forClass(RoleEntity.class)
+                .withIgnoredAnnotations(Id.class)
+                .verify();
     }
 
     @Test
