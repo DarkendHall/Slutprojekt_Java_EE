@@ -4,6 +4,9 @@ import org.darkend.slutprojekt_java_ee.exceptions.InvalidNameException;
 
 public class CommonDto {
 
+    private CommonDto() {
+    }
+
     public static String generateFullName(String firstName, String lastName) {
         return firstName + " " + lastName;
     }
