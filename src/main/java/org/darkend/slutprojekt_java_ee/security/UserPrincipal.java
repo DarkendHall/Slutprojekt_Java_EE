@@ -7,14 +7,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserPrincipal implements UserDetails {
 
     private final String username;
     private final String password;
-    private final Set<String> roles;
+    private final List<String> roles;
 
     public UserPrincipal(UserEntity user) {
         this.username = user.getUsername();
@@ -23,7 +23,7 @@ public class UserPrincipal implements UserDetails {
                 .stream()
                 .map(RoleEntity::getRole)
                 .map(String::toUpperCase)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     @Override
