@@ -15,6 +15,7 @@ public class UserDtoIn {
     @NotNull
     @Size(min = 2)
     private String username;
+
     @NotNull
     @Size(min = 8)
     private String password;
