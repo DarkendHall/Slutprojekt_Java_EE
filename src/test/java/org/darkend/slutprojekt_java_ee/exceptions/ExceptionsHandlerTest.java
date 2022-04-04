@@ -2,6 +2,7 @@ package org.darkend.slutprojekt_java_ee.exceptions;
 
 import org.darkend.slutprojekt_java_ee.controller.CourseController;
 import org.darkend.slutprojekt_java_ee.dto.CourseDto;
+import org.hibernate.TransientPropertyValueException;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.MappingException;
 import org.modelmapper.spi.ErrorMessage;
@@ -27,7 +28,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ExceptionsHandlerTest {
 
@@ -128,5 +129,18 @@ class ExceptionsHandlerTest {
         assertThat(result).isEqualTo(ResponseEntity.badRequest()
                 .body(new ExceptionAsJson(LocalDateTime.now(clock)
                         .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, exception.getMessage())));
+    }
+
+    @Test
+    void handleTransientPropertyValueException() {
+        TransientPropertyValueException exception = new TransientPropertyValueException("msg", "transientEntityName",
+                "propertyOwnerEntityName", "propertyName");
+
+        var result = handler.handleTransientPropertyValueException(exception);
+
+        assertThat(result).isEqualTo(ResponseEntity.badRequest()
+                .body(new ExceptionAsJson(LocalDateTime.now(clock)
+                        .format(dateTimeFormatter), HttpStatus.BAD_REQUEST, exception.getMessage())));
+
     }
 }
