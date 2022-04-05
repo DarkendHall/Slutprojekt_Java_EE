@@ -1,13 +1,12 @@
 package org.darkend.slutprojekt_java_ee.controller;
 
 import org.darkend.slutprojekt_java_ee.dto.StudentDto;
-import org.darkend.slutprojekt_java_ee.security.GlobalMethodSecurityConfig;
-import org.darkend.slutprojekt_java_ee.security.SecurityConfig;
 import org.darkend.slutprojekt_java_ee.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -15,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityNotFoundException;
@@ -33,7 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(StudentController.class)
-@Import({ModelMapper.class, SecurityConfig.class, GlobalMethodSecurityConfig.class})
+@Import(ModelMapper.class)
+@AutoConfigureMockMvc(addFilters = false)
 class StudentControllerTest {
 
     @Autowired
@@ -69,7 +68,6 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user")
     void getOneStudentWithValidIdOne() throws Exception {
         mvc.perform(get("/students/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(student.getId()))
@@ -81,14 +79,12 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user")
     void getOneStudentWithInvalidIdTwo() throws Exception {
         mvc.perform(get("/students/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(404));
     }
 
     @Test
-    @WithMockUser(username = "user")
     void getAllReturnsListOfAllStudents() throws Exception {
         mvc.perform(get("/students").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(student.getId()))
@@ -99,21 +95,18 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteOneStudentWithValidIdOne() throws Exception {
         mvc.perform(delete("/students/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteOneStudentWithInvalidIdTwo() throws Exception {
         mvc.perform(delete("/students/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addNewStudentWithPostReturnsCreatedStudent() throws Exception {
         mvc.perform(post("/students").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -132,7 +125,6 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addInvalidStudentWithPostReturnsBadRequest() throws Exception {
         mvc.perform(post("/students").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -147,22 +139,6 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user")
-    void addNewStudentWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(post("/students").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {
-                                  "id": 2,
-                                  "fullName": "Student Name",
-                                  "email": "email@email.com",
-                                  "phoneNumber": "N/A"
-                                }
-                                """))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void setEmailInStudentShouldUpdateEmailInStudent() throws Exception {
         mvc.perform(patch("/students/2/email").contentType(MediaType.APPLICATION_JSON)
                         .content("test@test.test"))
@@ -174,7 +150,6 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user")
     void setEmailWithRoleUserShouldReturnForbidden() throws Exception {
         mvc.perform(patch("/students/2/email").contentType(MediaType.APPLICATION_JSON)
                         .content("test@test.test"))
@@ -182,7 +157,6 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void setPhoneNumberInStudentShouldUpdatePhoneNumberInStudent() throws Exception {
         mvc.perform(patch("/students/2/phonenumber").contentType(MediaType.APPLICATION_JSON)
                         .content("phoneNumber"))
@@ -194,7 +168,6 @@ class StudentControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user")
     void setPhoneNumberWithRoleUserShouldReturnForbidden() throws Exception {
         mvc.perform(patch("/students/2/phonenumber").contentType(MediaType.APPLICATION_JSON)
                         .content("phoneNumber"))
