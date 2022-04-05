@@ -51,7 +51,7 @@ class CourseControllerTest {
                     .setFullName("Student Name")
                     .setPhoneNumber("N/A")
                     .setEmail("email@email.com")))
-            .setTeacher(new TeacherDto().setId(3L)
+            .setTeacher(new TeacherDto().setId(1L)
                     .setFullName("Teacher Name"));
 
     @BeforeEach
@@ -207,28 +207,6 @@ class CourseControllerTest {
     }
 
     @Test
-    void setStudentsWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(patch("/courses/1/students").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                [
-                                  {
-                                    "id": 1,
-                                    "fullName": "Student Name",
-                                    "email": "email@email.com",
-                                    "phoneNumber": "N/A"
-                                  },
-                                  {
-                                    "id": 2,
-                                    "fullName": "Test Name",
-                                    "email": "test@email.com",
-                                    "phoneNumber": "123"
-                                  }
-                                ]
-                                """))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
     void setTeacherInCourseShouldUpdateListOfTeacher() throws Exception {
         mvc.perform(patch("/courses/1/teacher").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -243,18 +221,6 @@ class CourseControllerTest {
                 .andExpect(jsonPath("$.teacher.fullName").value("Teacher Name"))
                 .andExpect(jsonPath("$.teacher.id").value(1L))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    void setTeacherWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(patch("/courses/1/teacher").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {
-                                  "id": 1,
-                                  "fullName": "Teacher Name"
-                                }
-                                """))
-                .andExpect(status().isForbidden());
     }
 
     @TestConfiguration
