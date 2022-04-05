@@ -14,7 +14,7 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
     private final ModelMapper mapper;
-    private final String noStudentString = "No student found with ID: ";
+    private final static String noStudentString = "No student found with ID: ";
 
 
     public StudentService(StudentRepository studentRepository, ModelMapper mapper) {

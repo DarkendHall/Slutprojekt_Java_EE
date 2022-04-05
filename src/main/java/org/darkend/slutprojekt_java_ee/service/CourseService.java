@@ -18,7 +18,7 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final ModelMapper mapper;
-    private final String noCourseString = "No course found with ID: ";
+    private final static String noCourseString = "No course found with ID: ";
 
     public CourseService(CourseRepository courseRepository, ModelMapper mapper) {
         this.courseRepository = courseRepository;

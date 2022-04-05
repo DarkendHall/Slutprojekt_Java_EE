@@ -190,7 +190,9 @@ class SchoolServiceTest {
 
     @Test
     void updateCoursesWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(() -> service.updateCoursesInSchool(List.of(new CourseDto().setName("Course Name")),
+        var courses = List.of(new CourseDto().setName("Course Name"));
+
+        assertThatThrownBy(() -> service.updateCoursesInSchool(courses,
                 2L)).isExactlyInstanceOf(EntityNotFoundException.class);
     }
 
@@ -217,7 +219,9 @@ class SchoolServiceTest {
 
     @Test
     void updateStudentsWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(() -> service.updateStudentsInSchool(List.of(new StudentDto().setFullName("Student Name")),
+        var students = List.of(new StudentDto().setFullName("Student Name"));
+
+        assertThatThrownBy(() -> service.updateStudentsInSchool(students,
                 2L)).isExactlyInstanceOf(EntityNotFoundException.class);
     }
 
@@ -244,7 +248,9 @@ class SchoolServiceTest {
 
     @Test
     void updateTeachersWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(() -> service.updateTeachersInSchool(List.of(new TeacherDto().setFullName("Teacher Name")),
+        var teachers = List.of(new TeacherDto().setFullName("Teacher Name"));
+
+        assertThatThrownBy(() -> service.updateTeachersInSchool(teachers,
                 2L)).isExactlyInstanceOf(EntityNotFoundException.class);
     }
 
@@ -271,7 +277,9 @@ class SchoolServiceTest {
 
     @Test
     void updatePrincipalWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(() -> service.updatePrincipalInSchool((new PrincipalDto().setFullName("Principal Name")),
+        var principal = new PrincipalDto().setFullName("Principal Name");
+
+        assertThatThrownBy(() -> service.updatePrincipalInSchool(principal,
                 2L)).isExactlyInstanceOf(EntityNotFoundException.class);
     }
 }

@@ -33,7 +33,7 @@ public class SchoolController {
 
     private final SchoolService schoolService;
     private final Logger logger = LoggerFactory.getLogger(SchoolController.class);
-    private final String patchString = "Received PATCH request with JSON body: {}";
+    private final static String patchString = "Received PATCH request with JSON body: {}";
 
     public SchoolController(SchoolService schoolService) {
         this.schoolService = schoolService;

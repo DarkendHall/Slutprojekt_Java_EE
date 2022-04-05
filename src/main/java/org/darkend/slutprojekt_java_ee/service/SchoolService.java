@@ -22,8 +22,8 @@ public class SchoolService {
 
     private final SchoolRepository schoolRepository;
     private final ModelMapper mapper;
-    private final String noSchoolString = "No school found with ID: ";
-    private final String noCourseString = "No course found with ID: ";
+    private final static String noSchoolString = "No school found with ID: ";
+    private final static String noCourseString = "No course found with ID: ";
 
 
     public SchoolService(SchoolRepository schoolRepository, ModelMapper mapper) {
