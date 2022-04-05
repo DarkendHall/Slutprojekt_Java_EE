@@ -27,6 +27,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,6 +58,14 @@ class StudentControllerTest {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
+        when(service.updateEmail("test@test.test", 2L)).thenReturn(new StudentDto().setId(2L)
+                .setFullName("Student Name")
+                .setPhoneNumber("N/A")
+                .setEmail("test@test.test"));
+        when(service.updatePhoneNumber("phoneNumber", 2L)).thenReturn(new StudentDto().setId(2L)
+                .setFullName("Student Name")
+                .setPhoneNumber("phoneNumber")
+                .setEmail("email@email.com"));
     }
 
     @Test
@@ -149,6 +158,46 @@ class StudentControllerTest {
                                   "phoneNumber": "N/A"
                                 }
                                 """))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void setEmailInStudentShouldUpdateEmailInStudent() throws Exception {
+        mvc.perform(patch("/students/2/email").contentType(MediaType.APPLICATION_JSON)
+                        .content("test@test.test"))
+                .andExpect(jsonPath("$.id").value(student.getId()))
+                .andExpect(jsonPath("$.fullName").value(student.getFullName()))
+                .andExpect(jsonPath("$.email").value("test@test.test"))
+                .andExpect(jsonPath("$.phoneNumber").value(student.getPhoneNumber()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void setEmailWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/students/2/email").contentType(MediaType.APPLICATION_JSON)
+                        .content("test@test.test"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    void setPhoneNumberInStudentShouldUpdatePhoneNumberInStudent() throws Exception {
+        mvc.perform(patch("/students/2/phonenumber").contentType(MediaType.APPLICATION_JSON)
+                        .content("phoneNumber"))
+                .andExpect(jsonPath("$.id").value(student.getId()))
+                .andExpect(jsonPath("$.fullName").value(student.getFullName()))
+                .andExpect(jsonPath("$.email").value(student.getEmail()))
+                .andExpect(jsonPath("$.phoneNumber").value("phoneNumber"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void setPhoneNumberWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/students/2/phonenumber").contentType(MediaType.APPLICATION_JSON)
+                        .content("phoneNumber"))
                 .andExpect(status().isForbidden());
     }
 
