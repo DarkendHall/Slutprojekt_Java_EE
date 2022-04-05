@@ -150,13 +150,6 @@ class StudentControllerTest {
     }
 
     @Test
-    void setEmailWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(patch("/students/2/email").contentType(MediaType.APPLICATION_JSON)
-                        .content("test@test.test"))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
     void setPhoneNumberInStudentShouldUpdatePhoneNumberInStudent() throws Exception {
         mvc.perform(patch("/students/2/phonenumber").contentType(MediaType.APPLICATION_JSON)
                         .content("phoneNumber"))
@@ -165,13 +158,6 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.email").value(student.getEmail()))
                 .andExpect(jsonPath("$.phoneNumber").value("phoneNumber"))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    void setPhoneNumberWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(patch("/students/2/phonenumber").contentType(MediaType.APPLICATION_JSON)
-                        .content("phoneNumber"))
-                .andExpect(status().isForbidden());
     }
 
     @TestConfiguration
