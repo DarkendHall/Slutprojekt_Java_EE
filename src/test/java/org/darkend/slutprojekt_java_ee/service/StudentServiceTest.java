@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -45,10 +46,13 @@ class StudentServiceTest {
         repository = mock(StudentRepository.class);
         ModelMapper mapper = ModelMapperConfig.getModelMapper(mock(RoleRepository.class));
         service = new StudentService(repository, mapper);
-        when(repository.save(studentEntity)).thenReturn(studentEntity);
         when(repository.findById(1L)).thenReturn(Optional.of(studentEntity));
         when(repository.findById(2L)).thenReturn(Optional.empty());
         when(repository.findAll()).thenReturn(List.of(studentEntity));
+        when(repository.save(any(StudentEntity.class))).thenAnswer(invocationOnMock -> {
+            Object[] args = invocationOnMock.getArguments();
+            return args[0];
+        });
     }
 
     @Test
@@ -106,5 +110,29 @@ class StudentServiceTest {
         var result = service.findAllStudents();
 
         assertThat(result).isEqualTo(List.of(studentDto));
+    }
+
+    @Test
+    void updateEmailShouldUpdateEmailInStudent() {
+        var studentDto = new StudentDto().setId(1L)
+                .setFullName("Student Name")
+                .setPhoneNumber("N/A")
+                .setEmail("test@test.test");
+
+        var result = service.updateEmail("test@test.test", 1L);
+
+        assertThat(result).isEqualTo(studentDto);
+    }
+
+    @Test
+    void updatePhoneNumberShouldUpdatePhoneNumberInStudent() {
+        var studentDto = new StudentDto().setId(1L)
+                .setFullName("Student Name")
+                .setPhoneNumber("phoneNumber")
+                .setEmail("email@email.com");
+
+        var result = service.updatePhoneNumber("phoneNumber", 1L);
+
+        assertThat(result).isEqualTo(studentDto);
     }
 }
