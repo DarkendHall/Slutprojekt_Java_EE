@@ -34,6 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -173,6 +174,46 @@ class StudentIT {
     void deleteShouldReturnNotFoundWithInvalidId() throws Exception {
         mvc.perform(delete("/students/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void setEmailInStudentShouldUpdateEmailInStudent() throws Exception {
+        mvc.perform(patch("/students/1/email").contentType(MediaType.APPLICATION_JSON)
+                        .content("test@test.test"))
+                .andExpect(jsonPath("$.id").value(studentDto.getId()))
+                .andExpect(jsonPath("$.fullName").value(studentDto.getFullName()))
+                .andExpect(jsonPath("$.email").value("test@test.test"))
+                .andExpect(jsonPath("$.phoneNumber").value(studentDto.getPhoneNumber()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void setEmailWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/students/1/email").contentType(MediaType.APPLICATION_JSON)
+                        .content("test@test.test"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void setPhoneNumberInStudentShouldUpdatePhoneNumberInStudent() throws Exception {
+        mvc.perform(patch("/students/1/phonenumber").contentType(MediaType.APPLICATION_JSON)
+                        .content("phoneNumber"))
+                .andExpect(jsonPath("$.id").value(studentDto.getId()))
+                .andExpect(jsonPath("$.fullName").value(studentDto.getFullName()))
+                .andExpect(jsonPath("$.email").value(studentDto.getEmail()))
+                .andExpect(jsonPath("$.phoneNumber").value("phoneNumber"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void setPhoneNumberWithRoleUserShouldReturnForbidden() throws Exception {
+        mvc.perform(patch("/students/1/phonenumber").contentType(MediaType.APPLICATION_JSON)
+                        .content("phoneNumber"))
+                .andExpect(status().isForbidden());
     }
 
     @TestConfiguration

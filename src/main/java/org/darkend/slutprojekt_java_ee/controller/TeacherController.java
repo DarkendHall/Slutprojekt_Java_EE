@@ -27,7 +27,7 @@ import java.util.List;
 public class TeacherController {
 
     private final TeacherService teacherService;
-    private final Logger logger = LoggerFactory.getLogger(TeacherService.class);
+    private final Logger logger = LoggerFactory.getLogger(TeacherController.class);
 
     public TeacherController(TeacherService teacherService) {
         this.teacherService = teacherService;

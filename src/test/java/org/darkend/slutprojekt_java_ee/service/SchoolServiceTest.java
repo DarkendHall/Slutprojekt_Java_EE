@@ -169,4 +169,117 @@ class SchoolServiceTest {
 
         assertThat(result).isEqualTo(List.of(schoolDto));
     }
+
+    @Test
+    void setCoursesShouldUpdateCoursesInSchool() {
+        var course = new CourseDto().setName("Course Name");
+        var school = new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(studentDto))
+                .setTeachers(List.of(teacherDto))
+                .setPrincipal(new PrincipalDto().setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(course));
+
+        var result = service.setCoursesInSchool(List.of(course), 1L);
+
+        assertThat(result).isEqualTo(school);
+    }
+
+    @Test
+    void setCoursesWithInvalidIdShouldThrowException() {
+        var courses = List.of(new CourseDto().setName("Course Name"));
+
+        assertThatThrownBy(() -> service.setCoursesInSchool(courses,
+                2L)).isExactlyInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    void setStudentsShouldUpdateStudentsInSchool() {
+        var student = new StudentDto().setFullName("Student Name");
+        var school = new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(student))
+                .setTeachers(List.of(teacherDto))
+                .setPrincipal(new PrincipalDto().setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(new CourseDto().setId(5L)
+                        .setName("Course Name")
+                        .setStudents(List.of(studentDto))
+                        .setTeacher(teacherDto)));
+
+        var result = service.setStudentsInSchool(List.of(student), 1L);
+
+        assertThat(result).isEqualTo(school);
+    }
+
+    @Test
+    void setStudentsWithInvalidIdShouldThrowException() {
+        var students = List.of(new StudentDto().setFullName("Student Name"));
+
+        assertThatThrownBy(() -> service.setStudentsInSchool(students,
+                2L)).isExactlyInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    void setTeachersShouldUpdateTeachersInSchool() {
+        var teacher = new TeacherDto().setFullName("Teacher Name");
+        var school = new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(studentDto))
+                .setTeachers(List.of(teacher))
+                .setPrincipal(new PrincipalDto().setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(new CourseDto().setId(5L)
+                        .setName("Course Name")
+                        .setStudents(List.of(studentDto))
+                        .setTeacher(teacherDto)));
+
+        var result = service.setTeachersInSchool(List.of(teacher), 1L);
+
+        assertThat(result).isEqualTo(school);
+    }
+
+    @Test
+    void setTeachersWithInvalidIdShouldThrowException() {
+        var teachers = List.of(new TeacherDto().setFullName("Teacher Name"));
+
+        assertThatThrownBy(() -> service.setTeachersInSchool(teachers,
+                2L)).isExactlyInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
+    void setPrincipalShouldUpdatePrincipalInSchool() {
+        var principal = new PrincipalDto().setFullName("Principal Name");
+        var school = new SchoolDto().setId(1L)
+                .setName("School Name")
+                .setAddress("Address")
+                .setCity("City")
+                .setStudents(List.of(studentDto))
+                .setTeachers(List.of(teacherDto))
+                .setPrincipal(principal.setId(4L)
+                        .setFullName("Principal Name"))
+                .setCourses(List.of(new CourseDto().setId(5L)
+                        .setName("Course Name")
+                        .setStudents(List.of(studentDto))
+                        .setTeacher(teacherDto)));
+
+        var result = service.setPrincipalInSchool(principal, 1L);
+
+        assertThat(result).isEqualTo(school);
+    }
+
+    @Test
+    void setPrincipalWithInvalidIdShouldThrowException() {
+        var principal = new PrincipalDto().setFullName("Principal Name");
+
+        assertThatThrownBy(() -> service.setPrincipalInSchool(principal,
+                2L)).isExactlyInstanceOf(EntityNotFoundException.class);
+    }
 }

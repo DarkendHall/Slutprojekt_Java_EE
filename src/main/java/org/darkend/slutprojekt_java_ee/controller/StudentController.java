@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,5 +75,29 @@ public class StudentController {
     public List<StudentDto> findAllStudents() {
         logger.info("Received GET request for all students");
         return studentService.findAllStudents();
+    }
+
+    @Secured("ROLE_ADMIN")
+    @PatchMapping("{id}/email")
+    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "404", description = "Not found")
+    public StudentDto setEmailInStudent(@PathVariable Long id, @RequestBody String email) {
+        email = email.replaceAll("[\n\r\t]", "");
+        logger.info("Received PATCH request with JSON body: {}", email);
+        return studentService.setEmail(email, id);
+    }
+
+    @Secured("ROLE_ADMIN")
+    @PatchMapping("{id}/phonenumber")
+    @ApiResponse(responseCode = "400", description = "Bad Request")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "404", description = "Not found")
+    public StudentDto setPhoneNumberInStudent(@PathVariable Long id, @RequestBody String phoneNumber) {
+        phoneNumber = phoneNumber.replaceAll("[\n\r\t]", "");
+        logger.info("Received PATCH request with JSON body: {}", phoneNumber);
+        return studentService.setPhoneNumber(phoneNumber, id);
     }
 }

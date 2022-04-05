@@ -1,7 +1,11 @@
 package org.darkend.slutprojekt_java_ee.service;
 
 import org.darkend.slutprojekt_java_ee.dto.CourseDto;
+import org.darkend.slutprojekt_java_ee.dto.StudentDto;
+import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
 import org.darkend.slutprojekt_java_ee.entity.CourseEntity;
+import org.darkend.slutprojekt_java_ee.entity.StudentEntity;
+import org.darkend.slutprojekt_java_ee.entity.TeacherEntity;
 import org.darkend.slutprojekt_java_ee.repository.CourseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,7 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final ModelMapper mapper;
+    private static final String NO_COURSE_STRING = "No course found with ID: ";
 
     public CourseService(CourseRepository courseRepository, ModelMapper mapper) {
         this.courseRepository = courseRepository;
@@ -31,7 +36,7 @@ public class CourseService {
 
     public CourseDto findCourseById(Long id) {
         var entityOptional = courseRepository.findById(id);
-        var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
+        var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException(NO_COURSE_STRING + id));
         return mapper.map(entity, CourseDto.class);
     }
 
@@ -40,5 +45,25 @@ public class CourseService {
                 .stream()
                 .map(course -> mapper.map(course, CourseDto.class))
                 .toList();
+    }
+
+    public CourseDto setStudentsInCourse(List<StudentDto> students, Long id) {
+        var courseEntity = courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(NO_COURSE_STRING + id));
+        var entitiesFromDtos = students.stream()
+                .map(student -> mapper.map(student, StudentEntity.class))
+                .toList();
+        courseEntity.setStudents(entitiesFromDtos);
+        var savedEntity = courseRepository.save(courseEntity);
+        return mapper.map(savedEntity, CourseDto.class);
+    }
+
+    public CourseDto setTeacherInCourse(TeacherDto teacher, Long id) {
+        var courseEntity = courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(NO_COURSE_STRING + id));
+        var entityFromDto = mapper.map(teacher, TeacherEntity.class);
+        courseEntity.setTeacher(entityFromDto);
+        var savedEntity = courseRepository.save(courseEntity);
+        return mapper.map(savedEntity, CourseDto.class);
     }
 }
