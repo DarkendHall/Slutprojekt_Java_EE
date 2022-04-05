@@ -2,13 +2,12 @@ package org.darkend.slutprojekt_java_ee.controller;
 
 import org.darkend.slutprojekt_java_ee.dto.UserDtoIn;
 import org.darkend.slutprojekt_java_ee.dto.UserDtoOut;
-import org.darkend.slutprojekt_java_ee.security.GlobalMethodSecurityConfig;
-import org.darkend.slutprojekt_java_ee.security.SecurityConfig;
 import org.darkend.slutprojekt_java_ee.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
-@Import({ModelMapper.class, SecurityConfig.class, GlobalMethodSecurityConfig.class})
+@Import(ModelMapper.class)
+@AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest {
 
     @Autowired

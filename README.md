@@ -52,12 +52,16 @@ User:
 <p></p>
 <details> <summary><b>Endpoints & JSON</b></summary>
 
-Send a post request to [/users/signup](http://localhost:8080/users/signup/) with JSON body:
+Login in with the standard user password or send a post request to [/users/signup](http://localhost:8080/users/signup/)
+with JSON body for admin access:
 
 ```JSON
 {
-  "username:": "<Username>",
-  "password": "<Password>"
+  "username": "<Username>",
+  "password": "<Password>",
+  "roles": [
+    "ROLE_ADMIN"
+  ]
 } 
 ```
 

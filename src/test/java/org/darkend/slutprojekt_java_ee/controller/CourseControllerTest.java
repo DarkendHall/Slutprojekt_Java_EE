@@ -3,13 +3,12 @@ package org.darkend.slutprojekt_java_ee.controller;
 import org.darkend.slutprojekt_java_ee.dto.CourseDto;
 import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.dto.TeacherDto;
-import org.darkend.slutprojekt_java_ee.security.GlobalMethodSecurityConfig;
-import org.darkend.slutprojekt_java_ee.security.SecurityConfig;
 import org.darkend.slutprojekt_java_ee.service.CourseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,7 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.persistence.EntityNotFoundException;
@@ -34,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CourseController.class)
-@Import({ModelMapper.class, SecurityConfig.class, GlobalMethodSecurityConfig.class})
+@Import(ModelMapper.class)
+@AutoConfigureMockMvc(addFilters = false)
 class CourseControllerTest {
 
     @Autowired
@@ -66,7 +65,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user")
     void getOneCourseWithValidIdOne() throws Exception {
         mvc.perform(get("/courses/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(course.getId()))
@@ -78,14 +76,12 @@ class CourseControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user")
     void getOneCourseWithInvalidIdTwo() throws Exception {
         mvc.perform(get("/courses/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(404));
     }
 
     @Test
-    @WithMockUser(username = "user")
     void getAllReturnsListOfAllCourses() throws Exception {
         mvc.perform(get("/courses").accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(1L))
@@ -97,21 +93,18 @@ class CourseControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteOneCourseWithValidIdOne() throws Exception {
         mvc.perform(delete("/courses/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void deleteOneCourseWithInvalidIdTwo() throws Exception {
         mvc.perform(delete("/courses/2").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addNewCourseWithPostReturnsCreatedCourse() throws Exception {
         mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -141,7 +134,6 @@ class CourseControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void addInvalidCourseWithPostReturnsBadRequest() throws Exception {
         mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -163,31 +155,6 @@ class CourseControllerTest {
                                 }
                                 """))
                 .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @WithMockUser(username = "user")
-    void addNewCourseWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(post("/courses").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {
-                                  "id": 1,
-                                  "name": "Course Name",
-                                  "students": [
-                                    {
-                                      "id": 2,
-                                      "fullName": "Student Name",
-                                      "email": "email@email.com",
-                                      "phoneNumber": "N/A"
-                                    }
-                                  ],
-                                  "teacher": {
-                                    "id": 3,
-                                    "fullName": "Teacher Name"
-                                  }
-                                }
-                                """))
-                .andExpect(status().isForbidden());
     }
 
     @TestConfiguration
