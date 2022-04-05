@@ -88,7 +88,7 @@ public class CourseController {
     public CourseDto setStudentsInCourse(@PathVariable Long id, @RequestBody List<StudentDto> students) {
         String jsonBody = ObjectToJson.convert(students);
         logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(students));
-        return courseService.setStudentsInCourse(students, id);
+        return courseService.updateStudentsInCourse(students, id);
     }
 
     @Secured("ROLE_ADMIN")
@@ -100,6 +100,6 @@ public class CourseController {
     public CourseDto setTeacherInCourse(@PathVariable Long id, @RequestBody TeacherDto teacher) {
         String jsonBody = ObjectToJson.convert(teacher);
         logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(teacher));
-        return courseService.setTeacherInCourse(teacher, id);
+        return courseService.updateTeacherInCourse(teacher, id);
     }
 }

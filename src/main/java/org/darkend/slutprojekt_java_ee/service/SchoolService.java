@@ -50,7 +50,7 @@ public class SchoolService {
                 .toList();
     }
 
-    public SchoolDto setCoursesInSchool(List<CourseDto> courses, Long id) {
+    public SchoolDto updateCoursesInSchool(List<CourseDto> courses, Long id) {
         var schoolEntity = schoolRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No school found with ID: " + id));
         var entitiesFromDtos = courses.stream()
@@ -61,7 +61,7 @@ public class SchoolService {
         return mapper.map(savedEntity, SchoolDto.class);
     }
 
-    public SchoolDto setStudentsInSchool(List<StudentDto> students, Long id) {
+    public SchoolDto updateStudentsInSchool(List<StudentDto> students, Long id) {
         var schoolEntity = schoolRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No school found with ID: " + id));
         var entitiesFromDtos = students.stream()
@@ -72,7 +72,7 @@ public class SchoolService {
         return mapper.map(savedEntity, SchoolDto.class);
     }
 
-    public SchoolDto setTeachersInSchool(List<TeacherDto> teachers, Long id) {
+    public SchoolDto updateTeachersInSchool(List<TeacherDto> teachers, Long id) {
         var schoolEntity = schoolRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No school found with ID: " + id));
         var entitiesFromDtos = teachers.stream()
@@ -83,7 +83,7 @@ public class SchoolService {
         return mapper.map(savedEntity, SchoolDto.class);
     }
 
-    public SchoolDto setPrincipalInSchool(PrincipalDto principal, Long id) {
+    public SchoolDto updatePrincipalInSchool(PrincipalDto principal, Long id) {
         var schoolEntity = schoolRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
         var entityFromDto = mapper.map(principal, PrincipalEntity.class);

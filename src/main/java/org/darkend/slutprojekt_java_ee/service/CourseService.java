@@ -46,7 +46,7 @@ public class CourseService {
                 .toList();
     }
 
-    public CourseDto setStudentsInCourse(List<StudentDto> students, Long id) {
+    public CourseDto updateStudentsInCourse(List<StudentDto> students, Long id) {
         var courseEntity = courseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
         var entitiesFromDtos = students.stream()
@@ -57,7 +57,7 @@ public class CourseService {
         return mapper.map(savedEntity, CourseDto.class);
     }
 
-    public CourseDto setTeacherInCourse(TeacherDto teacher, Long id) {
+    public CourseDto updateTeacherInCourse(TeacherDto teacher, Long id) {
         var courseEntity = courseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
         var entityFromDto = mapper.map(teacher, TeacherEntity.class);

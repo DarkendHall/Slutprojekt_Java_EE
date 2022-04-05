@@ -70,14 +70,14 @@ class CourseControllerTest {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
-        when(service.setStudentsInCourse(List.of(new StudentDto().setId(1L)
+        when(service.updateStudentsInCourse(List.of(new StudentDto().setId(1L)
                 .setFullName("Student Name")
                 .setEmail("email@email.com")
                 .setPhoneNumber("N/A"), new StudentDto().setId(2L)
                 .setFullName("Test Name")
                 .setEmail("test@email.com")
                 .setPhoneNumber("123")), 1L)).thenReturn(course);
-        when(service.setTeacherInCourse(new TeacherDto().setId(1L)
+        when(service.updateTeacherInCourse(new TeacherDto().setId(1L)
                 .setFullName("Teacher Name"), 1L)).thenReturn(course2);
     }
 
