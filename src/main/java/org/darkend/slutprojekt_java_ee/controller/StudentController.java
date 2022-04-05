@@ -86,6 +86,7 @@ public class StudentController {
     @ApiResponse(responseCode = "403", description = "Forbidden")
     @ApiResponse(responseCode = "404", description = "Not found")
     public StudentDto setEmailInStudent(@PathVariable Long id, @RequestBody String email) {
+        email = email.replaceAll("[\n\r\t]", "");
         logger.info("Received PATCH request with JSON body: {}", email);
         return studentService.updateEmail(email, id);
     }
@@ -97,6 +98,7 @@ public class StudentController {
     @ApiResponse(responseCode = "403", description = "Forbidden")
     @ApiResponse(responseCode = "404", description = "Not found")
     public StudentDto setPhoneNumberInStudent(@PathVariable Long id, @RequestBody String phoneNumber) {
+        phoneNumber = phoneNumber.replaceAll("[\n\r\t]", "");
         logger.info("Received PATCH request with JSON body: {}", phoneNumber);
         return studentService.updatePhoneNumber(phoneNumber, id);
     }

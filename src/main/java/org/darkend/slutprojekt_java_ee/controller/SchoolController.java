@@ -33,6 +33,7 @@ public class SchoolController {
 
     private final SchoolService schoolService;
     private final Logger logger = LoggerFactory.getLogger(SchoolController.class);
+    private final String patchString = "Received PATCH request with JSON body: {}";
 
     public SchoolController(SchoolService schoolService) {
         this.schoolService = schoolService;
@@ -89,7 +90,7 @@ public class SchoolController {
     @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto setCoursesInSchool(@PathVariable Long id, @RequestBody List<CourseDto> courses) {
         String jsonBody = ObjectToJson.convert(courses);
-        logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(courses));
+        logger.info(patchString, jsonBody);
         return schoolService.updateCoursesInSchool(courses, id);
     }
 
@@ -101,7 +102,7 @@ public class SchoolController {
     @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto setStudentsInSchool(@PathVariable Long id, @RequestBody List<StudentDto> students) {
         String jsonBody = ObjectToJson.convert(students);
-        logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(students));
+        logger.info(patchString, jsonBody);
         return schoolService.updateStudentsInSchool(students, id);
     }
 
@@ -113,7 +114,7 @@ public class SchoolController {
     @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto setTeachersInSchool(@PathVariable Long id, @RequestBody List<TeacherDto> teachers) {
         String jsonBody = ObjectToJson.convert(teachers);
-        logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(teachers));
+        logger.info(patchString, jsonBody);
         return schoolService.updateTeachersInSchool(teachers, id);
     }
 
@@ -125,7 +126,7 @@ public class SchoolController {
     @ApiResponse(responseCode = "404", description = "Not found")
     public SchoolDto setPrincipalInCourse(@PathVariable Long id, @RequestBody PrincipalDto principal) {
         String jsonBody = ObjectToJson.convert(principal);
-        logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(principal));
+        logger.info(patchString, jsonBody);
         return schoolService.updatePrincipalInSchool(principal, id);
     }
 }

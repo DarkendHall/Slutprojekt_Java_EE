@@ -87,7 +87,7 @@ public class CourseController {
     @ApiResponse(responseCode = "404", description = "Not found")
     public CourseDto setStudentsInCourse(@PathVariable Long id, @RequestBody List<StudentDto> students) {
         String jsonBody = ObjectToJson.convert(students);
-        logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(students));
+        logger.info("Received PATCH request with JSON body: {}", jsonBody);
         return courseService.updateStudentsInCourse(students, id);
     }
 
@@ -99,7 +99,7 @@ public class CourseController {
     @ApiResponse(responseCode = "404", description = "Not found")
     public CourseDto setTeacherInCourse(@PathVariable Long id, @RequestBody TeacherDto teacher) {
         String jsonBody = ObjectToJson.convert(teacher);
-        logger.info("Received PATCH request with JSON body: {}", ObjectToJson.convert(teacher));
+        logger.info("Received PATCH request with JSON body: {}", jsonBody);
         return courseService.updateTeacherInCourse(teacher, id);
     }
 }
