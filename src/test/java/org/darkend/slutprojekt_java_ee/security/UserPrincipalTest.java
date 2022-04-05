@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.security;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.darkend.slutprojekt_java_ee.entity.RoleEntity;
 import org.darkend.slutprojekt_java_ee.entity.UserEntity;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,11 +84,8 @@ class UserPrincipalTest {
 
     @Test
     void testEquals() {
-        assertThat(user).isEqualTo(new UserPrincipal(userEntity));
-    }
-
-    @Test
-    void testHashCode() {
-        assertThat(user).hasSameHashCodeAs(new UserPrincipal(userEntity));
+        EqualsVerifier.simple()
+                .forClass(UserPrincipal.class)
+                .verify();
     }
 }
