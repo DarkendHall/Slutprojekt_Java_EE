@@ -14,8 +14,7 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
     private final ModelMapper mapper;
-    private final static String noStudentString = "No student found with ID: ";
-
+    private static final String NO_STUDENT_STRING = "No student found with ID: ";
 
     public StudentService(StudentRepository studentRepository, ModelMapper mapper) {
         this.studentRepository = studentRepository;
@@ -33,7 +32,7 @@ public class StudentService {
 
     public StudentDto findStudentById(Long id) {
         var entityOptional = studentRepository.findById(id);
-        var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException(noStudentString + id));
+        var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException(NO_STUDENT_STRING + id));
         return mapper.map(entity, StudentDto.class);
     }
 
@@ -46,7 +45,7 @@ public class StudentService {
 
     public StudentDto setEmail(String email, Long id) {
         var studentEntity = studentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(noStudentString + id));
+                .orElseThrow(() -> new EntityNotFoundException(NO_STUDENT_STRING + id));
         studentEntity.setEmail(email);
         var savedEntity = studentRepository.save(studentEntity);
         return mapper.map(savedEntity, StudentDto.class);
@@ -54,7 +53,7 @@ public class StudentService {
 
     public StudentDto setPhoneNumber(String phoneNumber, Long id) {
         var studentEntity = studentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(noStudentString + id));
+                .orElseThrow(() -> new EntityNotFoundException(NO_STUDENT_STRING + id));
         studentEntity.setPhoneNumber(phoneNumber);
         var savedEntity = studentRepository.save(studentEntity);
         return mapper.map(savedEntity, StudentDto.class);

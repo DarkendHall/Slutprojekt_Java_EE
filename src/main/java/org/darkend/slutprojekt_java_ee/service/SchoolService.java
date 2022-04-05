@@ -25,7 +25,6 @@ public class SchoolService {
     private static final String NO_SCHOOL_STRING = "No school found with ID: ";
     private static final String NO_COURSE_STRING = "No course found with ID: ";
 
-
     public SchoolService(SchoolRepository schoolRepository, ModelMapper mapper) {
         this.schoolRepository = schoolRepository;
         this.mapper = mapper;
