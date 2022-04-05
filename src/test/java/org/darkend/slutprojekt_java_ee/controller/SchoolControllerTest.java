@@ -319,38 +319,6 @@ class SchoolControllerTest {
     }
 
     @Test
-    void setCoursesWithRoleUserShouldReturnForbidden() throws Exception {
-        var newCourse = new CourseDto().setId(1L)
-                .setName("Course Name")
-                .setStudents(List.of(student))
-                .setTeacher(new TeacherDto().setId(3L)
-                        .setFullName("Teacher Name"));
-
-        mvc.perform(patch("/schools/1/courses").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                [
-                                  {
-                                    "id": 1,
-                                    "name": "Course Name",
-                                    "students": [
-                                      {
-                                 	    "id": 2,
-                                 	    "fullName": "Student Name",
-                                 	    "email": "email@email.com",
-                                   	    "phoneNumber": "N/A"
-                                      }
-                                    ],
-                                    "teacher": {
-                                   	  "id": 3,
-                                      "fullName": "Teacher Name"
-                                    }
-                                  }
-                                ]
-                                """))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
     void setStudentsInSchoolShouldUpdateListOfStudents() throws Exception {
         mvc.perform(patch("/schools/1/students").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -377,28 +345,6 @@ class SchoolControllerTest {
                 .andExpect(jsonPath("$.teachers[0]").value(school.getTeachers()
                         .get(0)))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    void setStudentsWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(patch("/schools/1/students").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                [
-                                  {
-                                    "id": 1,
-                                    "fullName": "Student Name",
-                                    "email": "email@email.com",
-                                    "phoneNumber": "N/A"
-                                  },
-                                  {
-                                    "id": 2,
-                                    "fullName": "Test Name",
-                                    "email": "test@email.com",
-                                    "phoneNumber": "123"
-                                  }
-                                ]
-                                """))
-                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -429,24 +375,6 @@ class SchoolControllerTest {
     }
 
     @Test
-    void setTeachersWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(patch("/schools/2/teachers").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                [
-                                  {
-                                    "id": 1,
-                                    "fullName": "Teacher Name"
-                                  },
-                                  {
-                                    "id": 2,
-                                    "fullName": "Test Name"
-                                  }
-                                ]
-                                """))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
     void setPrincipalInSchoolShouldUpdatePrincipal() throws Exception {
         mvc.perform(patch("/schools/2/principal").contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -466,18 +394,6 @@ class SchoolControllerTest {
                 .andExpect(jsonPath("$.city").value(school.getCity()))
                 .andExpect(jsonPath("$.address").value(school.getAddress()))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    void setPrincipalWithRoleUserShouldReturnForbidden() throws Exception {
-        mvc.perform(patch("/schools/2/principal").contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                  {
-                                    "id": 1,
-                                    "fullName": "Principal Name"
-                                  }
-                                """))
-                .andExpect(status().isForbidden());
     }
 
     @TestConfiguration
