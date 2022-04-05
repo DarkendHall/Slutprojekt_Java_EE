@@ -2,8 +2,6 @@ package org.darkend.slutprojekt_java_ee.controller;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.darkend.slutprojekt_java_ee.dto.ObjectToJson;
-import org.darkend.slutprojekt_java_ee.dto.PrincipalDto;
-import org.darkend.slutprojekt_java_ee.dto.SchoolDto;
 import org.darkend.slutprojekt_java_ee.dto.StudentDto;
 import org.darkend.slutprojekt_java_ee.service.StudentService;
 import org.slf4j.Logger;

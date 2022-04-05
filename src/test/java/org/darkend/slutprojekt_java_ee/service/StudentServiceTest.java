@@ -126,7 +126,8 @@ class StudentServiceTest {
 
     @Test
     void updateEmailWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(()->service.updateEmail("test@test.test", 2L)).isExactlyInstanceOf(EntityNotFoundException.class);
+        assertThatThrownBy(() -> service.updateEmail("test@test.test", 2L)).isExactlyInstanceOf(
+                EntityNotFoundException.class);
     }
 
     @Test
@@ -143,6 +144,7 @@ class StudentServiceTest {
 
     @Test
     void updatePhoneNumberWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(()->service.updatePhoneNumber("phoneNumber", 2L)).isExactlyInstanceOf(EntityNotFoundException.class);
+        assertThatThrownBy(() -> service.updatePhoneNumber("phoneNumber", 2L)).isExactlyInstanceOf(
+                EntityNotFoundException.class);
     }
 }

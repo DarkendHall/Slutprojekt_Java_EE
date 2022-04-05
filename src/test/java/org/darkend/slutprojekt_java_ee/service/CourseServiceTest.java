@@ -171,7 +171,8 @@ class CourseServiceTest {
 
     @Test
     void updateTeacherWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(() -> service.updateTeacherInCourse(new TeacherDto().setFullName("Teacher Name"), 2L)).isExactlyInstanceOf(
+        assertThatThrownBy(() -> service.updateTeacherInCourse(new TeacherDto().setFullName("Teacher Name"),
+                2L)).isExactlyInstanceOf(
                 EntityNotFoundException.class);
     }
 }
