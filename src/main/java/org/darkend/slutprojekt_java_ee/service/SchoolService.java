@@ -22,6 +22,9 @@ public class SchoolService {
 
     private final SchoolRepository schoolRepository;
     private final ModelMapper mapper;
+    private final String noSchoolString = "No school found with ID: ";
+    private final String noCourseString = "No course found with ID: ";
+
 
     public SchoolService(SchoolRepository schoolRepository, ModelMapper mapper) {
         this.schoolRepository = schoolRepository;
@@ -39,7 +42,7 @@ public class SchoolService {
 
     public SchoolDto findSchoolById(Long id) {
         var entityOptional = schoolRepository.findById(id);
-        var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
+        var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException(noCourseString + id));
         return mapper.map(entity, SchoolDto.class);
     }
 
@@ -52,7 +55,7 @@ public class SchoolService {
 
     public SchoolDto updateCoursesInSchool(List<CourseDto> courses, Long id) {
         var schoolEntity = schoolRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No school found with ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(noSchoolString + id));
         var entitiesFromDtos = courses.stream()
                 .map(course -> mapper.map(course, CourseEntity.class))
                 .toList();
@@ -63,7 +66,7 @@ public class SchoolService {
 
     public SchoolDto updateStudentsInSchool(List<StudentDto> students, Long id) {
         var schoolEntity = schoolRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No school found with ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(noSchoolString + id));
         var entitiesFromDtos = students.stream()
                 .map(student -> mapper.map(student, StudentEntity.class))
                 .toList();
@@ -74,7 +77,7 @@ public class SchoolService {
 
     public SchoolDto updateTeachersInSchool(List<TeacherDto> teachers, Long id) {
         var schoolEntity = schoolRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No school found with ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(noSchoolString + id));
         var entitiesFromDtos = teachers.stream()
                 .map(teacher -> mapper.map(teacher, TeacherEntity.class))
                 .toList();
@@ -85,7 +88,7 @@ public class SchoolService {
 
     public SchoolDto updatePrincipalInSchool(PrincipalDto principal, Long id) {
         var schoolEntity = schoolRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(noCourseString + id));
         var entityFromDto = mapper.map(principal, PrincipalEntity.class);
         schoolEntity.setPrincipal(entityFromDto);
         var savedEntity = schoolRepository.save(schoolEntity);

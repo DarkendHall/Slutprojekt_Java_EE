@@ -18,6 +18,7 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final ModelMapper mapper;
+    private final String noCourseString = "No course found with ID: ";
 
     public CourseService(CourseRepository courseRepository, ModelMapper mapper) {
         this.courseRepository = courseRepository;
@@ -35,7 +36,7 @@ public class CourseService {
 
     public CourseDto findCourseById(Long id) {
         var entityOptional = courseRepository.findById(id);
-        var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
+        var entity = entityOptional.orElseThrow(() -> new EntityNotFoundException(noCourseString + id));
         return mapper.map(entity, CourseDto.class);
     }
 
@@ -48,7 +49,7 @@ public class CourseService {
 
     public CourseDto updateStudentsInCourse(List<StudentDto> students, Long id) {
         var courseEntity = courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(noCourseString + id));
         var entitiesFromDtos = students.stream()
                 .map(student -> mapper.map(student, StudentEntity.class))
                 .toList();
@@ -59,7 +60,7 @@ public class CourseService {
 
     public CourseDto updateTeacherInCourse(TeacherDto teacher, Long id) {
         var courseEntity = courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No course found with ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(noCourseString + id));
         var entityFromDto = mapper.map(teacher, TeacherEntity.class);
         courseEntity.setTeacher(entityFromDto);
         var savedEntity = courseRepository.save(courseEntity);
