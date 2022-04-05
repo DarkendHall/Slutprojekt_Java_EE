@@ -27,6 +27,7 @@ After those have been set, you're good to go!
 
 
 <details> <summary><b>Associations</b></summary>
+
 Course:
 
 * Students (ManyToMany)
