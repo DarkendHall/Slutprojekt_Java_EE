@@ -91,7 +91,7 @@ public class SchoolController {
     public SchoolDto setCoursesInSchool(@PathVariable Long id, @RequestBody List<CourseDto> courses) {
         String jsonBody = ObjectToJson.convert(courses);
         logger.info(PATCH_STRING, jsonBody);
-        return schoolService.updateCoursesInSchool(courses, id);
+        return schoolService.setCoursesInSchool(courses, id);
     }
 
     @Secured("ROLE_ADMIN")
@@ -103,7 +103,7 @@ public class SchoolController {
     public SchoolDto setStudentsInSchool(@PathVariable Long id, @RequestBody List<StudentDto> students) {
         String jsonBody = ObjectToJson.convert(students);
         logger.info(PATCH_STRING, jsonBody);
-        return schoolService.updateStudentsInSchool(students, id);
+        return schoolService.setStudentsInSchool(students, id);
     }
 
     @Secured("ROLE_ADMIN")
@@ -115,7 +115,7 @@ public class SchoolController {
     public SchoolDto setTeachersInSchool(@PathVariable Long id, @RequestBody List<TeacherDto> teachers) {
         String jsonBody = ObjectToJson.convert(teachers);
         logger.info(PATCH_STRING, jsonBody);
-        return schoolService.updateTeachersInSchool(teachers, id);
+        return schoolService.setTeachersInSchool(teachers, id);
     }
 
     @Secured("ROLE_ADMIN")
@@ -127,6 +127,6 @@ public class SchoolController {
     public SchoolDto setPrincipalInCourse(@PathVariable Long id, @RequestBody PrincipalDto principal) {
         String jsonBody = ObjectToJson.convert(principal);
         logger.info(PATCH_STRING, jsonBody);
-        return schoolService.updatePrincipalInSchool(principal, id);
+        return schoolService.setPrincipalInSchool(principal, id);
     }
 }

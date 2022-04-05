@@ -79,17 +79,17 @@ class SchoolControllerTest {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
-        when(service.updateStudentsInSchool(List.of(new StudentDto().setId(1L)
+        when(service.setStudentsInSchool(List.of(new StudentDto().setId(1L)
                 .setFullName("Student Name")
                 .setEmail("email@email.com")
                 .setPhoneNumber("N/A"), new StudentDto().setId(2L)
                 .setFullName("Test Name")
                 .setEmail("test@email.com")
                 .setPhoneNumber("123")), 1L)).thenReturn(school);
-        when(service.updateTeachersInSchool(List.of(new TeacherDto().setId(1L)
+        when(service.setTeachersInSchool(List.of(new TeacherDto().setId(1L)
                 .setFullName("Teacher Name"), new TeacherDto().setId(2L)
                 .setFullName("Test Name")), 2L)).thenReturn(school);
-        when(service.updateCoursesInSchool(anyList(), anyLong())).thenReturn(new SchoolDto().setId(1L)
+        when(service.setCoursesInSchool(anyList(), anyLong())).thenReturn(new SchoolDto().setId(1L)
                 .setName("School Name")
                 .setAddress("Address")
                 .setCity("City")
@@ -101,7 +101,7 @@ class SchoolControllerTest {
                         .setName("Course Name")
                         .setStudents(List.of(student))
                         .setTeacher(teacher))));
-        when(service.updatePrincipalInSchool(new PrincipalDto().setId(1L)
+        when(service.setPrincipalInSchool(new PrincipalDto().setId(1L)
                 .setFullName("Principal Name"), 2L)).thenReturn(new SchoolDto().setId(1L)
                 .setName("School Name")
                 .setAddress("Address")

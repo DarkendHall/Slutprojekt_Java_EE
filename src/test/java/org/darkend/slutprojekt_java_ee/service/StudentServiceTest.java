@@ -113,38 +113,38 @@ class StudentServiceTest {
     }
 
     @Test
-    void updateEmailShouldUpdateEmailInStudent() {
+    void setEmailShouldUpdateEmailInStudent() {
         var studentDto = new StudentDto().setId(1L)
                 .setFullName("Student Name")
                 .setPhoneNumber("N/A")
                 .setEmail("test@test.test");
 
-        var result = service.updateEmail("test@test.test", 1L);
+        var result = service.setEmail("test@test.test", 1L);
 
         assertThat(result).isEqualTo(studentDto);
     }
 
     @Test
-    void updateEmailWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(() -> service.updateEmail("test@test.test", 2L)).isExactlyInstanceOf(
+    void setEmailWithInvalidIdShouldThrowException() {
+        assertThatThrownBy(() -> service.setEmail("test@test.test", 2L)).isExactlyInstanceOf(
                 EntityNotFoundException.class);
     }
 
     @Test
-    void updatePhoneNumberShouldUpdatePhoneNumberInStudent() {
+    void setPhoneNumberShouldUpdatePhoneNumberInStudent() {
         var studentDto = new StudentDto().setId(1L)
                 .setFullName("Student Name")
                 .setPhoneNumber("phoneNumber")
                 .setEmail("email@email.com");
 
-        var result = service.updatePhoneNumber("phoneNumber", 1L);
+        var result = service.setPhoneNumber("phoneNumber", 1L);
 
         assertThat(result).isEqualTo(studentDto);
     }
 
     @Test
-    void updatePhoneNumberWithInvalidIdShouldThrowException() {
-        assertThatThrownBy(() -> service.updatePhoneNumber("phoneNumber", 2L)).isExactlyInstanceOf(
+    void setPhoneNumberWithInvalidIdShouldThrowException() {
+        assertThatThrownBy(() -> service.setPhoneNumber("phoneNumber", 2L)).isExactlyInstanceOf(
                 EntityNotFoundException.class);
     }
 }

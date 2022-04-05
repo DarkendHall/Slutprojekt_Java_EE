@@ -86,7 +86,7 @@ public class StudentController {
     public StudentDto setEmailInStudent(@PathVariable Long id, @RequestBody String email) {
         email = email.replaceAll("[\n\r\t]", "");
         logger.info("Received PATCH request with JSON body: {}", email);
-        return studentService.updateEmail(email, id);
+        return studentService.setEmail(email, id);
     }
 
     @Secured("ROLE_ADMIN")
@@ -98,6 +98,6 @@ public class StudentController {
     public StudentDto setPhoneNumberInStudent(@PathVariable Long id, @RequestBody String phoneNumber) {
         phoneNumber = phoneNumber.replaceAll("[\n\r\t]", "");
         logger.info("Received PATCH request with JSON body: {}", phoneNumber);
-        return studentService.updatePhoneNumber(phoneNumber, id);
+        return studentService.setPhoneNumber(phoneNumber, id);
     }
 }

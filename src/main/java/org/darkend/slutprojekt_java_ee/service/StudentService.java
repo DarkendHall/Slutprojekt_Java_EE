@@ -44,7 +44,7 @@ public class StudentService {
                 .toList();
     }
 
-    public StudentDto updateEmail(String email, Long id) {
+    public StudentDto setEmail(String email, Long id) {
         var studentEntity = studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(noStudentString + id));
         studentEntity.setEmail(email);
@@ -52,7 +52,7 @@ public class StudentService {
         return mapper.map(savedEntity, StudentDto.class);
     }
 
-    public StudentDto updatePhoneNumber(String phoneNumber, Long id) {
+    public StudentDto setPhoneNumber(String phoneNumber, Long id) {
         var studentEntity = studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(noStudentString + id));
         studentEntity.setPhoneNumber(phoneNumber);

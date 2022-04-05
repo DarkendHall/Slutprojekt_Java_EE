@@ -57,11 +57,11 @@ class StudentControllerTest {
             Object[] args = invocationOnMock.getArguments();
             return args[0];
         });
-        when(service.updateEmail("test@test.test", 2L)).thenReturn(new StudentDto().setId(2L)
+        when(service.setEmail("test@test.test", 2L)).thenReturn(new StudentDto().setId(2L)
                 .setFullName("Student Name")
                 .setPhoneNumber("N/A")
                 .setEmail("test@test.test"));
-        when(service.updatePhoneNumber("phoneNumber", 2L)).thenReturn(new StudentDto().setId(2L)
+        when(service.setPhoneNumber("phoneNumber", 2L)).thenReturn(new StudentDto().setId(2L)
                 .setFullName("Student Name")
                 .setPhoneNumber("phoneNumber")
                 .setEmail("email@email.com"));
