@@ -128,7 +128,7 @@
                 <version>0.8.7</version>
                 <configuration>
                     <excludes>
-                        <exclude>org/darkend/slutprojekt_java_ee/Application.java</exclude>
+                        <exclude>org/darkend/slutprojekt_java_ee/Application.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
