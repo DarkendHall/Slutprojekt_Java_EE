@@ -135,21 +135,27 @@ class CourseServiceTest {
     }
 
     @Test
-    void setStudentsShouldUpdateStudentsInCourse() {
+    void updateStudentsShouldUpdateStudentsInCourse() {
         var course = new CourseDto().setId(1L)
                 .setName("Course Name")
                 .setStudents(List.of(new StudentDto().setFullName("Student Name")))
                 .setTeacher(new TeacherDto().setId(3L)
                         .setFullName("Teacher Name"));
 
-        var result = service.setStudentsInCourse(List.of(new StudentDto().setFullName("Student Name")), 1L);
+        var result = service.updateStudentsInCourse(List.of(new StudentDto().setFullName("Student Name")), 1L);
 
         assertThat(result).isEqualTo(course);
     }
 
+    @Test
+    void updateStudentWithInvalidIdShouldThrowException() {
+        assertThatThrownBy(() -> service.updateStudentsInCourse(List.of(new StudentDto().setFullName("Student Name")),
+                2L)).isExactlyInstanceOf(EntityNotFoundException.class);
+    }
+
 
     @Test
-    void setTeacherShouldUpdateTeacherInCourse() {
+    void updateTeacherShouldUpdateTeacherInCourse() {
         var course = new CourseDto().setId(1L)
                 .setName("Course Name")
                 .setStudents(List.of(new StudentDto().setId(2L)
@@ -158,8 +164,14 @@ class CourseServiceTest {
                         .setEmail("email@email.com")))
                 .setTeacher(new TeacherDto().setFullName("Teacher Name"));
 
-        var result = service.setTeacherInCourse(new TeacherDto().setFullName("Teacher Name"), 1L);
+        var result = service.updateTeacherInCourse(new TeacherDto().setFullName("Teacher Name"), 1L);
 
         assertThat(result).isEqualTo(course);
+    }
+
+    @Test
+    void updateTeacherWithInvalidIdShouldThrowException() {
+        assertThatThrownBy(() -> service.updateTeacherInCourse(new TeacherDto().setFullName("Teacher Name"), 2L)).isExactlyInstanceOf(
+                EntityNotFoundException.class);
     }
 }

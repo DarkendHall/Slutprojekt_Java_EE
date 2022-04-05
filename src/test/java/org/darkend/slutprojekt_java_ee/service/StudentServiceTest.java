@@ -125,6 +125,11 @@ class StudentServiceTest {
     }
 
     @Test
+    void updateEmailWithInvalidIdShouldThrowException() {
+        assertThatThrownBy(()->service.updateEmail("test@test.test", 2L)).isExactlyInstanceOf(EntityNotFoundException.class);
+    }
+
+    @Test
     void updatePhoneNumberShouldUpdatePhoneNumberInStudent() {
         var studentDto = new StudentDto().setId(1L)
                 .setFullName("Student Name")
@@ -134,5 +139,10 @@ class StudentServiceTest {
         var result = service.updatePhoneNumber("phoneNumber", 1L);
 
         assertThat(result).isEqualTo(studentDto);
+    }
+
+    @Test
+    void updatePhoneNumberWithInvalidIdShouldThrowException() {
+        assertThatThrownBy(()->service.updatePhoneNumber("phoneNumber", 2L)).isExactlyInstanceOf(EntityNotFoundException.class);
     }
 }
