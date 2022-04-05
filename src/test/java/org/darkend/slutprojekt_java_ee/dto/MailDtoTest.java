@@ -6,38 +6,38 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TeacherDtoTest {
+class MailDtoTest {
 
-    private TeacherDto teacher;
+    private MailDto mail;
 
     @BeforeEach
     void setUp() {
-        teacher = new TeacherDto();
+        mail = new MailDto();
     }
 
     @Test
-    void getId() {
-        teacher.setId(1L);
+    void setId() {
+        var result = mail.setId(1L);
 
-        assertThat(teacher.getId()).isEqualTo(1L);
+        assertThat(result.getId()).isEqualTo(1L);
     }
 
     @Test
-    void getFullName() {
-        teacher.setFullName("Name");
+    void setMsg() {
+        var result = mail.setMsg("msg");
 
-        assertThat(teacher.getFullName()).isEqualTo("Name");
+        assertThat(result.getMsg()).isEqualTo("msg");
     }
 
     @Test
     void testToString() {
-        assertThat(teacher).hasToString("TeacherDto{id=null, fullName='null'}");
+        assertThat(mail).hasToString("MailDto{id=null, msg='null'}");
     }
 
     @Test
     void testEquals() {
         EqualsVerifier.simple()
-                .forClass(TeacherDto.class)
+                .forClass(MailDto.class)
                 .verify();
     }
 }

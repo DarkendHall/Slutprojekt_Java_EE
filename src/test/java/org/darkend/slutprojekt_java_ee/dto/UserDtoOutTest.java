@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,11 +45,8 @@ class UserDtoOutTest {
 
     @Test
     void testEquals() {
-        assertThat(user).isEqualTo(new UserDtoOut());
-    }
-
-    @Test
-    void testHashCode() {
-        assertThat(user).hasSameHashCodeAs(new UserDtoOut());
+        EqualsVerifier.simple()
+                .forClass(UserDtoOut.class)
+                .verify();
     }
 }

@@ -1,7 +1,10 @@
 package org.darkend.slutprojekt_java_ee.entity;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.persistence.Id;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,16 +45,9 @@ class PrincipalEntityTest {
 
     @Test
     void testEquals() {
-        assertThat(principal.equals(new PrincipalEntity())).isTrue();
-    }
-
-    @Test
-    void testHashCode() {
-        assertThat(principal).hasSameHashCodeAs(new PrincipalEntity());
-    }
-
-    @Test
-    void testEqualsWithPersonEntity() {
-        assertThat(principal.equals(new PersonEntity())).isFalse();
+        EqualsVerifier.simple()
+                .forClass(PrincipalEntity.class)
+                .withIgnoredAnnotations(Id.class)
+                .verify();
     }
 }

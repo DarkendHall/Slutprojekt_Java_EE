@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,11 +36,8 @@ class RoleDtoTest {
 
     @Test
     void testEquals() {
-        assertThat(role).isEqualTo(new RoleDto());
-    }
-
-    @Test
-    void testHashCode() {
-        assertThat(role).hasSameHashCodeAs(new RoleDto());
+        EqualsVerifier.simple()
+                .forClass(RoleDto.class)
+                .verify();
     }
 }

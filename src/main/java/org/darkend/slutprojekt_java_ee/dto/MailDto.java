@@ -5,34 +5,33 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RoleDto {
-
+public class MailDto {
     private Long id;
-    private String role;
+    private String msg;
 
     public Long getId() {
         return id;
     }
 
-    public RoleDto setId(Long id) {
+    public MailDto setId(Long id) {
         this.id = id;
         return this;
     }
 
-    public String getRole() {
-        return role;
+    public String getMsg() {
+        return msg;
     }
 
-    public RoleDto setRole(String role) {
-        this.role = role;
+    public MailDto setMsg(String msg) {
+        this.msg = msg;
         return this;
     }
 
     @Override
     public String toString() {
-        return "RoleDto{" +
+        return "MailDto{" +
                 "id=" + id +
-                ", role='" + role + '\'' +
+                ", msg='" + msg + '\'' +
                 '}';
     }
 
@@ -40,12 +39,12 @@ public class RoleDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoleDto roleDto = (RoleDto) o;
-        return Objects.equals(id, roleDto.id) && Objects.equals(role, roleDto.role);
+        MailDto that = (MailDto) o;
+        return Objects.equals(id, that.id) && Objects.equals(msg, that.msg);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role);
+        return Objects.hash(id, msg);
     }
 }

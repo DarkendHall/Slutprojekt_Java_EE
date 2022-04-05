@@ -1,5 +1,6 @@
 package org.darkend.slutprojekt_java_ee.dto;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,11 +56,8 @@ class CourseDtoTest {
 
     @Test
     void testEquals() {
-        assertThat(course).isEqualTo(new CourseDto());
-    }
-
-    @Test
-    void testHashCode() {
-        assertThat(course).hasSameHashCodeAs(new CourseDto());
+        EqualsVerifier.simple()
+                .forClass(CourseDto.class)
+                .verify();
     }
 }
