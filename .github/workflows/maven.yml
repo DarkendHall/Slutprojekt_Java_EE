@@ -33,14 +33,14 @@ jobs:
 
       - name: Upload unit test results
         if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: unit-test-report
           path: target/site/surefire-report.html
 
       - name: Upload unit test results
         if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: integration-test-report
           path: target/site/failsafe-report.html
@@ -86,7 +86,7 @@ jobs:
 
       - name: Upload JaCoCo coverage report
         if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: jacoco-report
           path: target/site/jacoco/
